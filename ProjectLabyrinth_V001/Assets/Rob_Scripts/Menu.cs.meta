@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: a121b35f7a45c437699928012b578149
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - bc: {instanceID: 0}
+  - text: {instanceID: 0}
+  - basicMenu: {instanceID: 0}
+  - rufioMenu: {instanceID: 0}
+  - confirmation: {instanceID: 0}
+  - basicMenuFirst: {instanceID: 0}
+  - rufioMenuFirst: {instanceID: 0}
+  - confirmMenuFirst: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
