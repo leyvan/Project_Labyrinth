@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player_Behaviour : MonoBehaviour
 {
@@ -11,12 +12,9 @@ public class Player_Behaviour : MonoBehaviour
     public float jumpVelocity = 5f;
     public float distanceToGround = 0.1f;
     public LayerMask groundLayer;
-    public float bulletSpeed = 100f;
 
     public float turnSmoothTime = 0.2f;
     private float turnSmoothVelocity;
-
-    public GameObject bullet;
 
     private CharacterController _ctrl;
     private Rigidbody _rb;
@@ -31,9 +29,14 @@ public class Player_Behaviour : MonoBehaviour
 
     private Vector3 direction;
 
+    public InventorySO inventory;  //I can make this private
+    public GameObject playerHUD;
+    public GameObject itemsPanel;
+
     void Start()
     {
-
+        //playerHUD = GameObject.Find("PlayerHUD");
+        //        itemsPanel = GameObject.Find("ItemsParent");
         _rb = GetComponent<Rigidbody>();
         _col = GetComponent<CapsuleCollider>();
         _animator = GetComponentInChildren<Animator>();
@@ -49,6 +52,7 @@ public class Player_Behaviour : MonoBehaviour
         float _vInput = Input.GetAxisRaw("Vertical");
         float _hInput = Input.GetAxisRaw("Horizontal");
         direction = new Vector3(_hInput, 0f, _vInput).normalized;
+
 
         //Character Movement and Animation Controller                          
         //Check if the player is trying to move                         
@@ -98,6 +102,11 @@ public class Player_Behaviour : MonoBehaviour
             _rb.AddForce(Vector3.up * jumpVelocity, ForceMode.Impulse);
         }
 
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            OpenInventory();
+        }
+
         //this.transform.Translate(Vector3.forward * _vInput * Time.deltaTime);
         //this.transform.Rotate(Vector3.up * _hInput * Time.deltaTime);
     }
@@ -124,6 +133,39 @@ public class Player_Behaviour : MonoBehaviour
             bulletRB.velocity = this.transform.forward * bulletSpeed;
         }
         */
+    }
+    
+    public void StoreObjectInInventory(GameObject obj)
+    {
+        inventory.fillInventory(obj);
+        //int itemSlot = 0;
+        //bool stopLoop = false;
+        var itemImage = itemsPanel.transform.GetChild(0).gameObject;
+        if(itemImage.activeSelf != true)
+        {
+            itemImage.SetActive(true);
+        }
+
+
+        /*
+        else if(itemSlot >= 40)
+        {
+            Debug.Log("Out of Space");
+            stopLoop = true;
+        }
+        else
+        {
+            itemSlot++;
+        }
+        */   
+        
+        
+    }
+   
+
+    public void OpenInventory()
+    {
+        playerHUD.SetActive(!playerHUD.activeSelf);
     }
 
     

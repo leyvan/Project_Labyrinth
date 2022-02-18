@@ -9,17 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8548b2a30b5fc42068881c440e8f786e, type: 3}
-  m_Name: Rufio
+  m_Script: {fileID: 11500000, guid: d0085ef87818a4d418dcf505e5340c1b, type: 3}
+  m_Name: Party List
   m_EditorClassIdentifier: 
-  chName: Rufio
-  level: 1
-  maxHealth: 100
-  curHealth: 0
-  maxMana: 0
-  curMana: 0
-  attack: 10
-  magic: 0
-  defense: 0
-  speed: 0
-  luck: 0
+  playerParty:
+  - {fileID: 2837185843303720592, guid: f25a9cff2a4d922499fb90d766be107c, type: 3}

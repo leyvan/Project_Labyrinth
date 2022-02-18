@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -26,7 +27,16 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;     //Confines the cursor to game screen
-        Cursor.visible = false;
+        if(SceneManager.GetActiveScene().name == "Battle")
+        {
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.visible = false;
+        }
+
+        
 
         tiles = Resources.LoadAll("Prefabs/Tiles").Cast<GameObject>().ToArray();        //An array of all my tile prefabs, gets ref to them thru editor path
 

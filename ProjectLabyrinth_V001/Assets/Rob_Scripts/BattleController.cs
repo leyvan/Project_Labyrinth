@@ -109,8 +109,6 @@ public class BattleController : MonoBehaviour
         EnemyParty.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
         PlayerParty.AddRange(GameObject.FindGameObjectsWithTag("Ally"));
 
-
-
         yesButton = menu.transform.GetChild(4).GetChild(0).GetComponent<Button>();      //Ref to yesbutton
         turnNumberText = menu.transform.GetChild(0).GetComponent<Text>();               //Ref to turn number text
 
