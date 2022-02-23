@@ -107,8 +107,15 @@ public class Player_Behaviour : MonoBehaviour
             OpenInventory();
         }
 
-        //this.transform.Translate(Vector3.forward * _vInput * Time.deltaTime);
-        //this.transform.Rotate(Vector3.up * _hInput * Time.deltaTime);
+
+        GameObject nearestGameObject = GetNearestGameObject();
+        if (nearestGameObject == null) return;
+        if(Input.GetKey(KeyCode.E))
+        {
+            var interactable = nearestGameObject.GetComponent<IInteractable>();
+            if (interactable == null) return;
+            interactable.Interact();
+        }
     }
 
     void FixedUpdate()
@@ -117,51 +124,32 @@ public class Player_Behaviour : MonoBehaviour
         {
             Move();
         }
-
-        /*
-        _rb.MovePosition(this.transform.position + moveDir * currentSpeed * Time.fixedDeltaTime);
-        _rb.MoveRotation(deltaRotation.normalized);
-        */
-
-        /*
-        if (Input.GetMouseButtonDown(0))
-        {
-            GameObject newBullet = Instantiate(bullet, this.transform.position, this.transform.rotation) as GameObject;
-            newBullet.transform.Translate(0f, 0.1f, 1.5f);
-
-            Rigidbody bulletRB = newBullet.GetComponent<Rigidbody>();
-            bulletRB.velocity = this.transform.forward * bulletSpeed;
-        }
-        */
     }
     
-    public void StoreObjectInInventory(GameObject obj)
+    private GameObject GetNearestGameObject()
     {
-        inventory.fillInventory(obj);
-        //int itemSlot = 0;
-        //bool stopLoop = false;
-        var itemImage = itemsPanel.transform.GetChild(0).gameObject;
-        if(itemImage.activeSelf != true)
+        //var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
         {
-            itemImage.SetActive(true);
+            var nearestObj = hit.transform.gameObject;
+            if(nearestObj != null)
+            {
+                return nearestObj;
+            }
         }
+            return null;
 
-
-        /*
-        else if(itemSlot >= 40)
-        {
-            Debug.Log("Out of Space");
-            stopLoop = true;
-        }
-        else
-        {
-            itemSlot++;
-        }
-        */   
-        
         
     }
-   
+
+
+    public void UpdateInventory()
+    { 
+  
+        //inventory.fillInventory(skill, 1);
+    }
+
 
     public void OpenInventory()
     {
@@ -188,5 +176,10 @@ public class Player_Behaviour : MonoBehaviour
         Vector3 moveDir = new Vector3(transform.forward.x, _rb.velocity.y, transform.forward.z);
         _rb.MovePosition(this.transform.position + moveDir * currentSpeed * Time.fixedDeltaTime);
 
+    }
+
+    private void OnApplicationQuit()
+    {
+        inventory.skillInventory.Clear();
     }
 }

@@ -5,33 +5,42 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Inventory List", menuName = "Inventory", order = 5)]
 public class InventorySO : ScriptableObject
 {
-    public List<GameObject> itemInventory = new List<GameObject>();
-    public List<GameObject> skillInventory = new List<GameObject>();
+    public List<InventorySlot> skillInventory = new List<InventorySlot>();
 
 
-    public void fillInventory(GameObject item = null, GameObject skill = null)
+    public void fillInventory(BaseSkill _skill, int _amount)
     {
-        if(item != null)
+        bool hasItem = false;
+        for(int i = 0; i < skillInventory.Count; i++)
         {
-            itemInventory.Add(item);
+            if(skillInventory[i].skill == _skill)
+            {
+                skillInventory[i].AddAmount(_amount);
+                hasItem = true;
+                break;
+            }
         }
-
-        if (skill != null)
+        if(hasItem == false)
         {
-            skillInventory.Add(skill);
+            skillInventory.Add(new InventorySlot(_skill, _amount));
         }
     }
 
-    public void removeInventory(GameObject item = null, GameObject skill = null)
-    {
-        if(item != null && itemInventory.Contains(item))
-        {
-            itemInventory.Remove(item);
-        }
+}
 
-        if(skill != null && skillInventory.Contains(skill))
-        {
-            skillInventory.Remove(skill);
-        }
+[System.Serializable]
+public class InventorySlot
+{
+    public BaseSkill skill;
+    public int amount;
+    public InventorySlot(BaseSkill _skill, int _amount)
+    {
+        skill = _skill;
+        amount = _amount;
+    }
+
+    public void AddAmount(int value)
+    {
+        amount += value;
     }
 }

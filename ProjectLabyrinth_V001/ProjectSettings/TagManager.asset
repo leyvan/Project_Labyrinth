@@ -6,8 +6,16 @@ TagManager:
   tags:
   - Floor
   - Wall
-  - OuterCorner
-  - Room
+  - Spawns
+  - Floor1
+  - Floor2
+  - Floor3
+  - Start
+  - Tp1
+  - Tp2
+  - Tp3
+  - Tp4
+  - Tp5
   layers:
   - Default
   - TransparentFX
