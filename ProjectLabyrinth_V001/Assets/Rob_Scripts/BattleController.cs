@@ -99,6 +99,9 @@ public class BattleController : MonoBehaviour
     private float eAttack;
     [SerializeField] private bool eAlive = true;
 
+    public List<GameObject> activeMenuOptions = new List<GameObject>();
+    public InventorySO playerInventory;
+    private string buttonPressed;
 
 //-----------------------------------------------------------------------------------------------------//------------------------------------------------------------------//
 
@@ -181,6 +184,8 @@ public class BattleController : MonoBehaviour
             rMaxHealth = rufio.maxHealth;
             rCurrentHealth = rMaxHealth;
             rAttack = rufio.attack;
+
+            SkillSetUp();
         }
         
         if(eAlive == true)
@@ -194,16 +199,65 @@ public class BattleController : MonoBehaviour
 
     }
 
+    private void SkillSetUp()
+    {
+        var currentInventory = playerInventory.GetInventory();
+        Vector3 pos = menu.transform.GetChild(3).GetChild(0).transform.position;
+
+        foreach(Transform child in menu.transform.GetChild(3).transform)
+        {
+            foreach (InventorySlot item in currentInventory)
+            {
+                if(child.gameObject.name == item.skill.skillName)
+                {
+                    if (child.gameObject.name == "Lightning Bolt")
+                    {
+                        pos.x += 20;
+                        child.gameObject.transform.localPosition = pos;
+                        child.gameObject.SetActive(true);
+                        pos.x -= 20;
+                        pos.y -= 46;
+                    }
+                    else
+                    {
+                        child.gameObject.transform.localPosition = pos;
+                        child.gameObject.SetActive(true);
+                        pos.y -= 46;
+                    }
+                }
+                
+            }
+        }
+
+
+    }
+
+    public void GetActionName(string action)
+    {
+        buttonPressed = action;
+    }
+
     //Player Turn Execution
     private void PlayerTurn(/*var for ref to player object and var for ref to button pressed*/)
     {
+
         // Hard code some if/case statements for each button
         startTurn = false; // this should take the menu off the screen
         onClickBool = false;        //Resets button
         Debug.Log("Executing Player Actions");
-        DealDamage();
-        // if(buttonPressed == melee)
+
+        if(buttonPressed == "FireBall")
+        {
+            Debug.Log("Fire Ball");
+        }
+        if(buttonPressed == "LightningBolt")
+        {
+            Debug.Log("Lightning Bolt");
+        }
+
         // if(buttonPressed == gun)
+
+        DealDamage();
 
         state = BattleState.ENEMY;
         StartCoroutine(TurnBasedBattle());

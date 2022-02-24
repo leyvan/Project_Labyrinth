@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Whirlwind
   m_EditorClassIdentifier: 
   skillCrystal: {fileID: 4284196003324514776, guid: bf9a95d306468f04e8eb06dea969af74, type: 3}
-  skillName: Whirldwind
+  skillName: Whirlwind
   attribute: 4
+  description: 
   maxUses: 10
   power: 20

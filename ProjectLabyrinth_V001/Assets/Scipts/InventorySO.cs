@@ -7,7 +7,6 @@ public class InventorySO : ScriptableObject
 {
     public List<InventorySlot> skillInventory = new List<InventorySlot>();
 
-
     public void fillInventory(BaseSkill _skill, int _amount)
     {
         bool hasItem = false;
@@ -23,7 +22,13 @@ public class InventorySO : ScriptableObject
         if(hasItem == false)
         {
             skillInventory.Add(new InventorySlot(_skill, _amount));
+
         }
+    }
+
+    public List<InventorySlot> GetInventory()
+    {
+        return skillInventory;
     }
 
 }

@@ -39,7 +39,7 @@ public class SkillCrystal : MonoBehaviour, IInteractable
     public void RemoveFromOverWorld()
     {
         player.GetComponent<Player_Behaviour>().inventory.fillInventory(skill, 1);
-        player.transform.GetChild(3).GetChild(0).GetChild(2).GetComponent<DisplayInventory>().AddInventorySlot();
+        player.transform.GetChild(3).GetChild(0).GetChild(2).GetComponent<DisplayInventory>().UpdateInventorySlot(skill);
         //this.gameObject.SetActive(false);
         Destroy(this.gameObject);
     }

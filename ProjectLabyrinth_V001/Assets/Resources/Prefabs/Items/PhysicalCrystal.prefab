@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 3982807679314615568}
   - component: {fileID: 3990555742099659026}
   - component: {fileID: 3937827529855595124}
+  - component: {fileID: 4327914857629397187}
+  - component: {fileID: 4287440410551977820}
   m_Layer: 0
   m_Name: PhysicalCrystal
   m_TagString: Untagged
@@ -28,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3977653393502471120}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -60,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 95c3beb8b248b204894146096a21ae28, type: 2}
+  - {fileID: 2100000, guid: fceb0c5b35c41344a81ae7f0a3883b21, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,3 +108,29 @@ MonoBehaviour:
   endScale: {x: 0.4, y: 0.4, z: 0.4}
   scaleSpeed: 0.01
   scaleRate: 0.1
+--- !u!135 &4327914857629397187
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3977653393502471120}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 10
+  m_Center: {x: 0, y: -0.00000005960466, z: 8.4703295e-22}
+--- !u!114 &4287440410551977820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3977653393502471120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca4e760c598eabf4e883a14de5979644, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill: {fileID: 11400000, guid: f8e34bcdc9aa39e45a62d676895d6ce5, type: 2}

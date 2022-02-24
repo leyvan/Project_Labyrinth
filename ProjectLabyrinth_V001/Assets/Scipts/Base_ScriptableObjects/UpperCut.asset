@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: UpperCut
   m_EditorClassIdentifier: 
   skillCrystal: {fileID: 3977653393502471120, guid: 1be11f72c6d2fed4c8900bf6ad49fd1d, type: 3}
-  skillName: Upper Cut
+  skillName: UpperCut
   attribute: 0
+  description: 
   maxUses: 20
   power: 5
