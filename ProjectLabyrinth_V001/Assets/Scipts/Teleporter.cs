@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Teleporter : MonoBehaviour, IInteractable
 {
@@ -34,6 +35,9 @@ public class Teleporter : MonoBehaviour, IInteractable
 		objectTag = this.transform.parent.tag;
 		switch (objectTag)
         {
+			case "Level1":
+				destination = "Start";
+				break;
 			case "Tp1":
 				destination = "Tp2";
 				break;
@@ -41,7 +45,7 @@ public class Teleporter : MonoBehaviour, IInteractable
 				destination = "Tp4";
 				break;
 			case "Tp5":
-				destination = "Start";
+				destination = "Boss";
 				break;
 			default:
 				break;
@@ -55,10 +59,21 @@ public class Teleporter : MonoBehaviour, IInteractable
     {
 		if(playerInBounds == false || player == false || destination == null) return;
 
+		if(destination == "Boss")
+        {
+			SceneManager.LoadScene("BossBattle");
+        }
+		else if(destination == "Start")
+        {
+			SceneManager.LoadScene("Level01");
+		}
+		else
+        {
+			var destinationPos = GameObject.FindGameObjectWithTag(destination).transform.position;
+			var offset = new Vector3(3, 0, 0);
+			player.transform.position = destinationPos + offset;
+		}
 
-		var destinationPos = GameObject.FindGameObjectWithTag(destination).transform.position;
-		var offset = new Vector3(3, 0, 0);
-		player.transform.position = destinationPos+offset;
     }
 
     private void OnTriggerEnter(Collider other)

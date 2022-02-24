@@ -80,12 +80,13 @@ public class Player_Behaviour : MonoBehaviour
         {
             _animator.SetBool("walking?", false);
         }
-
+        /*
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             _animator.SetTrigger("attack");
         }
-
+        */
+        
         AnimatorStateInfo animInfo = _animator.GetCurrentAnimatorStateInfo(0);
         if (animInfo.IsName("Attack") && animInfo.normalizedTime < 1)
         {
@@ -96,11 +97,6 @@ public class Player_Behaviour : MonoBehaviour
             canMove = true;
         }
 
-
-        if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
-        {
-            _rb.AddForce(Vector3.up * jumpVelocity, ForceMode.Impulse);
-        }
 
         if(Input.GetKeyDown(KeyCode.I))
         {

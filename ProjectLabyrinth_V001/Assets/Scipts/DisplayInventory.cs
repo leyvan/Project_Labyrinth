@@ -13,7 +13,6 @@ public class DisplayInventory : MonoBehaviour
 
     public void UpdateInventorySlot(BaseSkill _skill)
     {
-        //bool hasItem = false;
         var count = 0;
         foreach (InventorySlot item in inventory.skillInventory)
         {
@@ -36,5 +35,18 @@ public class DisplayInventory : MonoBehaviour
             }
         }
         
+    }
+
+    public void ReloadInventoryOnLoad()
+    {
+        var tempList = new List<InventorySlot>(inventory.skillInventory);
+        tempList.Reverse();
+        foreach (InventorySlot item in tempList)
+        {
+            int _amount = item.amount;
+            var obj = Instantiate(inventorySlot, transform);
+            obj.transform.GetChild(0).GetComponent<Text>().text = _amount.ToString();
+            Debug.Log("Heloo");
+        }
     }
 }

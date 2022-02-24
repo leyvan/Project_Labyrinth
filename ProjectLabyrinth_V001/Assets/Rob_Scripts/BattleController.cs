@@ -202,7 +202,7 @@ public class BattleController : MonoBehaviour
     private void SkillSetUp()
     {
         var currentInventory = playerInventory.GetInventory();
-        Vector3 pos = menu.transform.GetChild(3).GetChild(0).transform.position;
+        //Vector3 pos = menu.transform.GetChild(3).GetChild(0).transform.position;
 
         foreach(Transform child in menu.transform.GetChild(3).transform)
         {
@@ -210,20 +210,9 @@ public class BattleController : MonoBehaviour
             {
                 if(child.gameObject.name == item.skill.skillName)
                 {
-                    if (child.gameObject.name == "Lightning Bolt")
-                    {
-                        pos.x += 20;
-                        child.gameObject.transform.localPosition = pos;
-                        child.gameObject.SetActive(true);
-                        pos.x -= 20;
-                        pos.y -= 46;
-                    }
-                    else
-                    {
-                        child.gameObject.transform.localPosition = pos;
-                        child.gameObject.SetActive(true);
-                        pos.y -= 46;
-                    }
+                    child.gameObject.SetActive(true);
+                    //pos.y -= 46;
+                    
                 }
                 
             }

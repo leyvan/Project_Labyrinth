@@ -16,6 +16,10 @@ TagManager:
   - Tp3
   - Tp4
   - Tp5
+  - Enemy
+  - Ally
+  - UI Text
+  - Level1
   layers:
   - Default
   - TransparentFX

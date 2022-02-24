@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
+    private GameObject player;
 
     [SerializeField]
     private GameObject spawnPoints;
@@ -15,6 +16,8 @@ public class LevelManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Start()
@@ -27,11 +30,21 @@ public class LevelManager : MonoBehaviour
         else
         {
             Cursor.visible = false;
+            
         }
+
 
     }
 
+    private void OnLevelWasLoaded(int level)
+    {
+        if (SceneManager.GetActiveScene().name != "Battle")
+        {
+            player.transform.GetChild(3).GetChild(0).GetChild(2).GetComponent<DisplayInventory>().ReloadInventoryOnLoad();
+        }
 
+        
+    }
 
 }
 
