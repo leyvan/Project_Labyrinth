@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player_Behaviour : MonoBehaviour
 {
@@ -31,12 +32,28 @@ public class Player_Behaviour : MonoBehaviour
 
     public InventorySO inventory;  //I can make this private
     public GameObject playerHUD;
-    public GameObject itemsPanel;
+
+    private enum ControllerMode{BattleMode,OverWorldMode,};
+    private ControllerMode currentMode;
+
+    void Awake()
+    {
+        switch(SceneManager.GetActiveScene().name)
+        {
+            case "Battle":
+                currentMode = ControllerMode.BattleMode;
+                break;
+            case "BossBattle":
+                currentMode = ControllerMode.BattleMode;
+                break;
+            default:
+                currentMode = ControllerMode.OverWorldMode;
+                break;
+        }
+    }
 
     void Start()
     {
-        //playerHUD = GameObject.Find("PlayerHUD");
-        //        itemsPanel = GameObject.Find("ItemsParent");
         _rb = GetComponent<Rigidbody>();
         _col = GetComponent<CapsuleCollider>();
         _animator = GetComponentInChildren<Animator>();
@@ -55,13 +72,23 @@ public class Player_Behaviour : MonoBehaviour
 
 
         //Character Movement and Animation Controller                          
-        //Check if the player is trying to move                         
+        //Check if the player is trying to move
+//--------------------------------------------------------------Movement Detection + Movement Mechanics----------------------------------------------------//
         if (direction.magnitude >= 0.1f && canMove == true)
         {
 
-            //Check if the player is trying to run
+            //DodgeRolling
+            bool roll = Input.GetButtonDown("Roll");
+
+            if (roll)
+            {
+                DodgeRoll();
+            }
+
+            //Check if the player is trying to run - Player Running -
             if (Input.GetKey(KeyCode.LeftShift))
             {
+
                 currentSpeed = runSpeed;
 
                 _animator.SetBool("walking?", false);
@@ -87,8 +114,14 @@ public class Player_Behaviour : MonoBehaviour
         }
         */
         
+
+//---------------------------------------------------------------Animator States-----------------------------------------------------//
         AnimatorStateInfo animInfo = _animator.GetCurrentAnimatorStateInfo(0);
         if (animInfo.IsName("Attack") && animInfo.normalizedTime < 1)
+        {
+            canMove = false;
+        }
+        else if(currentMode == ControllerMode.BattleMode)
         {
             canMove = false;
         }
@@ -97,20 +130,25 @@ public class Player_Behaviour : MonoBehaviour
             canMove = true;
         }
 
-
-        if(Input.GetKeyDown(KeyCode.I))
+//--------------------------------------------------------------Player Mechanics----------------------------------------------------//
+        
+        if(currentMode != ControllerMode.BattleMode)
         {
-            OpenInventory();
-        }
+            //Open Inventory Player Button - I -
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                OpenInventory();
+            }
 
-
-        GameObject nearestGameObject = GetNearestGameObject();
-        if (nearestGameObject == null) return;
-        if(Input.GetKey(KeyCode.E))
-        {
-            var interactable = nearestGameObject.GetComponent<IInteractable>();
-            if (interactable == null) return;
-            interactable.Interact();
+            //Interact Player Button - E -
+            GameObject nearestGameObject = GetNearestGameObject();
+            if (nearestGameObject == null) return;
+            if (Input.GetKey(KeyCode.E))
+            {
+                var interactable = nearestGameObject.GetComponent<IInteractable>();
+                if (interactable == null) return;
+                interactable.Interact();
+            }
         }
     }
 
@@ -122,6 +160,12 @@ public class Player_Behaviour : MonoBehaviour
         }
     }
     
+
+    void DodgeRoll()
+    {
+
+    }
+
     private GameObject GetNearestGameObject()
     {
         //var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
