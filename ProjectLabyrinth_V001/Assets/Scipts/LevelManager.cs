@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
-using System.Linq;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
     private GameObject player;
+
+    private NavMeshSurface navMesh;
 
     [SerializeField]
     private GameObject spawnPoints;
@@ -18,6 +19,7 @@ public class LevelManager : MonoBehaviour
         Instance = this;
 
         player = GameObject.FindGameObjectWithTag("Player");
+        navMesh = GameObject.FindObjectOfType<NavMeshSurface>();
     }
 
     void Start()
@@ -30,7 +32,7 @@ public class LevelManager : MonoBehaviour
         else
         {
             Cursor.visible = false;
-            
+            navMesh.BuildNavMesh();
         }
 
 

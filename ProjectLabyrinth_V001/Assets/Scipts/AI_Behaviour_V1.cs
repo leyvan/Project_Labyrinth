@@ -7,7 +7,7 @@ using UnityEngine.AI;
 
 public class AI_Behaviour_V1 : MonoBehaviour
 {
-    public Transform player;
+    private Transform player;
 
     public GameObject alert;  //Red Alert Text 
     //1
@@ -40,8 +40,8 @@ public class AI_Behaviour_V1 : MonoBehaviour
     {
         //10
         agent = GetComponent<NavMeshAgent>();
-
-        //player = GameObject.Find("Player").transform;
+        patrolRoute = this.gameObject.transform.parent.parent.transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
 
         //3
         InitializePatrolRoute();
@@ -96,6 +96,8 @@ public class AI_Behaviour_V1 : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            locations.Clear();
+            InitializePatrolRoute();
             alert.SetActive(false);
             Debug.Log("Enemy out of range.");
         }
