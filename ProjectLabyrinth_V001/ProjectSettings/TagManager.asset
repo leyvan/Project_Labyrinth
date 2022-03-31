@@ -20,6 +20,14 @@ TagManager:
   - Ally
   - UI Text
   - Level1
+  - ThirdPersonCam
+  - Selector
+  - EnemyParty
+  - EnemyInfo
+  - BattleSelector
+  - VirtualCam
+  - HUD
+  - Parent
   layers:
   - Default
   - TransparentFX

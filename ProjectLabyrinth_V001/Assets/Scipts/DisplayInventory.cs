@@ -46,7 +46,6 @@ public class DisplayInventory : MonoBehaviour
             int _amount = item.amount;
             var obj = Instantiate(inventorySlot, transform);
             obj.transform.GetChild(0).GetComponent<Text>().text = _amount.ToString();
-            Debug.Log("Heloo");
         }
     }
 }

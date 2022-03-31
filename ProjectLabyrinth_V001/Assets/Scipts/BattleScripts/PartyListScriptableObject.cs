@@ -6,4 +6,5 @@ using UnityEngine;
 public class PartyListScriptableObject : ScriptableObject
 {
     public List<GameObject> playerParty = new List<GameObject>();
+    public List<GameObject> enemyParty = new List<GameObject>();
 }

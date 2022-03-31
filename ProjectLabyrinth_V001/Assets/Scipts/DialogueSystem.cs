@@ -9,12 +9,25 @@ public class DialogueSystem : MonoBehaviour
 	public Text nameText;
 	public Text dialogueText;
 	public Canvas dialogueCanvas;
+	private GameObject player;
+	private Transform playerCamTarget;
+	private Cinemachine.CinemachineFreeLook freeLookCam;
+	private int resetLens = 40;
 	//public Animator animator;
+
+	public bool inDialogue;
 
 	private Queue<string> sentences;
 
-	// Use this for initialization
-	void Start()
+    // Use this for initialization
+
+    void Awake()
+    {
+		player = GameObject.FindGameObjectWithTag("Player");
+		playerCamTarget = player.transform.GetChild(1).transform;
+		freeLookCam = GameObject.FindGameObjectWithTag("ThirdPersonCam").GetComponent<Cinemachine.CinemachineFreeLook>();
+    }
+    void Start()
 	{
 		sentences = new Queue<string>();
 	}
@@ -22,8 +35,10 @@ public class DialogueSystem : MonoBehaviour
 	public void StartDialogue(Dialogue dialogue)
 	{
 		//animator.SetBool("IsOpen", true);
+		Cursor.visible = true;
 
 		dialogueCanvas.gameObject.SetActive(true);
+		player.GetComponent<Player_Behaviour>().canMove = false;
 
 		nameText.text = dialogue.name;
 
@@ -63,6 +78,10 @@ public class DialogueSystem : MonoBehaviour
 	void EndDialogue()
 	{
 		//animator.SetBool("IsOpen", false);
+		freeLookCam.m_Lens.FieldOfView = resetLens;
+		freeLookCam.m_LookAt = playerCamTarget;
+		Cursor.visible = false;
+		player.GetComponent<Player_Behaviour>().canMove = true;
 		dialogueCanvas.gameObject.SetActive(false);
 	}
 

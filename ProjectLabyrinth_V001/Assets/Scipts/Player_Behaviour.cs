@@ -8,6 +8,7 @@ public class Player_Behaviour : MonoBehaviour
 {
     public float moveSpeed = 3f;
     public float runSpeed = 9f;
+    private float walkMagnitude = 1f;
     public float currentSpeed;
     public float rotateSpeed = 75f;
     public float jumpVelocity = 5f;
@@ -23,7 +24,7 @@ public class Player_Behaviour : MonoBehaviour
 
     private Animator _animator;
     private bool isAttacking;
-    private bool canMove;
+    public bool canMove;
 
     public Camera cam;
     public float effectTime;
@@ -33,47 +34,62 @@ public class Player_Behaviour : MonoBehaviour
     public InventorySO inventory;  //I can make this private
     public GameObject playerHUD;
 
-    private enum ControllerMode{BattleMode,OverWorldMode,};
-    private ControllerMode currentMode;
+    public enum ControllerMode{BattleMode,OverWorldMode};
+    [SerializeField] public ControllerMode currentMode;
 
     void Awake()
     {
-        switch(SceneManager.GetActiveScene().name)
-        {
-            case "Battle":
-                currentMode = ControllerMode.BattleMode;
-                break;
-            case "BossBattle":
-                currentMode = ControllerMode.BattleMode;
-                break;
-            default:
-                currentMode = ControllerMode.OverWorldMode;
-                break;
-        }
-    }
+        //SetControllerMode(SceneManager.GetActiveScene().name);
 
-    void Start()
-    {
         _rb = GetComponent<Rigidbody>();
         _col = GetComponent<CapsuleCollider>();
         _animator = GetComponentInChildren<Animator>();
         _ctrl = GetComponent<CharacterController>();
-        cam = Camera.main;
-        //2- Find and return GameBehavior script attached to Game Manager object in scene
+        cam = Camera.main;    //<--- change this
+    }
 
+    void Start()
+    {
+
+        //2- Find and return GameBehavior script attached to Game Manager object in scene
         currentSpeed = moveSpeed;
+        canMove = true;
+
     }
 
     void Update()
     {
+
+        //--------------------------------------------------------------Player Mechanics----------------------------------------------------//
+
+        if (currentMode == ControllerMode.BattleMode) return;
+        //Open Inventory Player Button - I -
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            playerHUD.GetComponent<PlayerHUD>().OpenInventory();
+        }
+
+        //Interact Player Button - E -
+        GameObject nearestGameObject = GetNearestGameObject();
+        if (nearestGameObject == null) return;
+        if (Input.GetKey(KeyCode.E))
+        {
+            var interactable = nearestGameObject.GetComponent<IInteractable>();
+            if (interactable == null) return;
+            interactable.Interact();
+        }
+        
+
         float _vInput = Input.GetAxisRaw("Vertical");
         float _hInput = Input.GetAxisRaw("Horizontal");
         direction = new Vector3(_hInput, 0f, _vInput).normalized;
 
 
+
+
         //Character Movement and Animation Controller                          
         //Check if the player is trying to move
-//--------------------------------------------------------------Movement Detection + Movement Mechanics----------------------------------------------------//
+        //--------------------------------------------------------------Movement Detection + Movement Mechanics----------------------------------------------------//
         if (direction.magnitude >= 0.1f && canMove == true)
         {
 
@@ -116,6 +132,8 @@ public class Player_Behaviour : MonoBehaviour
         
 
 //---------------------------------------------------------------Animator States-----------------------------------------------------//
+
+        /*
         AnimatorStateInfo animInfo = _animator.GetCurrentAnimatorStateInfo(0);
         if (animInfo.IsName("Attack") && animInfo.normalizedTime < 1)
         {
@@ -129,27 +147,8 @@ public class Player_Behaviour : MonoBehaviour
         {
             canMove = true;
         }
+        */
 
-//--------------------------------------------------------------Player Mechanics----------------------------------------------------//
-        
-        if(currentMode != ControllerMode.BattleMode)
-        {
-            //Open Inventory Player Button - I -
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                OpenInventory();
-            }
-
-            //Interact Player Button - E -
-            GameObject nearestGameObject = GetNearestGameObject();
-            if (nearestGameObject == null) return;
-            if (Input.GetKey(KeyCode.E))
-            {
-                var interactable = nearestGameObject.GetComponent<IInteractable>();
-                if (interactable == null) return;
-                interactable.Interact();
-            }
-        }
     }
 
     void FixedUpdate()
@@ -160,10 +159,22 @@ public class Player_Behaviour : MonoBehaviour
         }
     }
     
+    public void SetControllerMode(string scene)
+    {
+        switch (scene)
+        {
+            case string b when b.Contains("Battle"):
+                currentMode = ControllerMode.BattleMode;
+                break;
+            default:
+                currentMode = ControllerMode.OverWorldMode;
+                break;
+        }
+    }
 
     void DodgeRoll()
     {
-
+        Debug.Log("I am rolling", this);
     }
 
     private GameObject GetNearestGameObject()
@@ -183,19 +194,6 @@ public class Player_Behaviour : MonoBehaviour
         
     }
 
-
-    public void UpdateInventory()
-    { 
-  
-        //inventory.fillInventory(skill, 1);
-    }
-
-
-    public void OpenInventory()
-    {
-        playerHUD.SetActive(!playerHUD.activeSelf);
-    }
-
     
     private bool IsGrounded()
     {
@@ -203,7 +201,10 @@ public class Player_Behaviour : MonoBehaviour
         return Physics.CheckCapsule(_col.bounds.center, endPosition, distanceToGround, groundLayer, QueryTriggerInteraction.Ignore);
     }
     
-
+    public ControllerMode GetCurrentControllerMode()
+    {
+        return currentMode;
+    }
     void Move()
     {
         float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
@@ -222,4 +223,5 @@ public class Player_Behaviour : MonoBehaviour
     {
         inventory.skillInventory.Clear();
     }
+    
 }

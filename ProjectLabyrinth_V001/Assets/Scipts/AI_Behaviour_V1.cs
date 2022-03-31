@@ -15,6 +15,12 @@ public class AI_Behaviour_V1 : MonoBehaviour
     //2
     public List<Transform> locations;
 
+    public PartyListScriptableObject partyList;
+
+    private GameObject thisEnemy;
+
+
+
     //8
     private int locationIndex = 0;
     //9
@@ -38,24 +44,60 @@ public class AI_Behaviour_V1 : MonoBehaviour
 
     void Start()
     {
+
         //10
         agent = GetComponent<NavMeshAgent>();
-        patrolRoute = this.gameObject.transform.parent.parent.transform;
+
+        if(agent != null)
+        {
+            patrolRoute = this.gameObject.transform.parent.parent.transform;
+        }
+        
+
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
         //3
-        InitializePatrolRoute();
-        //11
-        MoveToNextPatrolLocation();
+        if (patrolRoute != null)
+        {
+
+            InitializePatrolRoute();
+            //11
+            MoveToNextPatrolLocation();
+        }
+
+        GetThisEnemy();
+
     }
 
     void Update()
     {
         //13
-        if (agent.remainingDistance < 0.2f && !agent.pathPending)
+        if(patrolRoute != null)
         {
-            //14
-            MoveToNextPatrolLocation();
+            if (agent.remainingDistance < 0.2f && !agent.pathPending)
+            {
+                //14
+                MoveToNextPatrolLocation();
+            }
+        }
+
+    }
+
+    void GetThisEnemy()
+    {
+        var enemyName = this.gameObject.name.Replace("(Clone)", "");
+        thisEnemy = Resources.Load("Prefabs/Misc/"+enemyName+" Battle") as GameObject;
+
+        PopulateEnemyParty();
+    }
+
+    void PopulateEnemyParty()
+    {
+        //Get enemy type
+        var rand = Random.Range(1, 4);
+        for(var i = 0; i < rand; i++)
+        {
+            partyList.enemyParty.Add(thisEnemy);
         }
     }
 
@@ -109,8 +151,18 @@ public class AI_Behaviour_V1 : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Debug.Log("Critical hit!");
-            SceneManager.LoadScene("Battle");
 
+            //LevelManager.reSpawnLocation = this.transform;
+            StartCoroutine(LevelManager.Instance.LoadBattleScene());
+            Destroy(gameObject);
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        if(partyList != null){
+            partyList.enemyParty.Clear();
+        }
+        
     }
 }

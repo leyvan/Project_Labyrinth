@@ -5,14 +5,26 @@ using UnityEngine;
 public class DialogueTrigger : MonoBehaviour, IInteractable
 {
     public Dialogue dialogue;
+    public Cinemachine.CinemachineFreeLook freeLookCam;
+    private DialogueSystem dialgSystem;
+    private int lens = 55;
 
+    void Awake()
+    {
+        freeLookCam = GameObject.FindGameObjectWithTag("ThirdPersonCam").GetComponent<Cinemachine.CinemachineFreeLook>();
+        dialgSystem = FindObjectOfType<DialogueSystem>();
+    }
     public void Interact()
     {
         TriggerDialogue();
     }
 
+
+
     public void TriggerDialogue()
     {
-        FindObjectOfType<DialogueSystem>().StartDialogue(dialogue);
+        freeLookCam.m_Lens.FieldOfView = lens;
+        freeLookCam.m_LookAt = this.transform;
+        dialgSystem.StartDialogue(dialogue);
     }
 }

@@ -18,7 +18,7 @@ MonoBehaviour:
   curHealth: 0
   maxMana: 0
   curMana: 0
-  attack: 10
+  attack: 5
   magic: 0
   defense: 0
   speed: 0
