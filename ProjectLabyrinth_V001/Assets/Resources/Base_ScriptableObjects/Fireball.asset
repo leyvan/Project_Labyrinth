@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe2654a68900a48b7970a3634b4f4e2e, type: 3}
-  m_Name: UpperCut
+  m_Name: Fireball
   m_EditorClassIdentifier: 
-  skillCrystal: {fileID: 3977653393502471120, guid: 1be11f72c6d2fed4c8900bf6ad49fd1d, type: 3}
-  skillName: UpperCut
-  attribute: 0
+  skillCrystal: {fileID: 8371569259475471962, guid: 261df60fea2783b43ae51bbf0489932d, type: 3}
+  skillName: Fire Ball
+  attribute: 1
   description: 
-  maxUses: 20
-  power: 5
+  maxUses: 3
+  usesLeft: 0
+  power: 20

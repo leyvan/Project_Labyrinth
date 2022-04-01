@@ -17,4 +17,5 @@ MonoBehaviour:
   attribute: 4
   description: 
   maxUses: 10
+  usesLeft: 10
   power: 20

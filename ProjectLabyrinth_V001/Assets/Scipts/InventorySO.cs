@@ -15,6 +15,7 @@ public class InventorySO : ScriptableObject
             if(skillInventory[i].skill == _skill)
             {
                 skillInventory[i].AddAmount(_amount);
+                skillInventory[i].noMoreLeft = false;
                 hasItem = true;
                 break;
             }
@@ -38,6 +39,7 @@ public class InventorySlot
 {
     public BaseSkill skill;
     public int amount;
+    public bool noMoreLeft;
     public InventorySlot(BaseSkill _skill, int _amount)
     {
         skill = _skill;

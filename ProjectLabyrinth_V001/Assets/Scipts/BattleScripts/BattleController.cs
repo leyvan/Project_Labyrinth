@@ -91,6 +91,7 @@ public class BattleController : MonoBehaviour
     private float rMaxHealth;
     [SerializeField] private float rCurrentHealth;  //Rufio Health
     private float rAttack;  //Rufio Attack Damage
+    private float currentAttackDmg;
     [SerializeField] private bool rAlive = true;
 
     // Enemy---------------------------------///--------------------------------------//
@@ -111,8 +112,9 @@ public class BattleController : MonoBehaviour
     public Image enemyTurnSelector;
 
     private Button lastAttackSelected;
-    private int deathCounter;
+    //private int deathCounter;
 
+    private SkillAttack skillAttackScript;
 //-----------------------------------------------------------------------------------------------------//------------------------------------------------------------------//
 
 
@@ -125,6 +127,8 @@ public class BattleController : MonoBehaviour
         yesButton = menu.transform.GetChild(4).GetChild(0).GetComponent<Button>();      //Ref to yesbutton
         turnNumberText = menu.transform.GetChild(0).GetComponent<Text>();               //Ref to turn number text
 
+        skillAttackScript = gameObject.GetComponent<SkillAttack>();
+
         Debug.Log(EnemyParty.Count);
         BattleSetUp();      //Set Up Battle Stats
 
@@ -136,7 +140,7 @@ public class BattleController : MonoBehaviour
         turnSuccess = false;
         battleOutcome = false;
         startTurn = true;
-        deathCounter = 0;
+        //deathCounter = 0;
 
         StartCoroutine(TurnBasedBattle());
     }
@@ -203,13 +207,15 @@ public class BattleController : MonoBehaviour
             // changes the scene here depending on outcome of battle
             if (outcome == true)
             {
+
                 AllEnemiesDefeated();
                 //SceneManager.LoadScene("Out", LoadSceneMode.Single);
             }
             else
             {
-                //SceneManager.LoadScene("Out", LoadSceneMode.Single);
+                
                 Debug.Log("YOU LOST!!!");
+                SceneManager.LoadScene("MainMenu");
             }
         }
     }
@@ -225,6 +231,7 @@ public class BattleController : MonoBehaviour
             rMaxHealth = rufio.maxHealth;
             rCurrentHealth = rMaxHealth;
             rAttack = rufio.attack;
+            currentAttackDmg = rAttack;
 
             SkillSetUp();
         }
@@ -256,7 +263,7 @@ public class BattleController : MonoBehaviour
         var currentInventory = playerInventory.GetInventory();
         //Vector3 pos = menu.transform.GetChild(3).GetChild(0).transform.position;
         int itemHeldNumb;
-        int itemMaxUses;
+        int itemUsesLeft;
         string ppText;
 
         foreach (Transform child in menu.transform.GetChild(3).transform)
@@ -265,21 +272,29 @@ public class BattleController : MonoBehaviour
             {
                 if(child.gameObject.name == item.skill.skillName)
                 {
-                    child.gameObject.SetActive(true);
-                    itemHeldNumb = item.amount;
-                    itemMaxUses = item.skill.maxUses;
 
-                    ppText = "x" + itemMaxUses + " : " + itemHeldNumb;
+                    child.gameObject.SetActive(true);
+
+                    ResetItemList(item);
+
+                    itemHeldNumb = item.amount;
+                    itemUsesLeft = item.skill.usesLeft;
+
+                    ppText = "x" + itemUsesLeft + " : " + itemHeldNumb;
                     child.transform.GetChild(0).GetComponent<Text>().text = ppText;
                     activeMenuOptions.Add(item);
 
-                    //pos.y -= 46;
-                    
+                    if (item.noMoreLeft == true)
+                    {
+                        child.gameObject.GetComponent<Button>().interactable = false;
+                    }
+
                 }
                 
             }
         }
     }
+
 
     public void GetActionName(Button action)
     {
@@ -297,35 +312,15 @@ public class BattleController : MonoBehaviour
 
 
         Debug.Log("Executing Player Actions");
-
-        if(buttonPressed == "Fire Ball")
+        if (buttonPressed == "BasicAttack")
         {
-
-            Debug.Log("Fire Ball");
-        }
-        else if(buttonPressed == "Lightning Bolt")
-        {
-            Debug.Log("Lightning Bolt");
-        }
-        else if (buttonPressed == "WhirldWind")
-        {
-            Debug.Log("WhirldWind");
-        }
-        else if (buttonPressed == "Heavy Slash")
-        {
-            Debug.Log("Heavy Slash");
-        }
-        else if (buttonPressed == "UpperCut")
-        {
-            Debug.Log("UpperCut");
-        }
-        else if (buttonPressed == "BasicAttack")
-        {
+            currentAttackDmg = rAttack;
             Debug.Log("BasicAttack");
         }
 
         if(buttonPressed != "BasicAttack")
         {
+            currentAttackDmg = skillAttackScript.SelectSkill(buttonPressed);
             var skill = activeMenuOptions.Find(i => i.skill.skillName == buttonPressed);
             UpdateItemList(skill);
         }
@@ -345,11 +340,18 @@ public class BattleController : MonoBehaviour
     {
         Debug.Log("Enemy #"+ EnemyParty.IndexOf(enemy));
         enemyTurnSelector.transform.position = new Vector3(enemy.transform.position.x, 0.01f, enemy.transform.position.z);
+
         TakeDamageFrom(enemy);
     }
 
     private void SwitchTurns(BattleState nextBattleState)
     {
+        if(buttonPressed != "BasicAttack")
+        {
+            var skill = activeMenuOptions.Find(i => i.skill.skillName == buttonPressed);
+            CheckItemList(skill);
+        }
+
 
         //Iterate turn number and display
         turnNumber++;
@@ -361,22 +363,68 @@ public class BattleController : MonoBehaviour
 
     void UpdateItemList(InventorySlot skillUsed)
     {
-        if(skillUsed.skill.maxUses > 0)
-        {
-            skillUsed.skill.maxUses -= 1;
-            
-        }
-        else if(skillUsed.amount > 0)
-        {
-            Debug.Log("You Can Reload");
+        if(skillUsed.skill.usesLeft > 0)
+        { 
+            skillUsed.skill.usesLeft -= 1;
+            var ppText = "x" + skillUsed.skill.usesLeft + " : " + skillUsed.amount;
+            lastAttackSelected.transform.GetChild(0).GetComponent<Text>().text = ppText;
+
         }
         else
         {
-            lastAttackSelected.interactable = false;
-            lastAttackSelected.transform.GetChild(0).GetComponent<Text>().text = "x0: 0";
+            if (skillUsed.amount > 0)
+            {
+                skillUsed.amount -= 1;
+                skillUsed.skill.usesLeft = skillUsed.skill.maxUses;
+                var ppText = "x" + skillUsed.skill.usesLeft + " : " + skillUsed.amount;
+                lastAttackSelected.transform.GetChild(0).GetComponent<Text>().text = ppText;
+            }
+            else
+            {
+                lastAttackSelected.interactable = false;
+                lastAttackSelected.transform.GetChild(0).GetComponent<Text>().text = "x0: 0";
+            }
+ 
         }
 
         
+    }
+
+    void CheckItemList(InventorySlot skillUsed)
+    {
+        if (skillUsed.skill.usesLeft <= 0)
+        {
+            if(skillUsed.amount <= 0)
+            {
+                lastAttackSelected.interactable = false;
+                lastAttackSelected.transform.GetChild(0).GetComponent<Text>().text = "";
+            }
+            else
+            {
+                skillUsed.amount -= 1;
+                skillUsed.skill.usesLeft = skillUsed.skill.maxUses;
+                var ppText = "x" + skillUsed.skill.usesLeft + " : " + skillUsed.amount;
+                lastAttackSelected.transform.GetChild(0).GetComponent<Text>().text = ppText;
+            }
+
+        }
+    }
+
+    void ResetItemList(InventorySlot skillSlot)
+    {
+
+        if (skillSlot.amount > 0)
+        {
+            skillSlot.skill.usesLeft = skillSlot.skill.maxUses;
+            skillSlot.amount -= 1;
+        }
+        else
+        {
+            skillSlot.noMoreLeft = true;
+        }
+            
+        
+
     }
 
     //On button click do this
@@ -413,9 +461,9 @@ public class BattleController : MonoBehaviour
         {
             var enemyBehavior = enemy.GetComponent<EnemyCombatAI>();
             var currentEnemyHealth = enemyBehavior.GetCurrentHealth();
-            currentEnemyHealth -= rAttack;
+            currentEnemyHealth -= currentAttackDmg;
 
-            enemyBehavior.TakeDamage(rAttack);
+            enemyBehavior.TakeDamage(currentAttackDmg);
         }
         else
         {
@@ -456,7 +504,7 @@ public class BattleController : MonoBehaviour
 
     }
 
-    void Escaping()
+    public void Escaping()
     {
         int escapeValue = 1;
         int randomValue = Random.Range(1, 2);
@@ -465,10 +513,12 @@ public class BattleController : MonoBehaviour
         {
             eAlive = false;
             Debug.Log("Escape Successful");
+            StartCoroutine(LevelManager.Instance.LoadLevelScene());
         }
         else
         {
             Debug.Log("Escape Failed");
+            SwitchTurns(BattleState.ENEMY);
         }
     }
 
@@ -489,7 +539,7 @@ public class BattleController : MonoBehaviour
                 Debug.Log("Enemy Party Count: " + EnemyParty.Count);
                 var mob = EnemyParty[i];
                 var mobBehavior = mob.GetComponent<EnemyCombatAI>();
-                if (mobBehavior.GetCurrentHealth() == 0)
+                if (mobBehavior.GetCurrentHealth() <= 0)
                 {
                     int nextEnemyIndex;
                     if(EnemyParty.IndexOf(mob) != (EnemyParty.Count-1)){

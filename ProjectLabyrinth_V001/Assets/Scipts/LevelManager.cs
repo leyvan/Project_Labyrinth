@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private GameObject spawnPoints;
 
-    public static bool inBattle;
+    public bool inBattle;
 
     private GameObject temp;
     private GameObject mainParent;
@@ -27,12 +27,19 @@ public class LevelManager : MonoBehaviour
         FindObjects();
         navMesh = GameObject.FindObjectOfType<NavMeshSurface>();
         mainParent = GameObject.FindGameObjectWithTag("Parent");
+
+
     }
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;     //Confines the cursor to game screen
-        if(inBattle == true)
+        if (SceneManager.GetActiveScene().name == "StartLevel")
+        {
+            inBattle = false;
+        }
+
+        if (inBattle == true)
         {
             Cursor.visible = true;
             player.GetComponent<Player_Behaviour>().SetControllerMode("Battle");
@@ -43,12 +50,14 @@ public class LevelManager : MonoBehaviour
         else
         {
             Cursor.visible = false;
-            if (navMesh == null) return;
-            navMesh.BuildNavMesh();
 
             player.GetComponent<Player_Behaviour>().SetControllerMode("Level01");
             playerHUD.TogglePlayerHUD(Player_Behaviour.ControllerMode.OverWorldMode);
+
+            if (navMesh == null) return;
+            navMesh.BuildNavMesh();
         }
+
 
 
     }
@@ -122,8 +131,9 @@ public class LevelManager : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-        Destroy(temp);
         inBattle = false;
+        Destroy(temp);
+        
     }
     
 

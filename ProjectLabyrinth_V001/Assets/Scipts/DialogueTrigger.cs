@@ -9,6 +9,8 @@ public class DialogueTrigger : MonoBehaviour, IInteractable
     private DialogueSystem dialgSystem;
     private int lens = 55;
 
+    public bool spokeWith = false;
+
     void Awake()
     {
         freeLookCam = GameObject.FindGameObjectWithTag("ThirdPersonCam").GetComponent<Cinemachine.CinemachineFreeLook>();
@@ -23,6 +25,7 @@ public class DialogueTrigger : MonoBehaviour, IInteractable
 
     public void TriggerDialogue()
     {
+        spokeWith = true;
         freeLookCam.m_Lens.FieldOfView = lens;
         freeLookCam.m_LookAt = this.transform;
         dialgSystem.StartDialogue(dialogue);

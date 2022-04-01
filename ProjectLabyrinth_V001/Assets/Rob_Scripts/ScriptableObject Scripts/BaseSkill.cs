@@ -23,5 +23,6 @@ public class BaseSkill : ScriptableObject
     [TextArea(15, 20)]  public string description;
 
     public int maxUses;  //How many times you can use it, like pp in pokemon
-    public int power;
+    public int usesLeft;
+    public float power;
 }

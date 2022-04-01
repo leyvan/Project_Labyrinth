@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe2654a68900a48b7970a3634b4f4e2e, type: 3}
-  m_Name: LightningBolt
+  m_Name: HeavySlash
   m_EditorClassIdentifier: 
-  skillCrystal: {fileID: 4556697574413541664, guid: 683edc40885b6e94da940be392a4f607, type: 3}
-  skillName: Lightning Bolt
-  attribute: 3
-  maxUses: 5
-  power: 40
+  skillCrystal: {fileID: 3977653393502471120, guid: 1be11f72c6d2fed4c8900bf6ad49fd1d, type: 3}
+  skillName: Heavy Slash
+  attribute: 0
+  description: 
+  maxUses: 15
+  usesLeft: 15
+  power: 15

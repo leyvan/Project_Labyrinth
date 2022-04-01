@@ -28,6 +28,7 @@ TagManager:
   - VirtualCam
   - HUD
   - Parent
+  - NPC
   layers:
   - Default
   - TransparentFX
