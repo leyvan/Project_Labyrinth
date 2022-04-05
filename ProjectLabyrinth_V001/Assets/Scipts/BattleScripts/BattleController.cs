@@ -190,8 +190,10 @@ public class BattleController : MonoBehaviour
                     startTurn = false;
                     foreach(GameObject enemy in EnemyParty)
                     {
+                        enemyTurnSelector.transform.position = new Vector3(enemy.transform.position.x, 0.01f, enemy.transform.position.z);
+                        yield return new WaitForSeconds(3f);
                         EnemyTakeTurns(enemy);
-                        yield return new WaitForSeconds(1);
+                        yield return new WaitForSeconds(1f);
                     }
                     SwitchTurns(BattleState.PLAYER);
                     yield return new WaitForSeconds(1);
@@ -339,7 +341,7 @@ public class BattleController : MonoBehaviour
     private void EnemyTakeTurns(GameObject enemy)
     {
         Debug.Log("Enemy #"+ EnemyParty.IndexOf(enemy));
-        enemyTurnSelector.transform.position = new Vector3(enemy.transform.position.x, 0.01f, enemy.transform.position.z);
+        
 
         TakeDamageFrom(enemy);
     }

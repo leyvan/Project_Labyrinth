@@ -248,6 +248,7 @@ MonoBehaviour:
   player: {fileID: 0}
   playerHUD: {fileID: 0}
   spawnPoints: {fileID: 0}
+  inBattle: 0
 --- !u!4 &64411931
 Transform:
   m_ObjectHideFlags: 0
@@ -2342,6 +2343,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5830567963423514095, guid: d06201268f1b67c4b9766c62daa3b6cc, type: 3}
+      propertyPath: InitialModule.size3D
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5830567963423514095, guid: d06201268f1b67c4b9766c62daa3b6cc, type: 3}
       propertyPath: LightsModule.enabled
       value: 0
       objectReference: {fileID: 0}
@@ -2354,12 +2359,28 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5830567963423514095, guid: d06201268f1b67c4b9766c62daa3b6cc, type: 3}
+      propertyPath: InitialModule.startSizeY.scalar
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 5830567963423514095, guid: d06201268f1b67c4b9766c62daa3b6cc, type: 3}
+      propertyPath: InitialModule.startSizeZ.scalar
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 5830567963423514095, guid: d06201268f1b67c4b9766c62daa3b6cc, type: 3}
       propertyPath: InitialModule.startSize.minScalar
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5830567963423514095, guid: d06201268f1b67c4b9766c62daa3b6cc, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5830567963423514095, guid: d06201268f1b67c4b9766c62daa3b6cc, type: 3}
+      propertyPath: InitialModule.startSizeY.minScalar
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5830567963423514095, guid: d06201268f1b67c4b9766c62daa3b6cc, type: 3}
+      propertyPath: InitialModule.startSizeZ.minScalar
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5830567963423514095, guid: d06201268f1b67c4b9766c62daa3b6cc, type: 3}
       propertyPath: InitialModule.startSizeY.minMaxState
@@ -2371,7 +2392,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5830567963423514095, guid: d06201268f1b67c4b9766c62daa3b6cc, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.atime1
-      value: 28913
+      value: 32189
+      objectReference: {fileID: 0}
+    - target: {fileID: 5830567963423514095, guid: d06201268f1b67c4b9766c62daa3b6cc, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.atime3
+      value: 65535
       objectReference: {fileID: 0}
     - target: {fileID: 5830567963423514095, guid: d06201268f1b67c4b9766c62daa3b6cc, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key0.a
