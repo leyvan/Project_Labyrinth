@@ -28,6 +28,31 @@ public class SkillAttack: MonoBehaviour
     {
         if(type == Attribute.FIRE)
         {
+            Debug.Log("Fire Attack");
+            return (skill.power);
+        }
+        else if (type == Attribute.ELECTRIC)
+        {
+            return (skill.power);
+        }
+        else if (type == Attribute.WIND)
+        {
+            return (skill.power);
+        }
+        else if (type == Attribute.WATER)
+        {
+            return (skill.power);
+        }
+        else if (type == Attribute.PHYSICAL)
+        {
+            return (skill.power);
+        }
+        else if (type == Attribute.DARK)
+        {
+            return (skill.power);
+        }
+        else if (type == Attribute.LIGHT)
+        {
             return (skill.power);
         }
         return skill.power;

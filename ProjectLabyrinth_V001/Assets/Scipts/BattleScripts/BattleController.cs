@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Cinemachine;
 
 public enum BattleState
 {
@@ -115,14 +116,23 @@ public class BattleController : MonoBehaviour
     //private int deathCounter;
 
     private SkillAttack skillAttackScript;
-//-----------------------------------------------------------------------------------------------------//------------------------------------------------------------------//
 
+    private CinemachineClearShot cameraGroup;
+    private List<CinemachineVirtualCameraBase> vCamList = new List<CinemachineVirtualCameraBase>(); 
+//-----------------------------------------------------------------------------------------------------//------------------------------------------------------------------//
+    
 
     // Start is called before the first frame update
     void Start()
     {
         EnemyParty.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
         PlayerParty.AddRange(GameObject.FindGameObjectsWithTag("Ally"));
+
+        cameraGroup = GameObject.FindGameObjectWithTag("CameraSwitch").GetComponent<CinemachineClearShot>();
+        for(int i = 0; i < (cameraGroup.ChildCameras.Count());i++)
+        {
+            vCamList.Add(cameraGroup.ChildCameras[i]);
+        }
 
         yesButton = menu.transform.GetChild(4).GetChild(0).GetComponent<Button>();      //Ref to yesbutton
         turnNumberText = menu.transform.GetChild(0).GetComponent<Text>();               //Ref to turn number text
@@ -176,6 +186,9 @@ public class BattleController : MonoBehaviour
             switch (state)
             {
                 case BattleState.PLAYER:
+                    //Camera Switch
+                    vCamList[1].m_Priority = 10;
+                    vCamList[0].m_Priority = 11;
                     Debug.Log("Player Turn");
                     startTurn = true;
                     canSelectEnemy = true;
@@ -186,6 +199,9 @@ public class BattleController : MonoBehaviour
                     SwitchTurns(BattleState.ENEMY);
                     break;
                 case BattleState.ENEMY:
+                    //Camera Switch
+                    vCamList[1].m_Priority = 11;
+                    vCamList[0].m_Priority = 10;
                     Debug.Log("Enemy Turn ");
                     startTurn = false;
                     foreach(GameObject enemy in EnemyParty)
@@ -422,7 +438,17 @@ public class BattleController : MonoBehaviour
         }
         else
         {
-            skillSlot.noMoreLeft = true;
+            if(skillSlot.skill.usesLeft > 0)
+            {
+                skillSlot.skill.usesLeft = skillSlot.skill.maxUses;
+                skillSlot.amount = 0;
+            }
+            else
+            {
+                skillSlot.noMoreLeft = true;
+            }
+            
+
         }
             
         
