@@ -118,7 +118,9 @@ public class BattleController : MonoBehaviour
     private SkillAttack skillAttackScript;
 
     private CinemachineClearShot cameraGroup;
-    private List<CinemachineVirtualCameraBase> vCamList = new List<CinemachineVirtualCameraBase>(); 
+    private List<CinemachineVirtualCameraBase> vCamList = new List<CinemachineVirtualCameraBase>();   
+
+
 //-----------------------------------------------------------------------------------------------------//------------------------------------------------------------------//
     
 
@@ -244,7 +246,7 @@ public class BattleController : MonoBehaviour
         //Player Set Up
         if(rAlive == true)
         {
-            playerHealth = PlayerParty[0].transform.GetChild(0).GetChild(0).GetComponent<Slider>();
+            playerHealth = PlayerParty[0].transform.GetChild(0).GetChild(1).GetComponent<Slider>();
             rName = rufio.name;
             rMaxHealth = rufio.maxHealth;
             rCurrentHealth = rMaxHealth;
