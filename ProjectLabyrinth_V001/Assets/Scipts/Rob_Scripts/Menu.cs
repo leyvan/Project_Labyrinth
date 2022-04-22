@@ -45,7 +45,7 @@ public class Menu : MonoBehaviour
         {
             menuState = MenuState.START;
             text.gameObject.SetActive(bc.startTurn);
-            text.SetText(" ");
+            text.SetText("Menu");
             basicMenu.SetActive(bc.startTurn);
             //rufioMenu.SetActive(false);
             //confirmation.SetActive(false);

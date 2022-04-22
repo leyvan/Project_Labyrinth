@@ -2214,7 +2214,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1828281822}
-  m_LocalRotation: {x: 0.3168551, y: 0.046662927, z: -0.015609621, w: 0.94719684}
+  m_LocalRotation: {x: 0.31685507, y: 0.046662934, z: -0.015609625, w: 0.9471968}
   m_LocalPosition: {x: 250.6128, y: 6.7727246, z: 100.74948}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2561,11 +2561,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3437830687164878626, guid: c86f01fb39b295b48b79492eb1f8d917, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.048487533
+      value: 0.048487563
       objectReference: {fileID: 0}
     - target: {fileID: 3437830687164878626, guid: c86f01fb39b295b48b79492eb1f8d917, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.008369399
+      value: 0.008369404
       objectReference: {fileID: 0}
     - target: {fileID: 3437830687164878626, guid: c86f01fb39b295b48b79492eb1f8d917, type: 3}
       propertyPath: m_LocalRotation.y
@@ -2685,31 +2685,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3437830688462956039, guid: c86f01fb39b295b48b79492eb1f8d917, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.080398574
       objectReference: {fileID: 0}
     - target: {fileID: 3437830688462956039, guid: c86f01fb39b295b48b79492eb1f8d917, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.5376303
       objectReference: {fileID: 0}
     - target: {fileID: 3437830688462956039, guid: c86f01fb39b295b48b79492eb1f8d917, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.32602262
       objectReference: {fileID: 0}
     - target: {fileID: 3437830688462956039, guid: c86f01fb39b295b48b79492eb1f8d917, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.048824146
+      value: 0.048928995
       objectReference: {fileID: 0}
     - target: {fileID: 3437830688462956039, guid: c86f01fb39b295b48b79492eb1f8d917, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.006106681
+      value: 0.005202834
       objectReference: {fileID: 0}
     - target: {fileID: 3437830688462956039, guid: c86f01fb39b295b48b79492eb1f8d917, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.8950121
+      value: -0.9030566
       objectReference: {fileID: 0}
     - target: {fileID: 3437830688462956039, guid: c86f01fb39b295b48b79492eb1f8d917, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.44331974
+      value: 0.42669377
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c86f01fb39b295b48b79492eb1f8d917, type: 3}
@@ -2778,7 +2778,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8790251895508997398, guid: 1e604271ed6b5a14b9459fafe37fdd4d, type: 3}
       propertyPath: dialogue.sentences.Array.size
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8790251895508997398, guid: 1e604271ed6b5a14b9459fafe37fdd4d, type: 3}
       propertyPath: dialogue.sentences.Array.data[0]
@@ -2802,24 +2802,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8790251895508997398, guid: 1e604271ed6b5a14b9459fafe37fdd4d, type: 3}
       propertyPath: dialogue.sentences.Array.data[5]
-      value: tsch..
+      value: 'tsch.. '
       objectReference: {fileID: 0}
     - target: {fileID: 8790251895508997398, guid: 1e604271ed6b5a14b9459fafe37fdd4d, type: 3}
       propertyPath: dialogue.sentences.Array.data[6]
-      value: 
+      value: "You are in a manifestation of your inner turmoil. \nYou must overcome
+        it to find solace."
       objectReference: {fileID: 0}
     - target: {fileID: 8790251895508997398, guid: 1e604271ed6b5a14b9459fafe37fdd4d, type: 3}
       propertyPath: dialogue.sentences.Array.data[7]
-      value: Where am I?
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8790251895508997398, guid: 1e604271ed6b5a14b9459fafe37fdd4d, type: 3}
       propertyPath: dialogue.sentences.Array.data[8]
-      value: "You are in a manifestation of your inner turmoil. \nIt is time you
-        move past it..."
+      value: (Find the Portal [Cube] and take your first steps)
       objectReference: {fileID: 0}
     - target: {fileID: 8790251895508997398, guid: 1e604271ed6b5a14b9459fafe37fdd4d, type: 3}
       propertyPath: dialogue.sentences.Array.data[9]
-      value: 
+      value: (Find the Portal [Cube] and take your first steps)
       objectReference: {fileID: 0}
     - target: {fileID: 8790251895508997398, guid: 1e604271ed6b5a14b9459fafe37fdd4d, type: 3}
       propertyPath: dialogue.sentences.Array.data[10]
