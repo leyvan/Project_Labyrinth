@@ -14,17 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerParty:
   - {fileID: 1102619429106188324, guid: 470fc3ca70a44b74c955e6a428eccc7d, type: 3}
-  enemyParty:
-  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
-  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
-  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
-  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
-  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
-  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
-  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
-  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
-  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
-  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
-  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
-  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
-  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
+  enemyParty: []

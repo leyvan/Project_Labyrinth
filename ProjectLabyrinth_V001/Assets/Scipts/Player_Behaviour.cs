@@ -22,8 +22,11 @@ public class Player_Behaviour : MonoBehaviour
     private Rigidbody _rb;
     private CapsuleCollider _col;
 
-    private Animator _animator;
+    [HideInInspector]
+    public Animator _animator;
     private bool isAttacking;
+
+
     public bool canMove;
 
     public Camera cam;
@@ -33,6 +36,8 @@ public class Player_Behaviour : MonoBehaviour
 
     public InventorySO inventory;  //I can make this private
     public GameObject playerHUD;
+
+    public PartyListScriptableObject party;
 
     public enum ControllerMode{BattleMode,OverWorldMode};
     [SerializeField] public ControllerMode currentMode;
@@ -177,11 +182,7 @@ public class Player_Behaviour : MonoBehaviour
         }
     }
 
-    void DodgeRoll()
-    {
-        Debug.Log("I am rolling", this);
-    }
-
+ 
     private GameObject GetNearestGameObject()
     {
         //var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -199,12 +200,7 @@ public class Player_Behaviour : MonoBehaviour
         
     }
 
-    
-    private bool IsGrounded()
-    {
-        Vector3 endPosition = new Vector3(_col.bounds.center.x, _col.bounds.min.y, _col.bounds.center.z);
-        return Physics.CheckCapsule(_col.bounds.center, endPosition, distanceToGround, groundLayer, QueryTriggerInteraction.Ignore);
-    }
+   
     
     public ControllerMode GetCurrentControllerMode()
     {
@@ -224,9 +220,16 @@ public class Player_Behaviour : MonoBehaviour
 
     }
 
+
+    public void DoTakeHitAnimation()
+    {
+        _animator.SetTrigger("Hit");
+    }
+
     private void OnApplicationQuit()
     {
         inventory.skillInventory.Clear();
+        party.enemyParty.Clear();
     }
     
 }

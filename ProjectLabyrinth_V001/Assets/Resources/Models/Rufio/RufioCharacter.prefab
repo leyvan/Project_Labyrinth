@@ -250,6 +250,7 @@ MonoBehaviour:
   effectTime: 0
   inventory: {fileID: 11400000, guid: cc3bb9316d9a8aa478a50fa6d4a71a37, type: 2}
   playerHUD: {fileID: 3582580285479855229}
+  party: {fileID: 11400000, guid: efbd5377c7fab834aa88e7abe113bc95, type: 2}
   currentMode: 0
 --- !u!143 &1102619429106188315
 CharacterController:

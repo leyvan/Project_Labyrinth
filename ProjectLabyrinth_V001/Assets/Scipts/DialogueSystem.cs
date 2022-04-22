@@ -16,9 +16,10 @@ public class DialogueSystem : MonoBehaviour
 	//public Animator animator;
 
 	public bool inDialogue;
+	public string currentChar;
 
 	private Queue<string> sentences;
-
+	private List<string> characters;
     // Use this for initialization
 
     void Awake()
@@ -30,25 +31,36 @@ public class DialogueSystem : MonoBehaviour
     void Start()
 	{
 		sentences = new Queue<string>();
+		characters = new List<string>();
 	}
 
 	public void StartDialogue(Dialogue dialogue)
 	{
 		//animator.SetBool("IsOpen", true);
 		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.None;
 
 		dialogueCanvas.gameObject.SetActive(true);
+		nameText = dialogueCanvas.GetComponentInChildren<Text>();
 		player.GetComponent<Player_Behaviour>().canMove = false;
 
-		nameText.text = dialogue.name;
+
 
 		sentences.Clear();
+		characters.Clear();
 
 		foreach (string sentence in dialogue.sentences)
 		{
 			sentences.Enqueue(sentence);
 		}
 
+		foreach(string character in dialogue.characterNames)
+        {
+			characters.Add(character);
+        }
+
+		currentChar = characters[1];
+		nameText.text = currentChar;
 		DisplayNextSentence();
 	}
 
@@ -60,9 +72,29 @@ public class DialogueSystem : MonoBehaviour
 			return;
 		}
 
+
 		string sentence = sentences.Dequeue();
 		StopAllCoroutines();
-		StartCoroutine(TypeSentence(sentence));
+		 
+		if(currentChar == characters[0]){
+			currentChar = characters[1];
+
+		} else{
+			currentChar = characters[0];
+		}
+
+		
+		if(sentence != "")
+        {
+			nameText.text = currentChar;
+			StartCoroutine(TypeSentence(sentence));
+		}
+		else
+        {
+			characters.Reverse();
+			DisplayNextSentence();
+        }
+		
 	}
 
 	IEnumerator TypeSentence(string sentence)
@@ -80,7 +112,10 @@ public class DialogueSystem : MonoBehaviour
 		//animator.SetBool("IsOpen", false);
 		freeLookCam.m_Lens.FieldOfView = resetLens;
 		freeLookCam.m_LookAt = playerCamTarget;
+
 		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.None;
+
 		player.GetComponent<Player_Behaviour>().canMove = true;
 		dialogueCanvas.gameObject.SetActive(false);
 	}

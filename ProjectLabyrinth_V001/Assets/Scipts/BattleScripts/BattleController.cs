@@ -129,7 +129,8 @@ public class BattleController : MonoBehaviour
     void Start()
     {
         EnemyParty.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
-        PlayerParty.AddRange(GameObject.FindGameObjectsWithTag("Ally"));
+        PlayerParty.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+
 
         currentData = new BattleData();
 
@@ -196,13 +197,14 @@ public class BattleController : MonoBehaviour
                     //Camera Switch
                     vCamList[1].m_Priority = 10;
                     vCamList[0].m_Priority = 11;
+
                     Debug.Log("Player Turn");
                     startTurn = true;
                     canSelectEnemy = true;
                     yield return new WaitUntil(() => onClickBool == true);      //Wait until button bool is true, which means button was pressed
                     canSelectEnemy = false;
-                    PlayerTurn(/* Put here the button the player pressed and ref to button pressed*/);
-                    yield return new WaitForSeconds(1);
+                    PlayerTurn();
+                    yield return new WaitForSeconds(1f);
                     SwitchTurns(BattleState.ENEMY);
                     break;
                 case BattleState.ENEMY:
@@ -247,6 +249,8 @@ public class BattleController : MonoBehaviour
     //Sets up stats for enemies and players
     private void BattleSetUp()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         //Player Set Up
         if(rAlive == true)
         {
@@ -348,7 +352,15 @@ public class BattleController : MonoBehaviour
             currentAttackDmg = skillAttackScript.SelectSkill(buttonPressed);
             var skill = activeMenuOptions.Find(i => i.skill.skillName == buttonPressed);
             currentData.numberOfItemsUsed += 1;
-            PlayerParty[0].GetComponentInChildren<Animator>().SetTrigger("MagicAttack");
+            if(skill.skill.skillName == "Heavy Slash")
+            {
+                PlayerParty[0].GetComponentInChildren<Animator>().SetTrigger("SwordAttack");
+            }
+            else {
+                PlayerParty[0].GetComponentInChildren<Animator>().SetTrigger("MagicAttack");
+            }
+
+            
             Debug.Log(currentData.numberOfItemsUsed);
             UpdateItemList(skill);
         }
@@ -521,14 +533,13 @@ public class BattleController : MonoBehaviour
     {
         if (rAlive == true)
         {
-                var enemyBehavior = enemy.GetComponent<EnemyCombatAI>();
-                enemyBehavior.DoAttack();
-                //CurrentClickedGameObject(enemy);  //Change the name maybe
+            var enemyBehavior = enemy.GetComponent<EnemyCombatAI>();
+            enemyBehavior.DoAttack();
+            //CurrentClickedGameObject(enemy);  //Change the name maybe
 
-                var enemyAttack = enemyBehavior.GetAttackDmg();
-                
-                rCurrentHealth -= enemyAttack;
-                playerHealth.value = rCurrentHealth / rMaxHealth;
+            var enemyAttack = enemyBehavior.GetAttackDmg();
+
+            StartCoroutine(TakeDamageAnim(enemyAttack));
 
         }
         else
@@ -536,6 +547,19 @@ public class BattleController : MonoBehaviour
             rAlive = false;
             StartCoroutine(TurnBasedBattle());
         }
+    }
+
+    IEnumerator TakeDamageAnim(float enemyAttack)
+    {
+        yield return new WaitForSeconds(1f);
+        var playerBehavior = PlayerParty[1].GetComponent<Player_Behaviour>();
+        playerBehavior.DoTakeHitAnimation();
+
+        
+
+        rCurrentHealth -= enemyAttack;
+        playerHealth.value = rCurrentHealth / rMaxHealth;
+        
     }
 
     void SetUpEnemySelector()

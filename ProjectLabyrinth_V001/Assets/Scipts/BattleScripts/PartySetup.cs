@@ -11,7 +11,7 @@ public class PartySetup : MonoBehaviour
     {
         var thisObjTag = this.gameObject.tag;
 
-        if (thisObjTag == "Ally")
+        if (thisObjTag == "Player")
         {
             SetUpAllyParty();
         }

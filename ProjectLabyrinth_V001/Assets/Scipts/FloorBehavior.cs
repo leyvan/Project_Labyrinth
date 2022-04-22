@@ -47,7 +47,7 @@ public class FloorBehavior : MonoBehaviour
         
         foreach(Transform spawnPoint in itemSpawnPoints)
         {
-            var rand = Random.Range(0, 5);
+            var rand = Random.Range(0, 4);
             Instantiate(items[rand], spawnPoint.position + new Vector3(0,1,0), spawnPoint.rotation * Quaternion.Euler(90, 0, 0), spawnPoint);
         }
     }

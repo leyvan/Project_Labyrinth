@@ -43,10 +43,18 @@ public class EnemyCombatAI : MonoBehaviour
         _animator.SetTrigger("attack");
     }
 
+    IEnumerator DoHitAnimation()
+    {
+        yield return new WaitForSeconds(0.6f);
+        _animator.SetTrigger("gotHit");
+        SetHealthBar();
+    }
+
     public void TakeDamage(float damage)
     {
         health -= damage;
-        SetHealthBar();
+        StartCoroutine(DoHitAnimation());
+        
     }
 
     public void SetHealth(float newHealth, float newMaxHealth)
