@@ -118,8 +118,9 @@ public class BattleController : MonoBehaviour
     private SkillAttack skillAttackScript;
 
     private CinemachineClearShot cameraGroup;
-    private List<CinemachineVirtualCameraBase> vCamList = new List<CinemachineVirtualCameraBase>();   
+    private List<CinemachineVirtualCameraBase> vCamList = new List<CinemachineVirtualCameraBase>();
 
+    private BattleData currentData;
 
 //-----------------------------------------------------------------------------------------------------//------------------------------------------------------------------//
     
@@ -129,6 +130,8 @@ public class BattleController : MonoBehaviour
     {
         EnemyParty.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
         PlayerParty.AddRange(GameObject.FindGameObjectsWithTag("Ally"));
+
+        currentData = new BattleData();
 
         cameraGroup = GameObject.FindGameObjectWithTag("CameraSwitch").GetComponent<CinemachineClearShot>();
         for(int i = 0; i < (cameraGroup.ChildCameras.Count());i++)
@@ -187,6 +190,8 @@ public class BattleController : MonoBehaviour
         {
             switch (state)
             {
+                case BattleState.START:
+                    break;
                 case BattleState.PLAYER:
                     //Camera Switch
                     vCamList[1].m_Priority = 10;
@@ -209,12 +214,11 @@ public class BattleController : MonoBehaviour
                     foreach(GameObject enemy in EnemyParty)
                     {
                         enemyTurnSelector.transform.position = new Vector3(enemy.transform.position.x, 0.01f, enemy.transform.position.z);
-                        yield return new WaitForSeconds(3f);
+                        yield return new WaitForSeconds(2f);
                         EnemyTakeTurns(enemy);
                         yield return new WaitForSeconds(1f);
                     }
                     SwitchTurns(BattleState.PLAYER);
-                    yield return new WaitForSeconds(1);
                     break;
                 case BattleState.ESCAPE:
                     Escaping();
@@ -280,7 +284,7 @@ public class BattleController : MonoBehaviour
 
     private void SkillSetUp()
     {
-        var currentInventory = playerInventory.GetInventory();
+        var currentInventory = playerInventory.GetSkillInventory();
         //Vector3 pos = menu.transform.GetChild(3).GetChild(0).transform.position;
         int itemHeldNumb;
         int itemUsesLeft;
@@ -335,6 +339,7 @@ public class BattleController : MonoBehaviour
         if (buttonPressed == "BasicAttack")
         {
             currentAttackDmg = rAttack;
+            PlayerParty[0].GetComponentInChildren<Animator>().SetTrigger("PhysicalAttack");
             Debug.Log("BasicAttack");
         }
 
@@ -342,6 +347,9 @@ public class BattleController : MonoBehaviour
         {
             currentAttackDmg = skillAttackScript.SelectSkill(buttonPressed);
             var skill = activeMenuOptions.Find(i => i.skill.skillName == buttonPressed);
+            currentData.numberOfItemsUsed += 1;
+            PlayerParty[0].GetComponentInChildren<Animator>().SetTrigger("MagicAttack");
+            Debug.Log(currentData.numberOfItemsUsed);
             UpdateItemList(skill);
         }
 
@@ -374,8 +382,13 @@ public class BattleController : MonoBehaviour
 
 
         //Iterate turn number and display
-        turnNumber++;
-        turnNumberText.text = "Turn:" + turnNumber.ToString();
+        if(nextBattleState == BattleState.PLAYER)
+        {
+            turnNumber++;
+            turnNumberText.text = "Turn:" + turnNumber.ToString();
+            currentData.turnsTaken += 1;
+        }
+
 
         state = nextBattleState;
         StartCoroutine(TurnBasedBattle());
@@ -478,7 +491,7 @@ public class BattleController : MonoBehaviour
         if(gameObject.tag == "Enemy")
         {
             enemySelected = gameObject;
-            selector.transform.position = gameObject.transform.position + new Vector3(0, 1.5f, 0);
+            selector.transform.position = gameObject.transform.position + new Vector3(0, 3f, 0);
             Debug.Log("Enemy Selected, " +  enemySelected);
         }  
         
@@ -509,10 +522,11 @@ public class BattleController : MonoBehaviour
         if (rAlive == true)
         {
                 var enemyBehavior = enemy.GetComponent<EnemyCombatAI>();
+                enemyBehavior.DoAttack();
                 //CurrentClickedGameObject(enemy);  //Change the name maybe
 
                 var enemyAttack = enemyBehavior.GetAttackDmg();
-
+                
                 rCurrentHealth -= enemyAttack;
                 playerHealth.value = rCurrentHealth / rMaxHealth;
 
@@ -529,7 +543,7 @@ public class BattleController : MonoBehaviour
         if (EnemyParty.Count < 1) return;
 
         var firstEnemy = EnemyParty[0].transform;
-        selector.transform.position = firstEnemy.position + new Vector3(0, 1.5f, 0);
+        selector.transform.position = firstEnemy.position + new Vector3(0, 3f, 0);
         enemyTurnSelector.transform.position = firstEnemy.transform.position - new Vector3(0, firstEnemy.transform.position.y+0.01f, 0);
 
     }
@@ -555,7 +569,9 @@ public class BattleController : MonoBehaviour
     private void AllEnemiesDefeated()
     {
         Debug.Log("You Win");
-        StartCoroutine(LevelManager.Instance.LoadLevelScene());
+        //End Screen Display
+
+        GameObject.FindGameObjectWithTag("BattleHUD").transform.GetChild(5).gameObject.SetActive(true);
     }
 
     private bool IsDefeated()
@@ -582,7 +598,7 @@ public class BattleController : MonoBehaviour
 
                     if (enemySelected == mob)
                     {
-                        selector.transform.position = EnemyParty[nextEnemyIndex].transform.position + new Vector3(0, 1.5f, 0);
+                        selector.transform.position = EnemyParty[nextEnemyIndex].transform.position + new Vector3(0, 3f, 0);
                         enemySelected = EnemyParty[nextEnemyIndex];
                     }
                     
@@ -599,6 +615,8 @@ public class BattleController : MonoBehaviour
 
             if(DeadEnemies.Count > 0)
             {
+                currentData.killedEnemies += 1;
+                Debug.Log(currentData.killedEnemies);
                 var firstDeadEnemy = EnemyParty.IndexOf(DeadEnemies[0]);
                 EnemyParty.RemoveRange(firstDeadEnemy, DeadEnemies.Count());
 
@@ -636,29 +654,8 @@ public class BattleController : MonoBehaviour
         else { return false; }
     }
 
-    /*
-    void BattleEvent()
+    public BattleData GetCurrentData()
     {
-
+        return currentData;
     }
-
-    void DetectPlayerParty()
-    {
-
-    }
-
-    void DetectEnemyParty()
-    {
-
-    }
-    void RInput()
-    {
-
-    }
-
-    void AInput()
-    {
-
-    }
-    */
 }

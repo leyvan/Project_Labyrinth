@@ -13,4 +13,18 @@ MonoBehaviour:
   m_Name: Party List
   m_EditorClassIdentifier: 
   playerParty:
-  - {fileID: 2837185843303720592, guid: f25a9cff2a4d922499fb90d766be107c, type: 3}
+  - {fileID: 1102619429106188324, guid: 470fc3ca70a44b74c955e6a428eccc7d, type: 3}
+  enemyParty:
+  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
+  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
+  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
+  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
+  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
+  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
+  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
+  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
+  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
+  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
+  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
+  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}
+  - {fileID: 1083167508750965405, guid: a5b427f24d7e2ce428ff17d3620f6cf8, type: 3}

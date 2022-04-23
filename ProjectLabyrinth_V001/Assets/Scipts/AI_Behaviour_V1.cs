@@ -19,13 +19,15 @@ public class AI_Behaviour_V1 : MonoBehaviour
 
     private GameObject thisEnemy;
 
-
+    private Rigidbody rb;
+    private Animator _animator;
 
     //8
     private int locationIndex = 0;
     //9
     private NavMeshAgent agent;
     private int _lives = 3;
+    public bool cantMove;
 
     public int Lives
     {
@@ -46,12 +48,20 @@ public class AI_Behaviour_V1 : MonoBehaviour
     {
 
         //10
+
+        rb = this.GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
+        _animator = this.transform.GetChild(0).GetComponent<Animator>();
 
         if(agent != null)
         {
             patrolRoute = this.gameObject.transform.parent.parent.transform;
         }
+        else
+        {
+            cantMove = true;
+        }
+
         
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -71,6 +81,13 @@ public class AI_Behaviour_V1 : MonoBehaviour
 
     void Update()
     {
+        if (cantMove == true)
+        {
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;
+            _animator.SetBool("walking?", false);
+            return;
+        }
         //13
         if(patrolRoute != null)
         {
@@ -80,6 +97,15 @@ public class AI_Behaviour_V1 : MonoBehaviour
                 MoveToNextPatrolLocation();
             }
         }
+
+
+        if (agent.acceleration > 0.1f)
+        {
+
+            _animator.SetBool("running?", false);
+            _animator.SetBool("walking?", true);
+        }
+
 
     }
 
@@ -115,6 +141,7 @@ public class AI_Behaviour_V1 : MonoBehaviour
     void MoveToNextPatrolLocation()
     {
         //15
+
         if (locations.Count == 0)
             return;
 

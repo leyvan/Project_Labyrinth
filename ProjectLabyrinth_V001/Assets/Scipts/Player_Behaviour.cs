@@ -63,6 +63,14 @@ public class Player_Behaviour : MonoBehaviour
         //--------------------------------------------------------------Player Mechanics----------------------------------------------------//
 
         if (currentMode == ControllerMode.BattleMode) return;
+
+        if(_animator.GetBool("InBattle") == true)
+        {
+            _animator.SetBool("InBattle", false);
+        }
+
+
+
         //Open Inventory Player Button - I -
         if (Input.GetKeyDown(KeyCode.I))
         {
@@ -92,35 +100,30 @@ public class Player_Behaviour : MonoBehaviour
         //--------------------------------------------------------------Movement Detection + Movement Mechanics----------------------------------------------------//
         if (direction.magnitude >= 0.1f && canMove == true)
         {
-
-            //DodgeRolling
-            bool roll = Input.GetButtonDown("Roll");
-
-            if (roll)
-            {
-                DodgeRoll();
-            }
-
+            _animator.SetBool("walking?", true);
             //Check if the player is trying to run - Player Running -
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.W))
             {
+                if(Input.GetKey(KeyCode.LeftShift))
+                {
+                    currentSpeed = runSpeed;
+                    _animator.SetBool("running?", true);
+                }
+                else
+                {
 
-                currentSpeed = runSpeed;
+                    _animator.SetBool("running?", false);
+                    _animator.SetBool("walking?", true);
+                    currentSpeed = moveSpeed;
 
-                _animator.SetBool("walking?", false);
-                _animator.SetBool("running?", true);
+                }
+
             }  
-            else
-            {
 
-                _animator.SetBool("running?", false);
-                _animator.SetBool("walking?", true);
-                currentSpeed = moveSpeed;
-              
-            }
         }
         else
         {
+            _animator.SetBool("running?", false);
             _animator.SetBool("walking?", false);
         }
         /*
@@ -165,9 +168,11 @@ public class Player_Behaviour : MonoBehaviour
         {
             case string b when b.Contains("Battle"):
                 currentMode = ControllerMode.BattleMode;
+                _animator.SetBool("InBattle", true);
                 break;
             default:
                 currentMode = ControllerMode.OverWorldMode;
+                _animator.SetBool("InBattle", false);
                 break;
         }
     }

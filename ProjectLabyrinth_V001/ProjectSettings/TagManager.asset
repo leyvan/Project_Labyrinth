@@ -30,6 +30,8 @@ TagManager:
   - Parent
   - NPC
   - CameraSwitch
+  - BattleHUD
+  - Help
   layers:
   - Default
   - TransparentFX

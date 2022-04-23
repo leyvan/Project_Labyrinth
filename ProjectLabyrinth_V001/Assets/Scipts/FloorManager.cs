@@ -7,7 +7,7 @@ public class FloorManager : MonoBehaviour
     public List<GameObject> floorList = new List<GameObject>();
     public List<Floor> floorTPs = new List<Floor>();        //This is a script with an interface attached, all it does is hold teleport location info, maybe will include other info over time
     public int floorCount = -1;
-    private int maxNumOfFloors = 3;
+    private int maxNumOfFloors = 5;
 
     public List<GameObject> floorSpawnPoints = new List<GameObject>();
 

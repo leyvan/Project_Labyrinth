@@ -33,6 +33,7 @@ Transform:
   m_Children:
   - {fileID: 2837185843907239628}
   - {fileID: 2837185844989295781}
+  - {fileID: 559653729905158618}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -57,11 +58,13 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
-  bulletSpeed: 100
   turnSmoothTime: 0.2
-  bullet: {fileID: 0}
+  canMove: 0
   cam: {fileID: 0}
   effectTime: 0
+  inventory: {fileID: 0}
+  playerHUD: {fileID: 0}
+  currentMode: 0
 --- !u!143 &2837185843303720623
 CharacterController:
   m_ObjectHideFlags: 0
@@ -140,6 +143,68 @@ Transform:
   m_Father: {fileID: 2837185843303720595}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &22222673342189105
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2837185843303720595}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: de273cf5c3a2048489a8c168ba0f31f7, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: de273cf5c3a2048489a8c168ba0f31f7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: de273cf5c3a2048489a8c168ba0f31f7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: de273cf5c3a2048489a8c168ba0f31f7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: de273cf5c3a2048489a8c168ba0f31f7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: de273cf5c3a2048489a8c168ba0f31f7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: de273cf5c3a2048489a8c168ba0f31f7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: de273cf5c3a2048489a8c168ba0f31f7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: de273cf5c3a2048489a8c168ba0f31f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: de273cf5c3a2048489a8c168ba0f31f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: de273cf5c3a2048489a8c168ba0f31f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: de273cf5c3a2048489a8c168ba0f31f7, type: 3}
+      propertyPath: m_Name
+      value: Boneless Rufio
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: de273cf5c3a2048489a8c168ba0f31f7, type: 3}
+--- !u!4 &559653729905158618 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: de273cf5c3a2048489a8c168ba0f31f7, type: 3}
+  m_PrefabInstance: {fileID: 22222673342189105}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2837185843907363842
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -150,6 +215,10 @@ PrefabInstance:
     - target: {fileID: 100078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
       propertyPath: m_Name
       value: Skeleton@Skin
+      objectReference: {fileID: 0}
+    - target: {fileID: 100078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
       propertyPath: m_RootOrder

@@ -32,7 +32,7 @@ public class Teleporter : MonoBehaviour, IInteractable
 
 	public string SetDestination()
     {
-		objectTag = this.transform.parent.tag;
+		objectTag = this.transform.parent.name;
 		switch (objectTag)
         {
 			case "Level1":
@@ -45,6 +45,12 @@ public class Teleporter : MonoBehaviour, IInteractable
 				destination = "Tp4";
 				break;
 			case "Tp5":
+				destination = "Tp6";
+				break;
+			case "Tp7":
+				destination = "Tp8";
+				break;
+			case "Tp9":
 				destination = "Boss";
 				break;
 			default:
@@ -69,7 +75,7 @@ public class Teleporter : MonoBehaviour, IInteractable
 		}
 		else
         {
-			var destinationPos = GameObject.FindGameObjectWithTag(destination).transform.position;
+			var destinationPos = GameObject.Find(destination).transform.position;
 			var offset = new Vector3(3, 0, 0);
 			player.transform.position = destinationPos + offset;
 		}

@@ -7,6 +7,7 @@ public class EnemyCombatAI : MonoBehaviour
 {
     private Canvas enemyInfo;
     private Slider enemyHealth;
+    private Animator _animator;
 
     private float health = 1f;
     private float maxHealth = 1f;
@@ -18,6 +19,8 @@ public class EnemyCombatAI : MonoBehaviour
     {
         enemyInfo = this.transform.GetChild(1).GetComponent<Canvas>();
         enemyHealth = enemyInfo.transform.GetComponentInChildren<Slider>();
+
+        _animator = this.transform.GetChild(2).GetComponent<Animator>();
     }
 
     private void Start()
@@ -37,7 +40,7 @@ public class EnemyCombatAI : MonoBehaviour
 
     public void DoAttack()
     {
-        //animation
+        _animator.SetTrigger("attack");
     }
 
     public void TakeDamage(float damage)
