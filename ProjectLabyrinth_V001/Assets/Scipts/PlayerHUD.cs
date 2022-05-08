@@ -11,8 +11,8 @@ public class PlayerHUD : MonoBehaviour
     void Awake()
     {
         playerScript = this.transform.parent.GetComponent<Player_Behaviour>();
-        playerOverworldHUD = this.transform.GetChild(1).gameObject;
-        inventoryHUD = this.transform.GetChild(0).gameObject;
+        playerOverworldHUD = this.transform.GetChild(0).gameObject;
+        inventoryHUD = this.transform.GetChild(1).gameObject;
     }
 
     void Start()

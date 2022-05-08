@@ -9,6 +9,8 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance;
     [SerializeField] private GameObject player;
     [SerializeField] private PlayerHUD playerHUD;
+    private Player_Behaviour playerBehaviour;
+    private HealthManager _healthManager;
 
     private NavMeshSurface navMesh;
 
@@ -27,8 +29,6 @@ public class LevelManager : MonoBehaviour
         FindObjects();
         navMesh = GameObject.FindObjectOfType<NavMeshSurface>();
         mainParent = GameObject.FindGameObjectWithTag("Parent");
-
-
     }
 
     void Start()
@@ -57,9 +57,12 @@ public class LevelManager : MonoBehaviour
             if (navMesh == null) return;
             navMesh.BuildNavMesh();
         }
+        
+    }
 
-
-
+    void Update()
+    {
+        
     }
 
     void FindObjects()
@@ -67,6 +70,7 @@ public class LevelManager : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player");
         playerHUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<PlayerHUD>();
+        playerBehaviour = player.GetComponent<Player_Behaviour>();
     }
 
     void StartBattle()
@@ -76,6 +80,7 @@ public class LevelManager : MonoBehaviour
 
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
+    
 
     private void OnLevelWasLoaded(int level)
     {
@@ -111,7 +116,7 @@ public class LevelManager : MonoBehaviour
  
 
         SceneManager.SetActiveScene(battleScene);
-
+        
         temp.SetActive(true);
         inBattle = true;
         StartBattle();
@@ -123,17 +128,18 @@ public class LevelManager : MonoBehaviour
         Scene levelScene = SceneManager.GetSceneByName("Level01");
         SceneManager.SetActiveScene(levelScene);
         mainParent.SetActive(true);
-
-
+        
+        playerBehaviour.SetControllerMode("Level01");
+        
         AsyncOperation async = SceneManager.UnloadSceneAsync("Battle");
         while (!async.isDone)
         {
             yield return new WaitForEndOfFrame();
         }
-
+        
         inBattle = false;
         Destroy(temp);
-        
+
     }
     
 

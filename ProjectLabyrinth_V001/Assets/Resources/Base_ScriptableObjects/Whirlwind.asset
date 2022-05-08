@@ -16,6 +16,6 @@ MonoBehaviour:
   skillName: Whirlwind
   attribute: 4
   description: 
-  maxUses: 10
-  usesLeft: 10
-  power: 20
+  maxUses: 8
+  usesLeft: 8
+  power: 25

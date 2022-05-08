@@ -32,6 +32,7 @@ TagManager:
   - CameraSwitch
   - BattleHUD
   - Help
+  - HealthManager
   layers:
   - Default
   - TransparentFX

@@ -53,6 +53,7 @@ public class SkillAttack: MonoBehaviour
         }
         else if (type == Attribute.LIGHT)
         {
+            Debug.Log("Self Healing...");
             return (skill.power);
         }
         return skill.power;

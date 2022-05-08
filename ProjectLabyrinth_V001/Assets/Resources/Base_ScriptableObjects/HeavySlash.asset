@@ -16,6 +16,6 @@ MonoBehaviour:
   skillName: Heavy Slash
   attribute: 0
   description: 
-  maxUses: 15
-  usesLeft: 15
-  power: 15
+  maxUses: 10
+  usesLeft: 10
+  power: 35

@@ -64,7 +64,7 @@ public class BattleController : MonoBehaviour
     public CharacterStats enemy1;
     public Canvas menu;
     private Button yesButton;
-    private Slider playerHealth;
+    
     private List<Slider> enemyHealth = new List<Slider>();
     private Text turnNumberText;
     public int mobValue = 1;
@@ -73,6 +73,9 @@ public class BattleController : MonoBehaviour
     private string turnList;
     public List<GameObject> PlayerParty = new List<GameObject> ();
     public List<GameObject> EnemyParty = new List<GameObject>();
+    
+    private GameObject playerInfo;
+    private Slider battleHealthBar;
 
     private List<GameObject> DeadEnemies = new List<GameObject>();
 
@@ -121,6 +124,8 @@ public class BattleController : MonoBehaviour
     private List<CinemachineVirtualCameraBase> vCamList = new List<CinemachineVirtualCameraBase>();
 
     private BattleData currentData;
+    private GameObject playerChar;
+    private Player_Behaviour _playerBehaviour;
 
 //-----------------------------------------------------------------------------------------------------//------------------------------------------------------------------//
     
@@ -131,6 +136,10 @@ public class BattleController : MonoBehaviour
         EnemyParty.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
         PlayerParty.AddRange(GameObject.FindGameObjectsWithTag("Player"));
 
+        playerChar = PlayerParty[1].gameObject;
+        playerInfo = PlayerParty[0];
+        battleHealthBar = playerInfo.GetComponentInChildren<Slider>();
+        _playerBehaviour = playerChar.GetComponent<Player_Behaviour>();
 
         currentData = new BattleData();
 
@@ -209,6 +218,7 @@ public class BattleController : MonoBehaviour
                     break;
                 case BattleState.ENEMY:
                     //Camera Switch
+
                     vCamList[1].m_Priority = 11;
                     vCamList[0].m_Priority = 10;
                     Debug.Log("Enemy Turn ");
@@ -251,16 +261,19 @@ public class BattleController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        
         //Player Set Up
         if(rAlive == true)
         {
-            playerHealth = PlayerParty[0].transform.GetChild(0).GetChild(1).GetComponent<Slider>();
             rName = rufio.name;
-            rMaxHealth = rufio.maxHealth;
-            rCurrentHealth = rMaxHealth;
-            rAttack = rufio.attack;
-            currentAttackDmg = rAttack;
+            rMaxHealth = _playerBehaviour.GetMaxHealth();
+            rCurrentHealth = HealthManager.Instance.GetPersistentHealth();
+            rAttack = _playerBehaviour.GetAttackDmg();
+            currentAttackDmg = _playerBehaviour.GetAttackDmg();
 
+            battleHealthBar.value = rCurrentHealth / rMaxHealth;
+            
             SkillSetUp();
         }
         
@@ -338,6 +351,10 @@ public class BattleController : MonoBehaviour
         startTurn = false; // this should take the menu off the screen
         onClickBool = false;        //Resets button
 
+        if (enemySelected == null)
+        {
+            enemySelected = EnemyParty[0];
+        }
 
         Debug.Log("Executing Player Actions");
         if (buttonPressed == "BasicAttack")
@@ -345,9 +362,17 @@ public class BattleController : MonoBehaviour
             currentAttackDmg = rAttack;
             PlayerParty[0].GetComponentInChildren<Animator>().SetTrigger("PhysicalAttack");
             Debug.Log("BasicAttack");
+            DealDamage(GetEnemySelected());
         }
-
-        if(buttonPressed != "BasicAttack")
+        else if(buttonPressed == "Self Heal")
+        {
+            currentAttackDmg = 0;
+            var amountToHealBy = skillAttackScript.SelectSkill(buttonPressed);
+            currentData.numberOfItemsUsed += 1;
+            HealPlayer(amountToHealBy);
+            UpdateItemList(activeMenuOptions.Find(i => i.skill.skillName == "Self Heal"));
+        }
+        else
         {
             currentAttackDmg = skillAttackScript.SelectSkill(buttonPressed);
             var skill = activeMenuOptions.Find(i => i.skill.skillName == buttonPressed);
@@ -357,22 +382,15 @@ public class BattleController : MonoBehaviour
                 PlayerParty[0].GetComponentInChildren<Animator>().SetTrigger("SwordAttack");
             }
             else {
-                PlayerParty[0].GetComponentInChildren<Animator>().SetTrigger("MagicAttack");
+                _playerBehaviour.DoMagicAttackAnim();
             }
 
             
             Debug.Log(currentData.numberOfItemsUsed);
             UpdateItemList(skill);
+
+            DealDamage(GetEnemySelected());
         }
-
-
-        // if(buttonPressed == gun)
-        if (enemySelected == null)
-        {
-            enemySelected = EnemyParty[0];
-        }
-        DealDamage(GetEnemySelected());
-
     }
 
     //Enemy Turn Execution
@@ -386,7 +404,7 @@ public class BattleController : MonoBehaviour
 
     private void SwitchTurns(BattleState nextBattleState)
     {
-        if(buttonPressed != "BasicAttack")
+        if(buttonPressed != "BasicAttack" )
         {
             var skill = activeMenuOptions.Find(i => i.skill.skillName == buttonPressed);
             CheckItemList(skill);
@@ -413,7 +431,7 @@ public class BattleController : MonoBehaviour
             skillUsed.skill.usesLeft -= 1;
             var ppText = "x" + skillUsed.skill.usesLeft + " : " + skillUsed.amount;
             lastAttackSelected.transform.GetChild(0).GetComponent<Text>().text = ppText;
-
+        
         }
         else
         {
@@ -431,12 +449,11 @@ public class BattleController : MonoBehaviour
             }
  
         }
-
-        
     }
 
     void CheckItemList(InventorySlot skillUsed)
     {
+        if(buttonPressed == "Escape") return;
         if (skillUsed.skill.usesLeft <= 0)
         {
             if(skillUsed.amount <= 0)
@@ -485,8 +502,11 @@ public class BattleController : MonoBehaviour
     //On button click do this
     public void TurnExecution()  //Turn confirmation
     {
-        onClickBool = true;
-        Debug.Log(onClickBool);
+        if(buttonPressed != "Escape")
+        {
+            onClickBool = true;
+            Debug.Log(onClickBool);
+        }
     }
 
     
@@ -518,7 +538,10 @@ public class BattleController : MonoBehaviour
             var currentEnemyHealth = enemyBehavior.GetCurrentHealth();
             currentEnemyHealth -= currentAttackDmg;
 
-            enemyBehavior.TakeDamage(currentAttackDmg);
+            if(currentAttackDmg != 0)
+            {
+                enemyBehavior.TakeDamage(currentAttackDmg);
+            }
         }
         else
         {
@@ -549,16 +572,34 @@ public class BattleController : MonoBehaviour
         }
     }
 
+    void HealPlayer(float healPower )
+    {
+        rCurrentHealth += healPower;
+        if(rCurrentHealth > rMaxHealth)
+        {
+            rCurrentHealth = rMaxHealth;
+            HealthManager.Instance.SetPersistentHealth(rCurrentHealth);
+            battleHealthBar.value = rCurrentHealth / rMaxHealth;
+            
+        }
+        else
+        {
+            HealthManager.Instance.SetPersistentHealth(rCurrentHealth);
+            battleHealthBar.value = rCurrentHealth / rMaxHealth;
+        }
+        
+    }
+
     IEnumerator TakeDamageAnim(float enemyAttack)
     {
         yield return new WaitForSeconds(1f);
-        var playerBehavior = PlayerParty[1].GetComponent<Player_Behaviour>();
-        playerBehavior.DoTakeHitAnimation();
+        _playerBehaviour.DoTakeHitAnimation();
 
         
 
         rCurrentHealth -= enemyAttack;
-        playerHealth.value = rCurrentHealth / rMaxHealth;
+        HealthManager.Instance.SetPersistentHealth(rCurrentHealth);
+        battleHealthBar.value = rCurrentHealth / rMaxHealth;
         
     }
 
@@ -575,7 +616,7 @@ public class BattleController : MonoBehaviour
     public void Escaping()
     {
         int escapeValue = 1;
-        int randomValue = Random.Range(1, 2);
+        int randomValue = Random.Range(1, 5);  //1/4
 
         if (escapeValue == randomValue)
         {
@@ -586,7 +627,9 @@ public class BattleController : MonoBehaviour
         else
         {
             Debug.Log("Escape Failed");
-            SwitchTurns(BattleState.ENEMY);
+            state = BattleState.ENEMY;
+            StartCoroutine(TurnBasedBattle());
+
         }
     }
 

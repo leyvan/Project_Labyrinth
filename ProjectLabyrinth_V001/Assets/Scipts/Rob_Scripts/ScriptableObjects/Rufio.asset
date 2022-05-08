@@ -15,7 +15,7 @@ MonoBehaviour:
   chName: Rufio
   level: 1
   maxHealth: 100
-  curHealth: 0
+  curHealth: 100
   maxMana: 0
   curMana: 0
   attack: 10

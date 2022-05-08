@@ -10,6 +10,7 @@ public class AI_Behaviour_V1 : MonoBehaviour
     private Transform player;
 
     public GameObject alert;  //Red Alert Text 
+    private bool chasePlayer;
     //1
     public Transform patrolRoute;
     //2
@@ -52,8 +53,9 @@ public class AI_Behaviour_V1 : MonoBehaviour
         rb = this.GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         _animator = this.transform.GetChild(0).GetComponent<Animator>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        if(agent != null)
+        if (agent != null)
         {
             patrolRoute = this.gameObject.transform.parent.parent.transform;
         }
@@ -62,9 +64,6 @@ public class AI_Behaviour_V1 : MonoBehaviour
             cantMove = true;
         }
 
-        
-
-        player = GameObject.FindGameObjectWithTag("Player").transform;
 
         //3
         if (patrolRoute != null)
@@ -91,11 +90,19 @@ public class AI_Behaviour_V1 : MonoBehaviour
         //13
         if(patrolRoute != null)
         {
-            if (agent.remainingDistance < 0.2f && !agent.pathPending)
+            if(chasePlayer != true)
             {
-                //14
-                MoveToNextPatrolLocation();
+                if (agent.remainingDistance < 0.2f && !agent.pathPending)
+                {
+                    //14
+                    MoveToNextPatrolLocation();
+                }
             }
+            else
+            {
+                agent.destination = player.transform.position;
+            }
+
         }
 
 
@@ -156,7 +163,7 @@ public class AI_Behaviour_V1 : MonoBehaviour
         if (other.tag == "Player")
         {
             alert.SetActive(true);
-            agent.destination = player.position;
+            chasePlayer = true;
             Debug.Log("Enemy detected!");
         }
     }
@@ -168,6 +175,7 @@ public class AI_Behaviour_V1 : MonoBehaviour
             locations.Clear();
             InitializePatrolRoute();
             alert.SetActive(false);
+            chasePlayer = false;
             Debug.Log("Enemy out of range.");
         }
     }

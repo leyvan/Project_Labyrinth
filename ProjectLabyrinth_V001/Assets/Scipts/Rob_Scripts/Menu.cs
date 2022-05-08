@@ -120,7 +120,7 @@ public class Menu : MonoBehaviour
             case MenuState.START:
                 menuState = MenuState.START;
                 text.gameObject.SetActive(true);
-                text.SetText(" ");
+                text.SetText("Menu");
                 basicMenu.SetActive(true);
                 rufioMenu.SetActive(false);
                 confirmation.SetActive(false);

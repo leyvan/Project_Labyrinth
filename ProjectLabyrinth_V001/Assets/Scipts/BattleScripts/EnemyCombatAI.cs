@@ -15,12 +15,15 @@ public class EnemyCombatAI : MonoBehaviour
 
     private bool dead = false;
 
+    private ParticleSystem impact;
+
     private void Awake()
     {
         enemyInfo = this.transform.GetChild(1).GetComponent<Canvas>();
         enemyHealth = enemyInfo.transform.GetComponentInChildren<Slider>();
 
         _animator = this.transform.GetChild(2).GetComponent<Animator>();
+        impact = this.transform.GetComponentInChildren<ParticleSystem>();
     }
 
     private void Start()
@@ -47,6 +50,7 @@ public class EnemyCombatAI : MonoBehaviour
     {
         yield return new WaitForSeconds(0.6f);
         _animator.SetTrigger("gotHit");
+        impact.Play();
         SetHealthBar();
     }
 

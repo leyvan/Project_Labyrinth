@@ -1,13 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Ludiq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Player_Behaviour : MonoBehaviour
 {
-    public float moveSpeed = 3f;
-    public float runSpeed = 9f;
+    public float moveSpeed = 6f;
+    public float runSpeed = 10f;
     private float walkMagnitude = 1f;
     public float currentSpeed;
     public float rotateSpeed = 75f;
@@ -35,21 +37,41 @@ public class Player_Behaviour : MonoBehaviour
     private Vector3 direction;
 
     public InventorySO inventory;  //I can make this private
-    public GameObject playerHUD;
+    private PlayerHUD playerHUD;
 
     public PartyListScriptableObject party;
+    public CharacterStats mainCharacterStats;
+    
+    private Canvas playerInfo;
+    private Slider playerHealth;
 
+    private float health = 1f;
+    private float maxHealth = 1f;
+    private float attack;
+
+    private bool dead = false;
+
+    
+    
     public enum ControllerMode{BattleMode,OverWorldMode};
     [SerializeField] public ControllerMode currentMode;
 
+    public GameObject projectile;
+    private ParticleSystem shockwave;
+    public Transform firePoint;
+    
     void Awake()
     {
         //SetControllerMode(SceneManager.GetActiveScene().name);
 
+        playerHUD = GetComponentInChildren<PlayerHUD>();
+        playerHealth = playerHUD.transform.GetComponentInChildren<Slider>();
         _rb = GetComponent<Rigidbody>();
         _col = GetComponent<CapsuleCollider>();
         _animator = GetComponentInChildren<Animator>();
         _ctrl = GetComponent<CharacterController>();
+        shockwave = transform.GetChild(5).GetComponentInChildren<ParticleSystem>();
+        
         cam = Camera.main;    //<--- change this
     }
 
@@ -59,7 +81,9 @@ public class Player_Behaviour : MonoBehaviour
         //2- Find and return GameBehavior script attached to Game Manager object in scene
         currentSpeed = moveSpeed;
         canMove = true;
-
+        
+        SetHealth(HealthManager.Instance.GetPersistentHealth());
+        SetDamage(mainCharacterStats.attack);
     }
 
     void Update()
@@ -69,17 +93,24 @@ public class Player_Behaviour : MonoBehaviour
 
         if (currentMode == ControllerMode.BattleMode) return;
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (canMove == true)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            
+        }
+        
         if(_animator.GetBool("InBattle") == true)
         {
             _animator.SetBool("InBattle", false);
         }
 
-
-
         //Open Inventory Player Button - I -
         if (Input.GetKeyDown(KeyCode.I))
         {
-            playerHUD.GetComponent<PlayerHUD>().OpenInventory();
+            playerHUD.OpenInventory();
         }
 
         //Interact Player Button - E -
@@ -98,7 +129,7 @@ public class Player_Behaviour : MonoBehaviour
         direction = new Vector3(_hInput, 0f, _vInput).normalized;
 
 
-
+        
 
         //Character Movement and Animation Controller                          
         //Check if the player is trying to move
@@ -174,10 +205,12 @@ public class Player_Behaviour : MonoBehaviour
             case string b when b.Contains("Battle"):
                 currentMode = ControllerMode.BattleMode;
                 _animator.SetBool("InBattle", true);
+                playerHUD.gameObject.SetActive(false);
                 break;
-            default:
+            case string c when !c.Contains("Battle"):
                 currentMode = ControllerMode.OverWorldMode;
                 _animator.SetBool("InBattle", false);
+                playerHUD.gameObject.SetActive(true);
                 break;
         }
     }
@@ -195,7 +228,7 @@ public class Player_Behaviour : MonoBehaviour
                 return nearestObj;
             }
         }
-            return null;
+        return null;
 
         
     }
@@ -206,6 +239,7 @@ public class Player_Behaviour : MonoBehaviour
     {
         return currentMode;
     }
+
     void Move()
     {
         float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
@@ -216,7 +250,7 @@ public class Player_Behaviour : MonoBehaviour
         //Vector3 moveDir = Quaternion.Euler(0f, angle, 0f) * Vector3.forward;
         //_ctrl.Move(moveDir * currentSpeed * Time.deltaTime);
         Vector3 moveDir = new Vector3(transform.forward.x, _rb.velocity.y, transform.forward.z);
-        _rb.MovePosition(this.transform.position + moveDir * currentSpeed * Time.fixedDeltaTime);
+        _rb.MovePosition(this.transform.position + moveDir * currentSpeed * Time.deltaTime);
 
     }
 
@@ -228,8 +262,86 @@ public class Player_Behaviour : MonoBehaviour
 
     private void OnApplicationQuit()
     {
+        mainCharacterStats.curHealth = maxHealth;
         inventory.skillInventory.Clear();
         party.enemyParty.Clear();
     }
+//---------------------------------------------------------------------------------------------------------------------------------
+    public float GetAttackDmg()
+    {
+        return mainCharacterStats.attack;
+    }
+
+    /*
+    IEnumerator DoHitAnimation()
+    {
+        yield return new WaitForSeconds(0.6f);
+        _animator.SetTrigger("gotHit");
+        SetHealthBar();
+    }
+    */
+
+    public void DoMagicAttackAnim()
+    {
+        /*
+        _animator.SetTrigger("MagicAttack");
+        shockwave.Play();
+        GameObject fireball = Instantiate(projectile, firePoint.position + new Vector3(0.5f, 0, 0), Quaternion.identity);
+        */
+        StartCoroutine(MagicAttackAnim());
+    }
+
+    IEnumerator MagicAttackAnim()
+    {
+        _animator.SetTrigger("MagicAttack");
+        yield return new WaitForSeconds(0.2f);
+        shockwave.Play();
+        yield return new WaitForSeconds(0.1f);
+        GameObject fireball = Instantiate(projectile, firePoint.position + new Vector3(0.5f, 0, 0), Quaternion.identity);
+    }
     
+    public void SetDamage(float newAttack)
+    {
+        attack = newAttack;
+    }
+    
+    public void SetHealth(float newHealth)
+    {
+        health = newHealth;
+        maxHealth = mainCharacterStats.maxHealth;
+        SetHealthBar();
+    }
+
+    public void SetOverWorldHealth()
+    {
+        health = HealthManager.Instance.GetPersistentHealth();
+        SetHealthBar();
+    }
+    
+    public void SetHealthBar()
+    {
+        playerHealth.value = health/maxHealth;
+    }
+
+    public float GetCurrentHealth()
+    {
+        return health;
+    }
+
+    public float GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public Slider GetHealthBar()
+    {
+        return playerHealth;
+    }
+    
+    
+
+    private void OnEnable()
+    {
+        SetOverWorldHealth();
+    }
 }
