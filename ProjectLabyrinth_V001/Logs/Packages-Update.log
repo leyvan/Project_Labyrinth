@@ -62,3 +62,12 @@ The following packages were added:
   com.unity.2d.sprite@1.0.0
   com.unity.2d.tilemap@1.0.0
   com.unity.xr.legacyinputhelpers@2.1.4
+
+=== Sun May  8 15:40:10 2022
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.collab-proxy from version 1.11.2 to 1.15.4
+  com.unity.xr.legacyinputhelpers from version 2.1.4 to 2.1.8
