@@ -1,2 +1,2 @@
-# Project_Labyrinth
+# ORIGANLY CALLED Project_Labyrinth - NOW CALLED SOLACE 
  SHU Senior Project
