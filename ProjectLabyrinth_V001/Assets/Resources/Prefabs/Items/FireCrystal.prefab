@@ -248,9 +248,10 @@ GameObject:
   - component: {fileID: 8483451334446678014}
   - component: {fileID: 7676689442135823769}
   - component: {fileID: 8680578231790275155}
+  - component: {fileID: 2193960500452000382}
   m_Layer: 0
   m_Name: FireCrystal
-  m_TagString: Untagged
+  m_TagString: Crystal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -369,3 +370,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 10
   m_Center: {x: 0, y: -0.00000005960466, z: 8.4703295e-22}
+--- !u!114 &2193960500452000382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8371569259475471962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9b7c885b89e6024bb9d269fa4505284, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: Fire Crystal
+  itemType: 1
+  itemStack: 1

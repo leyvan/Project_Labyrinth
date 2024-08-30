@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3784883869979398421}
   - component: {fileID: 838951793695459932}
   - component: {fileID: 3919462891795907525}
+  - component: {fileID: -6381424868844853124}
   m_Layer: 0
   m_Name: HealCrystal
   m_TagString: Untagged
@@ -136,6 +137,21 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 10
   m_Center: {x: 0.0014882088, y: -0.0025726787, z: -0.046597403}
+--- !u!114 &-6381424868844853124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3823578325320691155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9b7c885b89e6024bb9d269fa4505284, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: Heal Crystal
+  itemType: 0
+  itemStack: 1
 --- !u!1 &4419932177629228436
 GameObject:
   m_ObjectHideFlags: 0

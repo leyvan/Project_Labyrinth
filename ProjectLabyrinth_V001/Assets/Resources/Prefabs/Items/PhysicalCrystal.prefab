@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 3937827529855595124}
   - component: {fileID: 4327914857629397187}
   - component: {fileID: 4287440410551977820}
+  - component: {fileID: -8633467093517804084}
   m_Layer: 0
   m_Name: PhysicalCrystal
   m_TagString: Untagged
@@ -269,6 +270,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skill: {fileID: 11400000, guid: f8e34bcdc9aa39e45a62d676895d6ce5, type: 2}
+--- !u!114 &-8633467093517804084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3977653393502471120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9b7c885b89e6024bb9d269fa4505284, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: Physical Crystal
+  itemType: 1
+  itemStack: 1
 --- !u!1 &5748107337430961278
 GameObject:
   m_ObjectHideFlags: 0
