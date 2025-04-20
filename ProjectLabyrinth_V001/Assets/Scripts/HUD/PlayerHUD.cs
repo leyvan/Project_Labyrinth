@@ -7,6 +7,8 @@ public class PlayerHUD : MonoBehaviour
     private Player_Behaviour playerScript;
     private GameObject playerOverworldHUD;
     private GameObject inventoryHUD;
+    
+    [SerializeField] private DisplayInventory displayInventory; 
     // Start is called before the first frame update
     void Awake()
     {
@@ -20,7 +22,7 @@ public class PlayerHUD : MonoBehaviour
         TogglePlayerHUD(playerScript.currentMode);
     }
 
-    public void OpenInventory()
+    public void ToggleInventory()
     {
         inventoryHUD.SetActive(!inventoryHUD.activeSelf);
     }
@@ -35,6 +37,11 @@ public class PlayerHUD : MonoBehaviour
         {
             playerOverworldHUD.SetActive(true);
         }
+    }
+
+    public DisplayInventory GetDisplayInventory()
+    {
+        return displayInventory;
     }
 
 }

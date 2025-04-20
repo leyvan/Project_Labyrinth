@@ -33,6 +33,8 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
+        GameEvents.current.onLevelEnvironmentLoaded += OnLevelAssetsLoaded;
+        
         Cursor.lockState = CursorLockMode.Confined;     //Confines the cursor to game screen
         if (SceneManager.GetActiveScene().name == "StartLevel")
         {
@@ -53,21 +55,20 @@ public class LevelManager : MonoBehaviour
 
             player.GetComponent<Player_Behaviour>().SetControllerMode("Level01");
             playerHUD.TogglePlayerHUD(Player_Behaviour.ControllerMode.OverWorldMode);
-
-            if (navMesh == null) return;
-            navMesh.BuildNavMesh();
         }
         
     }
 
-    void Update()
+    private void OnLevelAssetsLoaded()
     {
+        if (navMesh == null) return;
+        navMesh.BuildNavMesh();
         
+        GameEvents.current.BuiltNavmesh();
     }
 
     void FindObjects()
     {
-
         player = GameObject.FindGameObjectWithTag("Player");
         playerHUD = GameObject.FindGameObjectWithTag("HUD").GetComponent<PlayerHUD>();
         playerBehaviour = player.GetComponent<Player_Behaviour>();
@@ -91,7 +92,7 @@ public class LevelManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name != "Battle")
         {
-            player.transform.GetChild(3).GetChild(0).GetChild(2).GetComponent<DisplayInventory>().ReloadInventoryOnLoad();
+            playerHUD.GetDisplayInventory().ReloadInventoryOnLoad();
         }
     }
 

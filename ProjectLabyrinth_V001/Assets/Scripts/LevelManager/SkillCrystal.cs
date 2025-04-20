@@ -70,11 +70,10 @@ public class SkillCrystal : MonoBehaviour, IInteractable
     public void RemoveFromOverWorld()
     {
         showText = false;
-        helpText.gameObject.SetActive(false);
+        //helpText.gameObject.SetActive(false);
 
         player.GetComponent<Player_Behaviour>().inventory.fillInventory(skill, 1);
         player.transform.GetChild(3).GetChild(1).GetChild(2).GetComponent<DisplayInventory>().UpdateInventorySlot(skill);
-        //this.gameObject.SetActive(false);
-        Destroy(this.gameObject);
+        this.gameObject.SetActive(false);
     }
 }

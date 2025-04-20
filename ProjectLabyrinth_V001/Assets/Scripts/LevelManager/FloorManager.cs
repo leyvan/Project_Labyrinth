@@ -92,5 +92,6 @@ public class FloorManager : MonoBehaviour
             moveTpToFloor -= 25;
             count++;
         }
+        
     }
 }

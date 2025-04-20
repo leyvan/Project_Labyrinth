@@ -10,7 +10,6 @@ public class FloorBehavior : MonoBehaviour
 
     void Awake()
     {
-        GetItemSpawnPoints();
         GetEnemySpawnPoints();
     }
 
@@ -39,6 +38,8 @@ public class FloorBehavior : MonoBehaviour
 
             RandomlySpawnEnemies();
         }
+        
+        GetItemSpawnPoints();
     }
 
     void RandomlySpawnItems()
@@ -51,6 +52,8 @@ public class FloorBehavior : MonoBehaviour
             var rand = RandomItemSpawnRateCalc();
             Instantiate(items[rand], spawnPoint.position + new Vector3(0,1,0), spawnPoint.rotation * Quaternion.Euler(-90, 0, 0), spawnPoint);
         }
+        
+        GameEvents.current.TriggerLevelEnvironmentLoaded();
     }
 
     void RandomlySpawnEnemies()

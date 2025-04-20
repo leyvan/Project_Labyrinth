@@ -7,11 +7,15 @@ using System;
 public class GameEvents : MonoBehaviour
 {
     // Start is called before the first frame update
-    
     public static GameEvents current;
     void Awake()
     {
-        current = this;
+        if(current == null)
+            current = this;
+        else
+            Destroy(gameObject);
+        
+        DontDestroyOnLoad(gameObject);
     }
     
     public event Action<bool> onPlayerInMenu;
@@ -57,6 +61,43 @@ public class GameEvents : MonoBehaviour
         {
             onAddNewItemTypeToInventory(newItem);
         }
+    }
+
+    public event Action onDialogueEventTriggered;
+    public void TriggerDialogue()
+    {
+        onDialogueEventTriggered?.Invoke();
+    }
+
+    public event Action onDialogueEventEnded;
+
+    public void DialogueEventEnded()
+    {
+        onDialogueEventEnded?.Invoke();
+    }
+
+    //Level Assets Loaded Event Flag
+    public event Action onLevelEnvironmentLoaded;
+
+    public void TriggerLevelEnvironmentLoaded()
+    {
+        onLevelEnvironmentLoaded?.Invoke();
+    }
+
+    //Enemies Loaded Event Flag
+    public event Action onOverworldEnemiesLoaded;
+
+    public void TriggerOverworldEnemiesLoaded()
+    {
+        onOverworldEnemiesLoaded?.Invoke();
+    }
+
+    //Navmesh Built Event Flag
+    public event Action onNavmeshBuilt;
+
+    public void BuiltNavmesh()
+    {
+        onNavmeshBuilt?.Invoke();
     }
 
 }

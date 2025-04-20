@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,7 +31,16 @@ public class TutorialPopUp : MonoBehaviour
 		player = GameObject.FindGameObjectWithTag("Player");
 		helpCanvas = GameObject.FindGameObjectWithTag("Help");
 
-		item = this.transform.GetChild(0).gameObject;
+		try
+		{
+			item = this.transform.GetChild(0).gameObject;
+		}
+		catch (Exception ex)
+		{
+			item = null;
+		}
+		
+		
 		if(item != null)
         {
 			onItemPickUp = true;
@@ -39,7 +49,7 @@ public class TutorialPopUp : MonoBehaviour
 
     private void Update()
     {
-        if(onItemPickUp == true)
+        if(onItemPickUp)
         {
 			if(item == null)
             {

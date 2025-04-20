@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,9 +12,7 @@ public class DialogueSystem : MonoBehaviour
 	public Canvas dialogueCanvas;
 	public Image charImageFrame;
 	
-	private GameObject player;
-	private Transform playerCamTarget;
-	private Cinemachine.CinemachineFreeLook freeLookCam;
+	private CinemachineVirtualCamera npcCamera;
 	private int resetLens = 40;
 	//public Animator animator;
 
@@ -25,13 +24,7 @@ public class DialogueSystem : MonoBehaviour
 	private List<string> characters;
 	private List<Sprite> charImages;
     // Use this for initialization
-
-    void Awake()
-    {
-		player = GameObject.FindGameObjectWithTag("Player");
-		playerCamTarget = player.transform.GetChild(1).transform;
-		freeLookCam = GameObject.FindGameObjectWithTag("ThirdPersonCam").GetComponent<Cinemachine.CinemachineFreeLook>();
-    }
+    
     void Start()
 	{
 		sentences = new Queue<string>();
@@ -39,15 +32,15 @@ public class DialogueSystem : MonoBehaviour
 		characters = new List<string>();
 	}
 
-	public void StartDialogue(Dialogue dialogue)
+	public void StartDialogue(Dialogue dialogue, GameObject vcam)
 	{
+		npcCamera = vcam.GetComponent<CinemachineVirtualCamera>();
 		//animator.SetBool("IsOpen", true);
 		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
 
 		dialogueCanvas.gameObject.SetActive(true);
 		nameText = dialogueCanvas.GetComponentInChildren<Text>();
-		player.GetComponent<Player_Behaviour>().canMove = false;
 
 		sentences.Clear();
 		characters.Clear();
@@ -121,13 +114,12 @@ public class DialogueSystem : MonoBehaviour
 	void EndDialogue()
 	{
 		//animator.SetBool("IsOpen", false);
-		freeLookCam.m_Lens.FieldOfView = resetLens;
-		freeLookCam.m_LookAt = playerCamTarget;
+		npcCamera.enabled = false;
 
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.None;
 
-		player.GetComponent<Player_Behaviour>().canMove = true;
+		GameEvents.current.DialogueEventEnded();
 		dialogueCanvas.gameObject.SetActive(false);
 	}
 

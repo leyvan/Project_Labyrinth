@@ -35,6 +35,7 @@ TagManager:
   - HealthManager
   - GameEvents
   - Crystal
+  - CameraController
   layers:
   - Default
   - TransparentFX

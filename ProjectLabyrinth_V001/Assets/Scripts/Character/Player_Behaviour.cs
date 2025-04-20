@@ -72,6 +72,7 @@ public class Player_Behaviour : MonoBehaviour
     private float enemyTargetFOV = 80;
     private bool targetLockOn;
     private bool lockOnIsActive = false;
+    private bool cameraLockOn = false;
 
     public bool TargetLockOn {
         get
@@ -99,6 +100,9 @@ public class Player_Behaviour : MonoBehaviour
         defaultCameraTarget = transform.GetComponentInChildren<Transform>().Find("CameraTarget");
         
         cam = Camera.main;    //<--- change this
+        
+        if(currentMode == ControllerMode.OverWorldMode) 
+            thirdPersonCam = GameObject.FindGameObjectWithTag("CameraController").transform.Find("ThirdPerson Camera").GetComponent<CinemachineFreeLook>();
     }
 
     void Start()
@@ -108,6 +112,8 @@ public class Player_Behaviour : MonoBehaviour
         currentSpeed = moveSpeed;
         canMove = true;
         GameEvents.current.onPlayerInMenu += OnPlayerOpensAMenu;
+        GameEvents.current.onDialogueEventTriggered += () => OnDialogueEvent(true);
+        GameEvents.current.onDialogueEventEnded += () => OnDialogueEvent(false);
 
         if (HealthManager.Instance != null)
         {
@@ -122,13 +128,9 @@ public class Player_Behaviour : MonoBehaviour
         //--------------------------------------------------------------Player Mechanics----------------------------------------------------//
         if (currentMode == ControllerMode.BattleMode) return;
 
-        if (Input.GetMouseButtonDown(0))
+        if (canMove && !inMenu && Input.GetMouseButtonDown(0))
         {
-            if (canMove == true)
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-            }
-            
+            Cursor.lockState = CursorLockMode.Locked;
         }
         
         if(_animator.GetBool("InBattle") == true)
@@ -139,7 +141,14 @@ public class Player_Behaviour : MonoBehaviour
         //Open Inventory Player Button - I -
         if (Input.GetKeyDown(KeyCode.I))
         {
-            playerHUD.OpenInventory();
+            playerHUD.ToggleInventory();
+            GameEvents.current.PlayerInMenu(!inMenu);
+        }
+
+        if (inMenu && Input.GetKeyDown(KeyCode.Escape))
+        {
+            playerHUD.ToggleInventory();
+            GameEvents.current.PlayerInMenu(!inMenu);
         }
 
         if (Input.GetKeyDown(KeyCode.T))
@@ -154,14 +163,17 @@ public class Player_Behaviour : MonoBehaviour
                 transform.LookAt(enemyCameraTarget);
             }
         }
-
         //Interact Player Button - E -
         if (Input.GetKey(KeyCode.E) && interactableObjectInProximity)
         {
-            interactableObj.Interact();
-        }
-        
+            if (interactableObj != null) interactableObj.Interact();
 
+            interactableObjectInProximity = false;
+            interactableObj = null;
+        }
+
+        if (inMenu) return;
+        //INPUT DETECTION -------------------------------------------------------------------------------------------------------------------------//
         float _vInput = Input.GetAxisRaw("Vertical");
         float _hInput = Input.GetAxisRaw("Horizontal");
         direction = new Vector3(_hInput, 0f, _vInput).normalized;
@@ -181,11 +193,9 @@ public class Player_Behaviour : MonoBehaviour
                 }
                 else
                 {
-
                     _animator.SetBool("running?", false);
                     _animator.SetBool("walking?", true);
                     currentSpeed = moveSpeed;
-
                 }
 
             }
@@ -207,16 +217,22 @@ public class Player_Behaviour : MonoBehaviour
             Move();
         }
     }
-
+    
     private void OnPlayerOpensAMenu(bool isPlayerInMenu)
     {
         if (isPlayerInMenu)
         {
             thirdPersonCam.enabled = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            inMenu = true;
         }
         else
         {
             thirdPersonCam.enabled = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            inMenu = false;
         }
     }
 
@@ -250,7 +266,6 @@ public class Player_Behaviour : MonoBehaviour
         }
     }
     
-    
     private void LockOntoTarget(bool lockOn)
     {
         if (lockOnIsActive == false)
@@ -271,9 +286,7 @@ public class Player_Behaviour : MonoBehaviour
         targetLockOn = !lockOn;
         lockOnIsActive = !lockOnIsActive;
     }
-
-
-
+    
     public void SetControllerMode(string scene)
     {
         switch (scene)
@@ -290,8 +303,7 @@ public class Player_Behaviour : MonoBehaviour
                 break;
         }
     }
-
- 
+    
     private GameObject GetNearestGameObject()
     {
         //var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -305,11 +317,7 @@ public class Player_Behaviour : MonoBehaviour
             }
         }
         return null;
-
-        
     }
-
-   
     
     public ControllerMode GetCurrentControllerMode()
     {
@@ -327,7 +335,6 @@ public class Player_Behaviour : MonoBehaviour
         //_ctrl.Move(moveDir * currentSpeed * Time.deltaTime);
         Vector3 moveDir = new Vector3(transform.forward.x, _rb.velocity.y, transform.forward.z);
         _rb.MovePosition(this.transform.position + moveDir * currentSpeed * Time.deltaTime);
-
     }
 
 
@@ -414,11 +421,27 @@ public class Player_Behaviour : MonoBehaviour
     {
         return playerHealth;
     }
-    
-    
 
+    public void SetCameraLockOn(bool lockOn)
+    {
+        cameraLockOn = lockOn;
+    }
+
+    public void SetCanMove(bool lockOn)
+    {
+        canMove = lockOn;
+    }
+    
     private void OnEnable()
     {
         SetOverWorldHealth();
+    }
+
+    private void OnDialogueEvent(bool dialogueInProgress)
+    {
+        thirdPersonCam.m_XAxis.m_InputAxisName = dialogueInProgress ?  "" : "Mouse X";
+        thirdPersonCam.m_YAxis.m_InputAxisName = dialogueInProgress ?  "" : "Mouse Y";
+        
+        SetCanMove(!dialogueInProgress);
     }
 }

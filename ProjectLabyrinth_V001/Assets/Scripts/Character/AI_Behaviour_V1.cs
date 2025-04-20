@@ -9,26 +9,21 @@ public class AI_Behaviour_V1 : MonoBehaviour
 {
     private Transform player;
 
-    public GameObject alert;  //Red Alert Text 
+    public GameObject alert;
     private bool chasePlayer;
-    //1
     public Transform patrolRoute;
-    //2
     public List<Transform> locations;
-
     public PartyListScriptableObject partyList;
-
     private GameObject thisEnemy;
-
     private Rigidbody rb;
     private Animator _animator;
-
-    //8
+    
     private int locationIndex = 0;
-    //9
     private NavMeshAgent agent;
     private int _lives = 3;
     public bool cantMove;
+
+    private bool agentIsActive;
 
     public int Lives
     {
@@ -47,40 +42,20 @@ public class AI_Behaviour_V1 : MonoBehaviour
 
     void Start()
     {
-
-        //10
-
         rb = this.GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         _animator = this.transform.GetChild(0).GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-
-        if (agent != null)
-        {
-            patrolRoute = this.gameObject.transform.parent.parent.transform;
-        }
-        else
-        {
-            cantMove = true;
-        }
-
-
-        //3
-        if (patrolRoute != null)
-        {
-
-            InitializePatrolRoute();
-            //11
-            MoveToNextPatrolLocation();
-        }
-
+        
         GetThisEnemy();
 
+        GameEvents.current.onNavmeshBuilt += NavmeshBuildCompleted;
     }
-
     void Update()
     {
-        if (cantMove == true)
+        if (!agentIsActive) return;
+        
+        if (cantMove)
         {
             agent.isStopped = true;
             agent.velocity = Vector3.zero;
@@ -94,7 +69,6 @@ public class AI_Behaviour_V1 : MonoBehaviour
             {
                 if (agent.remainingDistance < 0.2f && !agent.pathPending)
                 {
-                    //14
                     MoveToNextPatrolLocation();
                 }
             }
@@ -104,16 +78,34 @@ public class AI_Behaviour_V1 : MonoBehaviour
             }
 
         }
-
-
         if (agent.acceleration > 0.1f)
         {
-
             _animator.SetBool("running?", false);
             _animator.SetBool("walking?", true);
         }
+    }
 
+    private void NavmeshBuildCompleted()
+    {
+        StartCoroutine(SetupPatrolRoute());
+    }
 
+    IEnumerator SetupPatrolRoute()
+    {
+        yield return new WaitForSeconds(2f);    //Delay is to wait for Navmesh Build
+        
+        if (agent != null)
+        {
+            patrolRoute = this.gameObject.transform.parent.parent.transform;
+        }
+        else
+        {
+            cantMove = true;
+        }
+        if (patrolRoute != null)
+        {
+            InitializePatrolRoute();
+        }
     }
 
     void GetThisEnemy()
@@ -143,6 +135,10 @@ public class AI_Behaviour_V1 : MonoBehaviour
             //6
             locations.Add(child);
         }
+
+        agentIsActive = true;
+        
+        MoveToNextPatrolLocation();
     }
 
     void MoveToNextPatrolLocation()

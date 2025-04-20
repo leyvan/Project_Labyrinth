@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour, IInteractable
 {
     public Dialogue dialogue;
-    public Cinemachine.CinemachineFreeLook freeLookCam;
+    public GameObject vcam;
     private DialogueSystem dialgSystem;
     private int lens = 55;
 
@@ -13,21 +14,19 @@ public class DialogueTrigger : MonoBehaviour, IInteractable
 
     void Awake()
     {
-        freeLookCam = GameObject.FindGameObjectWithTag("ThirdPersonCam").GetComponent<Cinemachine.CinemachineFreeLook>();
+        vcam = transform.GetChild(0).Find("NPCCamera").gameObject;
         dialgSystem = FindObjectOfType<DialogueSystem>();
     }
     public void Interact()
     {
         TriggerDialogue();
+        GameEvents.current.TriggerDialogue();
     }
-
-
-
+    
     public void TriggerDialogue()
     {
         spokeWith = true;
-        freeLookCam.m_Lens.FieldOfView = lens;
-        freeLookCam.m_LookAt = this.transform;
-        dialgSystem.StartDialogue(dialogue);
+        vcam.GetComponent<CinemachineVirtualCamera>().enabled = true;
+        dialgSystem.StartDialogue(dialogue, vcam);
     }
 }
