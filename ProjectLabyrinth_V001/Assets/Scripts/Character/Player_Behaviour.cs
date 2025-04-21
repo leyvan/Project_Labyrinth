@@ -100,9 +100,8 @@ public class Player_Behaviour : MonoBehaviour
         defaultCameraTarget = transform.GetComponentInChildren<Transform>().Find("CameraTarget");
         
         cam = Camera.main;    //<--- change this
-        
-        if(currentMode == ControllerMode.OverWorldMode) 
-            thirdPersonCam = GameObject.FindGameObjectWithTag("CameraController").transform.Find("ThirdPerson Camera").GetComponent<CinemachineFreeLook>();
+       
+        thirdPersonCam = GameObject.FindGameObjectWithTag("CameraController").transform.Find("ThirdPerson Camera").GetComponent<CinemachineFreeLook>();
     }
 
     void Start()
@@ -220,6 +219,9 @@ public class Player_Behaviour : MonoBehaviour
     
     private void OnPlayerOpensAMenu(bool isPlayerInMenu)
     {
+        if(thirdPersonCam == null) 
+            thirdPersonCam = GameObject.FindGameObjectWithTag("CameraController").transform.Find("ThirdPerson Camera").GetComponent<CinemachineFreeLook>();
+        
         if (isPlayerInMenu)
         {
             thirdPersonCam.enabled = false;

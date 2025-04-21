@@ -13,7 +13,13 @@ public class HealthManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+
+        if(Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+            
+        
         player = GameObject.FindGameObjectWithTag("Player");
         playerBehaviour = player.GetComponent<Player_Behaviour>();
         playerCurrentHealth = playerBehaviour.mainCharacterStats.curHealth;

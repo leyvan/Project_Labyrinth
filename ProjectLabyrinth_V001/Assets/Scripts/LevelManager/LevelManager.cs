@@ -14,9 +14,6 @@ public class LevelManager : MonoBehaviour
 
     private NavMeshSurface navMesh;
 
-    [SerializeField]
-    private GameObject spawnPoints;
-
     public bool inBattle;
 
     private GameObject temp;

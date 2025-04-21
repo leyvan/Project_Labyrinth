@@ -5,7 +5,6 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using Image = Microsoft.Unity.VisualStudio.Editor.Image;
 
 
 //Use Game Events here

@@ -8,7 +8,7 @@ public class FloorBehavior : MonoBehaviour
     public List<Transform> itemSpawnPoints = new List<Transform>();
     public List<Transform> enemySpawnPoints = new List<Transform>();
 
-    void Awake()
+    void Start()
     {
         GetEnemySpawnPoints();
     }

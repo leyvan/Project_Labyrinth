@@ -14,8 +14,6 @@ public class GameEvents : MonoBehaviour
             current = this;
         else
             Destroy(gameObject);
-        
-        DontDestroyOnLoad(gameObject);
     }
     
     public event Action<bool> onPlayerInMenu;
