@@ -1,0 +1,835 @@
+Using pre-set license
+Built from '2022.3/staging' branch; Version is '2022.3.14f1 (eff2de9070d8) revision 15725278'; Using compiler version '192829333'; Build Type 'Release'
+OS: 'Windows 11  (10.0.26100) 64bit Core' Language: 'en' Physical Memory: 16239 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2022.3.14f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker4
+-projectPath
+C:/Users/gamer/OneDrive/Documents/Github Repos/Project_Labyrinth/ProjectLabyrinth_V001
+-logFile
+Logs/AssetImportWorker4.log
+-srvPort
+63638
+Successfully changed project path to: C:/Users/gamer/OneDrive/Documents/Github Repos/Project_Labyrinth/ProjectLabyrinth_V001
+C:/Users/gamer/OneDrive/Documents/Github Repos/Project_Labyrinth/ProjectLabyrinth_V001
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [30304] Host "[IP] 192.168.4.22 [Port] 0 [Flags] 2 [Guid] 2298250602 [EditorId] 2298250602 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-KLK6U7O) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+
+Player connection [30304] Host "[IP] 192.168.4.22 [Port] 0 [Flags] 2 [Guid] 2298250602 [EditorId] 2298250602 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-KLK6U7O) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+
+[Physics::Module] Initialized MultithreadedJobDispatcher with 11 workers.
+Refreshing native plugins compatible for Editor in 7.29 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2022.3.14f1 (eff2de9070d8)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.3.14f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/gamer/OneDrive/Documents/Github Repos/Project_Labyrinth/ProjectLabyrinth_V001/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 3060 Ti (ID=0x2486)
+    Vendor:   NVIDIA
+    VRAM:     8024 MB
+    Driver:   32.0.15.7270
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.3.14f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.3.14f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.3.14f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56208
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.14f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.005798 seconds.
+- Loaded All Assemblies, in  0.304 seconds
+Native extension for WindowsStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.246 seconds
+Domain Reload Profiling: 549ms
+	BeginReloadAssembly (95ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (1ms)
+	RebuildCommonClasses (31ms)
+	RebuildNativeTypeToScriptingClass (9ms)
+	initialDomainReloadingComplete (51ms)
+	LoadAllAssembliesAndSetupDomain (117ms)
+		LoadAssemblies (93ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (115ms)
+			TypeCache.Refresh (114ms)
+				TypeCache.ScanAssembly (104ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (0ms)
+	FinalizeReload (247ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (189ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (9ms)
+			SetLoadedEditorAssemblies (8ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (2ms)
+			ProcessInitializeOnLoadAttributes (121ms)
+			ProcessInitializeOnLoadMethodAttributes (48ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+========================================================================
+Worker process is ready to serve import requests
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  0.639 seconds
+Refreshing native plugins compatible for Editor in 3.00 ms, found 2 plugins.
+OnLevelWasLoaded was found on LevelManager
+This message has been deprecated and will be removed in a later version of Unity.
+Add a delegate to SceneManager.sceneLoaded instead to get notifications after scene loading has completed
+Native extension for WindowsStandalone target not found
+Package Manager log level set to [2]
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.790 seconds
+Domain Reload Profiling: 1427ms
+	BeginReloadAssembly (143ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (5ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (20ms)
+	RebuildCommonClasses (32ms)
+	RebuildNativeTypeToScriptingClass (10ms)
+	initialDomainReloadingComplete (41ms)
+	LoadAllAssembliesAndSetupDomain (410ms)
+		LoadAssemblies (327ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (166ms)
+			TypeCache.Refresh (132ms)
+				TypeCache.ScanAssembly (116ms)
+			ScanForSourceGeneratedMonoScriptInfo (23ms)
+			ResolveRequiredComponents (10ms)
+	FinalizeReload (791ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (620ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (6ms)
+			SetLoadedEditorAssemblies (7ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (116ms)
+			ProcessInitializeOnLoadAttributes (407ms)
+			ProcessInitializeOnLoadMethodAttributes (77ms)
+			AfterProcessingInitializeOnLoad (7ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (7ms)
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
+Refreshing native plugins compatible for Editor in 4.40 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 4373 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 92 unused Assets / (1.7 MB). Loaded Objects now: 4895.
+Memory consumption went from 369.7 MB to 368.0 MB.
+Total: 6.608700 ms (FindLiveObjects: 0.569800 ms CreateObjectMapping: 0.400900 ms MarkObjects: 4.888700 ms  DeleteObjects: 0.747900 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:scripting/monoscript/fileName/CFXR_Styles.cs: 0757069e7af3ba4444d0d25cf7f1aee1 -> 14132385ef0a62dc85f08de4f5687ece
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleTextFontAsset.cs: 2c0f5b39375fdb3ffea33678dba0f2b1 -> 997a733798b2c803fc88cc92695e7ca4
+  custom:scripting/monoscript/fileName/CFXR_MaterialInspector.cs: 0c5bfea224b575e2646313fc42f2e08d -> 85a99159289e64398275fbc6500bb9a8
+  custom:scripting/monoscript/fileName/CFXR_ShaderImporter.cs: a566cd0f556f35f05719aac10415b17c -> f0ef3fb7c5ca7b4517f50c44917fac9e
+  custom:scripting/monoscript/fileName/CFXR_Effect.CameraShake.cs: a53f96815da50de15010b1c479bc70cf -> 0cdf409b5aa8d4c25876d72b5c6a3b60
+  custom:CustomObjectIndexerAttribute: d54d2f2da18e7612c182cf67624b6b12 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:scripting/monoscript/fileName/CFXR_EmissionBySurface.cs: ace1fbedccc09febe364c5088d60b3b3 -> 6294a85dd8a1718740abd2427d3ed0fe
+  custom:scripting/monoscript/fileName/CFXR_ExpressionParser.cs: f9b5276a4e540080f15d5067545c3777 -> 215820334dc899aa183f0061c3ffd288
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleText.cs: 954edc24969e7d36de6c6a079a85cb98 -> 3f1f97f09f1dd1cf194149bcb9712660
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/CFXR_ShaderPostProcessor.cs: 8c6e989bfa7de8931452a3b2acaa3404 -> eee4c4410265e19bfd8b3e2c4c5b2a2d
+  custom:scripting/monoscript/fileName/CFXR_UpgradeCheck.cs: ecbc382cf7f886ae36ac82906454b189 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 35364.734165 seconds.
+  path: Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Assets/Graphics/cfxr proc glow soft hdr p4 add.mat
+  artifactKey: Guid(c9a8501c60f73c14c9c50a72b1af44b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Assets/Graphics/cfxr proc glow soft hdr p4 add.mat using Guid(c9a8501c60f73c14c9c50a72b1af44b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '43f452953af5401380bf410967a93a6d') in 0.364931 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 4.722904 seconds.
+  path: Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Magic Misc/CFXR3 Magic Aura A (Runic).prefab
+  artifactKey: Guid(a71be3e7990efb040a07565c43cbb198) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Magic Misc/CFXR3 Magic Aura A (Runic).prefab using Guid(a71be3e7990efb040a07565c43cbb198) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '18177a1089f0d11b69e4aa0b09a3f32a') in 0.044857 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 30
+========================================================================
+Received Import Request.
+  Time since last request: 16.547124 seconds.
+  path: Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Magic Misc/CFXR4 Bouncing Glows Bubble (Blue Purple).prefab
+  artifactKey: Guid(f6fd568b816c64943a44efc3add3a881) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Magic Misc/CFXR4 Bouncing Glows Bubble (Blue Purple).prefab using Guid(f6fd568b816c64943a44efc3add3a881) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa3a0406c0311bd732d28415e00da47f') in 0.018041 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 18
+========================================================================
+Received Import Request.
+  Time since last request: 21.249973 seconds.
+  path: Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Impacts
+  artifactKey: Guid(5e6e7335e96924042b46afab21a2df71) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Impacts using Guid(5e6e7335e96924042b46afab21a2df71) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aa07b8131f41bc529b42e299da5a9776') in 0.000705 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.076193 seconds.
+  path: Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Impacts/CFXR Hit A (Red).prefab
+  artifactKey: Guid(5c755f9bc5253ea418e919994537dcc7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Impacts/CFXR Hit A (Red).prefab using Guid(5c755f9bc5253ea418e919994537dcc7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '286d7e17f31993c4695521096a84fdb4') in 0.021808 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 39
+========================================================================
+Received Import Request.
+  Time since last request: 0.723518 seconds.
+  path: Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Assets/Graphics/cfxr stretch triangle to diamond add.mat
+  artifactKey: Guid(6736a9c9adab91a48960113bc5758c7b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Assets/Graphics/cfxr stretch triangle to diamond add.mat using Guid(6736a9c9adab91a48960113bc5758c7b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a7ebdd6916d1a9e97d56ad8d56096198') in 0.010207 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 4
+========================================================================
+Received Import Request.
+  Time since last request: 0.879746 seconds.
+  path: Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Assets/Graphics/cfxr stretch triangle smooth add.mat
+  artifactKey: Guid(9c0d180acd07ffd4183763050b4d1d22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Assets/Graphics/cfxr stretch triangle smooth add.mat using Guid(9c0d180acd07ffd4183763050b4d1d22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '57bd244552e02221c3b9d3538b1175c9') in 0.008828 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 4
+========================================================================
+Received Import Request.
+  Time since last request: 2.414473 seconds.
+  path: Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Assets/Graphics/cfxr stretch triangle smooth nosp add.mat
+  artifactKey: Guid(d94053f8609f0e14aadb270ec29d672f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Assets/Graphics/cfxr stretch triangle smooth nosp add.mat using Guid(d94053f8609f0e14aadb270ec29d672f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8dd7b6d63291e7d3b7535dce3e33c224') in 0.033403 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 4
+========================================================================
+Received Import Request.
+  Time since last request: 5.677585 seconds.
+  path: Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Nature/CFXR3 Hit Leaves A (Lit).prefab
+  artifactKey: Guid(ceec7516237b4104b94300043ca39784) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Nature/CFXR3 Hit Leaves A (Lit).prefab using Guid(ceec7516237b4104b94300043ca39784) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2b89cf97fb33fdceef8ef9725ecf63be') in 0.018743 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 29
+========================================================================
+Received Import Request.
+  Time since last request: 24.136918 seconds.
+  path: Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Nature/CFXR3 Shield Leaves A (Lit).prefab
+  artifactKey: Guid(e1385af346f4e624eb313ec1ea4fcd7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Nature/CFXR3 Shield Leaves A (Lit).prefab using Guid(e1385af346f4e624eb313ec1ea4fcd7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '130e29416e336153b4e9fe4f6d9c8fb2') in 0.016436 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 18
+========================================================================
+Received Import Request.
+  Time since last request: 12.680397 seconds.
+  path: Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Nature/CFXR4 Rain Splashes.prefab
+  artifactKey: Guid(ac009bb7498fcfb4b96614c4fd1f735c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Nature/CFXR4 Rain Splashes.prefab using Guid(ac009bb7498fcfb4b96614c4fd1f735c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '496d5622ebf6190f2aa96402a3251982') in 0.013074 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 16
+========================================================================
+Received Import Request.
+  Time since last request: 10.543803 seconds.
+  path: Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Nature/CFXR4 Wind Trails.prefab
+  artifactKey: Guid(c248f95ffea8b8543bc7ad0fffe0216d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Nature/CFXR4 Wind Trails.prefab using Guid(c248f95ffea8b8543bc7ad0fffe0216d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3ed59e9c3fff668f50beec73937d287d') in 0.011639 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 11
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  0.843 seconds
+Refreshing native plugins compatible for Editor in 6.11 ms, found 2 plugins.
+Native extension for WindowsStandalone target not found
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.761 seconds
+Domain Reload Profiling: 2599ms
+	BeginReloadAssembly (302ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (21ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (58ms)
+	RebuildCommonClasses (46ms)
+	RebuildNativeTypeToScriptingClass (20ms)
+	initialDomainReloadingComplete (43ms)
+	LoadAllAssembliesAndSetupDomain (427ms)
+		LoadAssemblies (520ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (71ms)
+			TypeCache.Refresh (21ms)
+				TypeCache.ScanAssembly (3ms)
+			ScanForSourceGeneratedMonoScriptInfo (33ms)
+			ResolveRequiredComponents (15ms)
+	FinalizeReload (1762ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (906ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (10ms)
+			SetLoadedEditorAssemblies (7ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (185ms)
+			ProcessInitializeOnLoadAttributes (602ms)
+			ProcessInitializeOnLoadMethodAttributes (94ms)
+			AfterProcessingInitializeOnLoad (8ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (16ms)
+OnLevelWasLoaded was found on LevelManager
+This message has been deprecated and will be removed in a later version of Unity.
+Add a delegate to SceneManager.sceneLoaded instead to get notifications after scene loading has completed
+Refreshing native plugins compatible for Editor in 5.39 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 4153 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 52 unused Assets / (1.7 MB). Loaded Objects now: 4990.
+Memory consumption went from 333.8 MB to 332.2 MB.
+Total: 9.136300 ms (FindLiveObjects: 0.518600 ms CreateObjectMapping: 0.447100 ms MarkObjects: 7.510200 ms  DeleteObjects: 0.658200 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:scripting/monoscript/fileName/CFXR_Styles.cs: 0757069e7af3ba4444d0d25cf7f1aee1 -> 14132385ef0a62dc85f08de4f5687ece
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleTextFontAsset.cs: 2c0f5b39375fdb3ffea33678dba0f2b1 -> 997a733798b2c803fc88cc92695e7ca4
+  custom:scripting/monoscript/fileName/CFXR_MaterialInspector.cs: 0c5bfea224b575e2646313fc42f2e08d -> 85a99159289e64398275fbc6500bb9a8
+  custom:scripting/monoscript/fileName/CFXR_ShaderImporter.cs: a566cd0f556f35f05719aac10415b17c -> f0ef3fb7c5ca7b4517f50c44917fac9e
+  custom:scripting/monoscript/fileName/CFXR_Effect.CameraShake.cs: a53f96815da50de15010b1c479bc70cf -> 0cdf409b5aa8d4c25876d72b5c6a3b60
+  custom:CustomObjectIndexerAttribute: d54d2f2da18e7612c182cf67624b6b12 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:scripting/monoscript/fileName/CFXR_EmissionBySurface.cs: ace1fbedccc09febe364c5088d60b3b3 -> 6294a85dd8a1718740abd2427d3ed0fe
+  custom:scripting/monoscript/fileName/CFXR_ExpressionParser.cs: f9b5276a4e540080f15d5067545c3777 -> 215820334dc899aa183f0061c3ffd288
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleText.cs: 954edc24969e7d36de6c6a079a85cb98 -> 3f1f97f09f1dd1cf194149bcb9712660
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/CFXR_ShaderPostProcessor.cs: 8c6e989bfa7de8931452a3b2acaa3404 -> eee4c4410265e19bfd8b3e2c4c5b2a2d
+  custom:scripting/monoscript/fileName/CFXR_UpgradeCheck.cs: ecbc382cf7f886ae36ac82906454b189 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  0.725 seconds
+Refreshing native plugins compatible for Editor in 3.61 ms, found 2 plugins.
+Native extension for WindowsStandalone target not found
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.869 seconds
+Domain Reload Profiling: 2583ms
+	BeginReloadAssembly (214ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (6ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (54ms)
+	RebuildCommonClasses (43ms)
+	RebuildNativeTypeToScriptingClass (10ms)
+	initialDomainReloadingComplete (37ms)
+	LoadAllAssembliesAndSetupDomain (410ms)
+		LoadAssemblies (419ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (92ms)
+			TypeCache.Refresh (18ms)
+				TypeCache.ScanAssembly (3ms)
+			ScanForSourceGeneratedMonoScriptInfo (59ms)
+			ResolveRequiredComponents (14ms)
+	FinalizeReload (1869ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (952ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (9ms)
+			SetLoadedEditorAssemblies (7ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (179ms)
+			ProcessInitializeOnLoadAttributes (653ms)
+			ProcessInitializeOnLoadMethodAttributes (95ms)
+			AfterProcessingInitializeOnLoad (9ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (14ms)
+OnLevelWasLoaded was found on LevelManager
+This message has been deprecated and will be removed in a later version of Unity.
+Add a delegate to SceneManager.sceneLoaded instead to get notifications after scene loading has completed
+Refreshing native plugins compatible for Editor in 4.73 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 4153 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 52 unused Assets / (1.7 MB). Loaded Objects now: 5006.
+Memory consumption went from 335.7 MB to 334.0 MB.
+Total: 9.574400 ms (FindLiveObjects: 0.440300 ms CreateObjectMapping: 0.350000 ms MarkObjects: 7.941700 ms  DeleteObjects: 0.840900 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:scripting/monoscript/fileName/CFXR_Styles.cs: 0757069e7af3ba4444d0d25cf7f1aee1 -> 14132385ef0a62dc85f08de4f5687ece
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleTextFontAsset.cs: 2c0f5b39375fdb3ffea33678dba0f2b1 -> 997a733798b2c803fc88cc92695e7ca4
+  custom:scripting/monoscript/fileName/CFXR_MaterialInspector.cs: 0c5bfea224b575e2646313fc42f2e08d -> 85a99159289e64398275fbc6500bb9a8
+  custom:scripting/monoscript/fileName/CFXR_ShaderImporter.cs: a566cd0f556f35f05719aac10415b17c -> f0ef3fb7c5ca7b4517f50c44917fac9e
+  custom:scripting/monoscript/fileName/CFXR_Effect.CameraShake.cs: a53f96815da50de15010b1c479bc70cf -> 0cdf409b5aa8d4c25876d72b5c6a3b60
+  custom:CustomObjectIndexerAttribute: d54d2f2da18e7612c182cf67624b6b12 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:scripting/monoscript/fileName/CFXR_EmissionBySurface.cs: ace1fbedccc09febe364c5088d60b3b3 -> 6294a85dd8a1718740abd2427d3ed0fe
+  custom:scripting/monoscript/fileName/CFXR_ExpressionParser.cs: f9b5276a4e540080f15d5067545c3777 -> 215820334dc899aa183f0061c3ffd288
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleText.cs: 954edc24969e7d36de6c6a079a85cb98 -> 3f1f97f09f1dd1cf194149bcb9712660
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/CFXR_ShaderPostProcessor.cs: 8c6e989bfa7de8931452a3b2acaa3404 -> eee4c4410265e19bfd8b3e2c4c5b2a2d
+  custom:scripting/monoscript/fileName/CFXR_UpgradeCheck.cs: ecbc382cf7f886ae36ac82906454b189 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  0.789 seconds
+Refreshing native plugins compatible for Editor in 10.14 ms, found 2 plugins.
+Native extension for WindowsStandalone target not found
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.782 seconds
+Domain Reload Profiling: 2565ms
+	BeginReloadAssembly (234ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (6ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (72ms)
+	RebuildCommonClasses (87ms)
+	RebuildNativeTypeToScriptingClass (16ms)
+	initialDomainReloadingComplete (42ms)
+	LoadAllAssembliesAndSetupDomain (404ms)
+		LoadAssemblies (412ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (81ms)
+			TypeCache.Refresh (15ms)
+				TypeCache.ScanAssembly (3ms)
+			ScanForSourceGeneratedMonoScriptInfo (43ms)
+			ResolveRequiredComponents (21ms)
+	FinalizeReload (1783ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (925ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (9ms)
+			SetLoadedEditorAssemblies (8ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (180ms)
+			ProcessInitializeOnLoadAttributes (627ms)
+			ProcessInitializeOnLoadMethodAttributes (91ms)
+			AfterProcessingInitializeOnLoad (8ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (27ms)
+OnLevelWasLoaded was found on LevelManager
+This message has been deprecated and will be removed in a later version of Unity.
+Add a delegate to SceneManager.sceneLoaded instead to get notifications after scene loading has completed
+Refreshing native plugins compatible for Editor in 5.42 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 4153 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 52 unused Assets / (1.7 MB). Loaded Objects now: 5022.
+Memory consumption went from 337.6 MB to 336.0 MB.
+Total: 5.665000 ms (FindLiveObjects: 0.459900 ms CreateObjectMapping: 0.405200 ms MarkObjects: 3.792400 ms  DeleteObjects: 1.005900 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:scripting/monoscript/fileName/CFXR_Styles.cs: 0757069e7af3ba4444d0d25cf7f1aee1 -> 14132385ef0a62dc85f08de4f5687ece
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleTextFontAsset.cs: 2c0f5b39375fdb3ffea33678dba0f2b1 -> 997a733798b2c803fc88cc92695e7ca4
+  custom:scripting/monoscript/fileName/CFXR_MaterialInspector.cs: 0c5bfea224b575e2646313fc42f2e08d -> 85a99159289e64398275fbc6500bb9a8
+  custom:scripting/monoscript/fileName/CFXR_ShaderImporter.cs: a566cd0f556f35f05719aac10415b17c -> f0ef3fb7c5ca7b4517f50c44917fac9e
+  custom:scripting/monoscript/fileName/CFXR_Effect.CameraShake.cs: a53f96815da50de15010b1c479bc70cf -> 0cdf409b5aa8d4c25876d72b5c6a3b60
+  custom:CustomObjectIndexerAttribute: d54d2f2da18e7612c182cf67624b6b12 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:scripting/monoscript/fileName/CFXR_EmissionBySurface.cs: ace1fbedccc09febe364c5088d60b3b3 -> 6294a85dd8a1718740abd2427d3ed0fe
+  custom:scripting/monoscript/fileName/CFXR_ExpressionParser.cs: f9b5276a4e540080f15d5067545c3777 -> 215820334dc899aa183f0061c3ffd288
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleText.cs: 954edc24969e7d36de6c6a079a85cb98 -> 3f1f97f09f1dd1cf194149bcb9712660
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/CFXR_ShaderPostProcessor.cs: 8c6e989bfa7de8931452a3b2acaa3404 -> eee4c4410265e19bfd8b3e2c4c5b2a2d
+  custom:scripting/monoscript/fileName/CFXR_UpgradeCheck.cs: ecbc382cf7f886ae36ac82906454b189 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  0.661 seconds
+Refreshing native plugins compatible for Editor in 3.35 ms, found 2 plugins.
+Native extension for WindowsStandalone target not found
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.770 seconds
+Domain Reload Profiling: 2427ms
+	BeginReloadAssembly (185ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (6ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (41ms)
+	RebuildCommonClasses (33ms)
+	RebuildNativeTypeToScriptingClass (12ms)
+	initialDomainReloadingComplete (37ms)
+	LoadAllAssembliesAndSetupDomain (388ms)
+		LoadAssemblies (405ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (65ms)
+			TypeCache.Refresh (18ms)
+				TypeCache.ScanAssembly (2ms)
+			ScanForSourceGeneratedMonoScriptInfo (36ms)
+			ResolveRequiredComponents (10ms)
+	FinalizeReload (1771ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (931ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (8ms)
+			SetLoadedEditorAssemblies (7ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (196ms)
+			ProcessInitializeOnLoadAttributes (557ms)
+			ProcessInitializeOnLoadMethodAttributes (139ms)
+			AfterProcessingInitializeOnLoad (21ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (19ms)
+OnLevelWasLoaded was found on LevelManager
+This message has been deprecated and will be removed in a later version of Unity.
+Add a delegate to SceneManager.sceneLoaded instead to get notifications after scene loading has completed
+Refreshing native plugins compatible for Editor in 8.71 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 4153 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 52 unused Assets / (1.7 MB). Loaded Objects now: 5038.
+Memory consumption went from 339.6 MB to 337.9 MB.
+Total: 6.369300 ms (FindLiveObjects: 0.535000 ms CreateObjectMapping: 0.367000 ms MarkObjects: 4.734400 ms  DeleteObjects: 0.731200 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:scripting/monoscript/fileName/CFXR_Styles.cs: 0757069e7af3ba4444d0d25cf7f1aee1 -> 14132385ef0a62dc85f08de4f5687ece
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleTextFontAsset.cs: 2c0f5b39375fdb3ffea33678dba0f2b1 -> 997a733798b2c803fc88cc92695e7ca4
+  custom:scripting/monoscript/fileName/CFXR_MaterialInspector.cs: 0c5bfea224b575e2646313fc42f2e08d -> 85a99159289e64398275fbc6500bb9a8
+  custom:scripting/monoscript/fileName/CFXR_ShaderImporter.cs: a566cd0f556f35f05719aac10415b17c -> f0ef3fb7c5ca7b4517f50c44917fac9e
+  custom:scripting/monoscript/fileName/CFXR_Effect.CameraShake.cs: a53f96815da50de15010b1c479bc70cf -> 0cdf409b5aa8d4c25876d72b5c6a3b60
+  custom:CustomObjectIndexerAttribute: d54d2f2da18e7612c182cf67624b6b12 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:scripting/monoscript/fileName/CFXR_EmissionBySurface.cs: ace1fbedccc09febe364c5088d60b3b3 -> 6294a85dd8a1718740abd2427d3ed0fe
+  custom:scripting/monoscript/fileName/CFXR_ExpressionParser.cs: f9b5276a4e540080f15d5067545c3777 -> 215820334dc899aa183f0061c3ffd288
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleText.cs: 954edc24969e7d36de6c6a079a85cb98 -> 3f1f97f09f1dd1cf194149bcb9712660
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/CFXR_ShaderPostProcessor.cs: 8c6e989bfa7de8931452a3b2acaa3404 -> eee4c4410265e19bfd8b3e2c4c5b2a2d
+  custom:scripting/monoscript/fileName/CFXR_UpgradeCheck.cs: ecbc382cf7f886ae36ac82906454b189 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  0.454 seconds
+Refreshing native plugins compatible for Editor in 2.96 ms, found 2 plugins.
+Native extension for WindowsStandalone target not found
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.211 seconds
+Domain Reload Profiling: 1661ms
+	BeginReloadAssembly (149ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (5ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (36ms)
+	RebuildCommonClasses (29ms)
+	RebuildNativeTypeToScriptingClass (12ms)
+	initialDomainReloadingComplete (30ms)
+	LoadAllAssembliesAndSetupDomain (230ms)
+		LoadAssemblies (285ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (16ms)
+			TypeCache.Refresh (5ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (9ms)
+	FinalizeReload (1212ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (624ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (6ms)
+			SetLoadedEditorAssemblies (5ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (126ms)
+			ProcessInitializeOnLoadAttributes (411ms)
+			ProcessInitializeOnLoadMethodAttributes (69ms)
+			AfterProcessingInitializeOnLoad (7ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (14ms)
+OnLevelWasLoaded was found on LevelManager
+This message has been deprecated and will be removed in a later version of Unity.
+Add a delegate to SceneManager.sceneLoaded instead to get notifications after scene loading has completed
+Refreshing native plugins compatible for Editor in 5.44 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 4153 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 52 unused Assets / (1.7 MB). Loaded Objects now: 5054.
+Memory consumption went from 341.5 MB to 339.8 MB.
+Total: 12.957600 ms (FindLiveObjects: 1.196000 ms CreateObjectMapping: 0.688600 ms MarkObjects: 9.647800 ms  DeleteObjects: 1.423500 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:scripting/monoscript/fileName/CFXR_Styles.cs: 0757069e7af3ba4444d0d25cf7f1aee1 -> 14132385ef0a62dc85f08de4f5687ece
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleTextFontAsset.cs: 2c0f5b39375fdb3ffea33678dba0f2b1 -> 997a733798b2c803fc88cc92695e7ca4
+  custom:scripting/monoscript/fileName/CFXR_MaterialInspector.cs: 0c5bfea224b575e2646313fc42f2e08d -> 85a99159289e64398275fbc6500bb9a8
+  custom:scripting/monoscript/fileName/CFXR_ShaderImporter.cs: a566cd0f556f35f05719aac10415b17c -> f0ef3fb7c5ca7b4517f50c44917fac9e
+  custom:scripting/monoscript/fileName/CFXR_Effect.CameraShake.cs: a53f96815da50de15010b1c479bc70cf -> 0cdf409b5aa8d4c25876d72b5c6a3b60
+  custom:CustomObjectIndexerAttribute: d54d2f2da18e7612c182cf67624b6b12 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:scripting/monoscript/fileName/CFXR_EmissionBySurface.cs: ace1fbedccc09febe364c5088d60b3b3 -> 6294a85dd8a1718740abd2427d3ed0fe
+  custom:scripting/monoscript/fileName/CFXR_ExpressionParser.cs: f9b5276a4e540080f15d5067545c3777 -> 215820334dc899aa183f0061c3ffd288
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleText.cs: 954edc24969e7d36de6c6a079a85cb98 -> 3f1f97f09f1dd1cf194149bcb9712660
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/CFXR_ShaderPostProcessor.cs: 8c6e989bfa7de8931452a3b2acaa3404 -> eee4c4410265e19bfd8b3e2c4c5b2a2d
+  custom:scripting/monoscript/fileName/CFXR_UpgradeCheck.cs: ecbc382cf7f886ae36ac82906454b189 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  0.825 seconds
+Refreshing native plugins compatible for Editor in 6.10 ms, found 2 plugins.
+Native extension for WindowsStandalone target not found
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.967 seconds
+Domain Reload Profiling: 2788ms
+	BeginReloadAssembly (278ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (11ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (82ms)
+	RebuildCommonClasses (59ms)
+	RebuildNativeTypeToScriptingClass (20ms)
+	initialDomainReloadingComplete (41ms)
+	LoadAllAssembliesAndSetupDomain (422ms)
+		LoadAssemblies (449ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (105ms)
+			TypeCache.Refresh (19ms)
+				TypeCache.ScanAssembly (3ms)
+			ScanForSourceGeneratedMonoScriptInfo (51ms)
+			ResolveRequiredComponents (31ms)
+	FinalizeReload (1967ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1088ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (15ms)
+			SetLoadedEditorAssemblies (20ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (233ms)
+			ProcessInitializeOnLoadAttributes (713ms)
+			ProcessInitializeOnLoadMethodAttributes (99ms)
+			AfterProcessingInitializeOnLoad (9ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (24ms)
+OnLevelWasLoaded was found on LevelManager
+This message has been deprecated and will be removed in a later version of Unity.
+Add a delegate to SceneManager.sceneLoaded instead to get notifications after scene loading has completed
+Refreshing native plugins compatible for Editor in 4.61 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 4153 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 52 unused Assets / (1.7 MB). Loaded Objects now: 5070.
+Memory consumption went from 343.4 MB to 341.8 MB.
+Total: 5.419800 ms (FindLiveObjects: 0.420300 ms CreateObjectMapping: 0.292900 ms MarkObjects: 3.988000 ms  DeleteObjects: 0.717300 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:scripting/monoscript/fileName/CFXR_Styles.cs: 0757069e7af3ba4444d0d25cf7f1aee1 -> 14132385ef0a62dc85f08de4f5687ece
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleTextFontAsset.cs: 2c0f5b39375fdb3ffea33678dba0f2b1 -> 997a733798b2c803fc88cc92695e7ca4
+  custom:scripting/monoscript/fileName/CFXR_MaterialInspector.cs: 0c5bfea224b575e2646313fc42f2e08d -> 85a99159289e64398275fbc6500bb9a8
+  custom:scripting/monoscript/fileName/CFXR_ShaderImporter.cs: a566cd0f556f35f05719aac10415b17c -> f0ef3fb7c5ca7b4517f50c44917fac9e
+  custom:scripting/monoscript/fileName/CFXR_Effect.CameraShake.cs: a53f96815da50de15010b1c479bc70cf -> 0cdf409b5aa8d4c25876d72b5c6a3b60
+  custom:CustomObjectIndexerAttribute: d54d2f2da18e7612c182cf67624b6b12 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:scripting/monoscript/fileName/CFXR_EmissionBySurface.cs: ace1fbedccc09febe364c5088d60b3b3 -> 6294a85dd8a1718740abd2427d3ed0fe
+  custom:scripting/monoscript/fileName/CFXR_ExpressionParser.cs: f9b5276a4e540080f15d5067545c3777 -> 215820334dc899aa183f0061c3ffd288
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleText.cs: 954edc24969e7d36de6c6a079a85cb98 -> 3f1f97f09f1dd1cf194149bcb9712660
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/CFXR_ShaderPostProcessor.cs: 8c6e989bfa7de8931452a3b2acaa3404 -> eee4c4410265e19bfd8b3e2c4c5b2a2d
+  custom:scripting/monoscript/fileName/CFXR_UpgradeCheck.cs: ecbc382cf7f886ae36ac82906454b189 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  0.554 seconds
+Refreshing native plugins compatible for Editor in 3.57 ms, found 2 plugins.
+Native extension for WindowsStandalone target not found
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.264 seconds
+Domain Reload Profiling: 1815ms
+	BeginReloadAssembly (198ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (6ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (52ms)
+	RebuildCommonClasses (62ms)
+	RebuildNativeTypeToScriptingClass (29ms)
+	initialDomainReloadingComplete (34ms)
+	LoadAllAssembliesAndSetupDomain (227ms)
+		LoadAssemblies (303ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (17ms)
+			TypeCache.Refresh (6ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (10ms)
+	FinalizeReload (1265ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (658ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (8ms)
+			SetLoadedEditorAssemblies (7ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (134ms)
+			ProcessInitializeOnLoadAttributes (428ms)
+			ProcessInitializeOnLoadMethodAttributes (74ms)
+			AfterProcessingInitializeOnLoad (6ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (15ms)
+OnLevelWasLoaded was found on LevelManager
+This message has been deprecated and will be removed in a later version of Unity.
+Add a delegate to SceneManager.sceneLoaded instead to get notifications after scene loading has completed
+Refreshing native plugins compatible for Editor in 5.82 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 4153 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 52 unused Assets / (1.7 MB). Loaded Objects now: 5086.
+Memory consumption went from 345.4 MB to 343.7 MB.
+Total: 11.000500 ms (FindLiveObjects: 1.213700 ms CreateObjectMapping: 0.315600 ms MarkObjects: 8.014600 ms  DeleteObjects: 1.454600 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:scripting/monoscript/fileName/CFXR_Styles.cs: 0757069e7af3ba4444d0d25cf7f1aee1 -> 14132385ef0a62dc85f08de4f5687ece
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleTextFontAsset.cs: 2c0f5b39375fdb3ffea33678dba0f2b1 -> 997a733798b2c803fc88cc92695e7ca4
+  custom:scripting/monoscript/fileName/CFXR_MaterialInspector.cs: 0c5bfea224b575e2646313fc42f2e08d -> 85a99159289e64398275fbc6500bb9a8
+  custom:scripting/monoscript/fileName/CFXR_ShaderImporter.cs: a566cd0f556f35f05719aac10415b17c -> f0ef3fb7c5ca7b4517f50c44917fac9e
+  custom:scripting/monoscript/fileName/CFXR_Effect.CameraShake.cs: a53f96815da50de15010b1c479bc70cf -> 0cdf409b5aa8d4c25876d72b5c6a3b60
+  custom:CustomObjectIndexerAttribute: d54d2f2da18e7612c182cf67624b6b12 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:scripting/monoscript/fileName/CFXR_EmissionBySurface.cs: ace1fbedccc09febe364c5088d60b3b3 -> 6294a85dd8a1718740abd2427d3ed0fe
+  custom:scripting/monoscript/fileName/CFXR_ExpressionParser.cs: f9b5276a4e540080f15d5067545c3777 -> 215820334dc899aa183f0061c3ffd288
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleText.cs: 954edc24969e7d36de6c6a079a85cb98 -> 3f1f97f09f1dd1cf194149bcb9712660
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/CFXR_ShaderPostProcessor.cs: 8c6e989bfa7de8931452a3b2acaa3404 -> eee4c4410265e19bfd8b3e2c4c5b2a2d
+  custom:scripting/monoscript/fileName/CFXR_UpgradeCheck.cs: ecbc382cf7f886ae36ac82906454b189 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 

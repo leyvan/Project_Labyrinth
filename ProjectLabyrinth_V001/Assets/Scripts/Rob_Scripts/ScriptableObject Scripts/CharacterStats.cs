@@ -5,18 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Character", menuName = "Character", order = 1)]
 public class CharacterStats : ScriptableObject
 {
-    public enum Attribute
-    {
-        PHYSICAL,
-        FIRE,
-        WATER,
-        ELECTRIC,
-        WIND,
-        LIGHT,
-        DARK
-    }
     public string chName;
-
+    public Attribute innateAttribute;
     public int level;
 
 

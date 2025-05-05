@@ -5,8 +5,13 @@ using UnityEngine;
 
 public class FloorBehavior : MonoBehaviour
 {
+    [SerializeField] private Transform itemSpawnsParent;
+    [SerializeField] private Transform enemySpawnParent;
+    
     public List<Transform> itemSpawnPoints = new List<Transform>();
     public List<Transform> enemySpawnPoints = new List<Transform>();
+    
+    
 
     void Start()
     {
@@ -15,8 +20,6 @@ public class FloorBehavior : MonoBehaviour
 
     private void GetItemSpawnPoints()
     {
-        var maxChildCount = this.gameObject.transform.childCount;
-        var itemSpawnsParent = this.gameObject.transform.GetChild(maxChildCount-1);
         foreach(Transform child in itemSpawnsParent)
         {
             itemSpawnPoints.Add(child);
@@ -27,8 +30,6 @@ public class FloorBehavior : MonoBehaviour
 
     void GetEnemySpawnPoints()
     {
-        var enemySpawnParent = this.gameObject.transform.GetChild(4);
-
         if(enemySpawnParent != null)
         {
             foreach(Transform child in enemySpawnParent)
@@ -49,10 +50,11 @@ public class FloorBehavior : MonoBehaviour
         
         foreach(Transform spawnPoint in itemSpawnPoints)
         {
-            var rand = RandomItemSpawnRateCalc();
+            var rand = SimpleRandomizer();
             Instantiate(items[rand], spawnPoint.position + new Vector3(0,1,0), spawnPoint.rotation * Quaternion.Euler(-90, 0, 0), spawnPoint);
         }
-        
+
+        Debug.Log("ITEMS AND ENEMIES HAVE BEEN SPAWNED ==================================");
         GameEvents.current.TriggerLevelEnvironmentLoaded();
     }
 
@@ -62,8 +64,8 @@ public class FloorBehavior : MonoBehaviour
 
         foreach(Transform spawnPoint in enemySpawnPoints)
         {
-            var rand = Random.Range(0, 2);      // 50/50 chance to spawn enemy
-            if(rand == 1)
+            //var rand = Random.Range(0, 2);      // 50/50 chance to spawn enemy
+            //if(rand == 1)
             Instantiate(enemy, spawnPoint);
         }
     }
@@ -86,5 +88,11 @@ public class FloorBehavior : MonoBehaviour
             }
         }
             return itemSelection;
+    }
+
+    private int SimpleRandomizer()
+    {
+        int itemSelection = 0;
+        return Random.Range(0, 4);
     }
 }

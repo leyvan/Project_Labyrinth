@@ -25,6 +25,8 @@ public class AI_Behaviour_V1 : MonoBehaviour
 
     private bool agentIsActive;
 
+    [SerializeField] public bool tutorialAgent;
+    
     public int Lives
     {
         get { return _lives; }
@@ -48,36 +50,30 @@ public class AI_Behaviour_V1 : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         
         GetThisEnemy();
+        
+        _animator.SetBool("walking?", false);
 
-        GameEvents.current.onNavmeshBuilt += NavmeshBuildCompleted;
+        SetupPatrolRoute();
     }
     void Update()
     {
         if (!agentIsActive) return;
+        if (cantMove) return;
         
-        if (cantMove)
+        if(chasePlayer != true)
         {
-            agent.isStopped = true;
-            agent.velocity = Vector3.zero;
-            _animator.SetBool("walking?", false);
-            return;
-        }
-        //13
-        if(patrolRoute != null)
-        {
-            if(chasePlayer != true)
-            {
+            if (patrolRoute != null) {
                 if (agent.remainingDistance < 0.2f && !agent.pathPending)
                 {
                     MoveToNextPatrolLocation();
                 }
             }
-            else
-            {
-                agent.destination = player.transform.position;
-            }
-
         }
+        else
+        {
+            agent.destination = player.transform.position;
+        }
+        
         if (agent.acceleration > 0.1f)
         {
             _animator.SetBool("running?", false);
@@ -85,26 +81,24 @@ public class AI_Behaviour_V1 : MonoBehaviour
         }
     }
 
-    private void NavmeshBuildCompleted()
+    private void SetupPatrolRoute()
     {
-        StartCoroutine(SetupPatrolRoute());
-    }
-
-    IEnumerator SetupPatrolRoute()
-    {
-        yield return new WaitForSeconds(2f);    //Delay is to wait for Navmesh Build
-        
-        if (agent != null)
+        if (!tutorialAgent)
         {
-            patrolRoute = this.gameObject.transform.parent.parent.transform;
+            Debug.Log("THIS IS THE PARENT " + transform.parent.gameObject.name);
+            patrolRoute = transform.parent.Find("PatrolRoute_1");
+        } 
+        
+        
+        if (agent == null || patrolRoute == null)
+        {
+            cantMove = true;
+            Debug.Log("NO PATROL ROUTE OR NAV AGENT FOUND ======================");
         }
         else
         {
-            cantMove = true;
-        }
-        if (patrolRoute != null)
-        {
             InitializePatrolRoute();
+            
         }
     }
 
@@ -124,6 +118,7 @@ public class AI_Behaviour_V1 : MonoBehaviour
         {
             partyList.enemyParty.Add(thisEnemy);
         }
+        
     }
 
     //4   
@@ -138,6 +133,7 @@ public class AI_Behaviour_V1 : MonoBehaviour
 
         agentIsActive = true;
         
+        Debug.Log("PATROL ROUTE INITIALIZED: ============================");
         MoveToNextPatrolLocation();
     }
 
@@ -169,7 +165,7 @@ public class AI_Behaviour_V1 : MonoBehaviour
         if (other.tag == "Player")
         {
             locations.Clear();
-            InitializePatrolRoute();
+            //InitializePatrolRoute();
             alert.SetActive(false);
             chasePlayer = false;
             Debug.Log("Enemy out of range.");

@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using InventoryUtility;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class NewItem : MonoBehaviour
 {
     [SerializeField] private string itemName;
-    [SerializeField] private ItemType itemType;
+    [SerializeField] private InventoryItemType itemType;
     [SerializeField] private int itemStack;
     [SerializeField] private Sprite itemImage;
 
@@ -16,7 +16,7 @@ public class NewItem : MonoBehaviour
         set => itemName = value;
     }
 
-    public ItemType ItemType
+    public InventoryItemType ItemType
     {
         get => itemType;
         set => itemType = value;

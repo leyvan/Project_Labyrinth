@@ -137,8 +137,9 @@ public class BattleController : MonoBehaviour
         PlayerParty.AddRange(GameObject.FindGameObjectsWithTag("Player"));
 
         playerChar = PlayerParty[1].gameObject;
-        playerInfo = PlayerParty[0];
-        battleHealthBar = playerInfo.GetComponentInChildren<Slider>();
+        playerInfo = GameObject.FindGameObjectWithTag("PlayerBattleInfo");
+        
+        battleHealthBar = playerInfo.transform.GetChild(0).Find("PlayerHealth").GetComponent<Slider>();
         _playerBehaviour = playerChar.GetComponent<Player_Behaviour>();
 
         currentData = new BattleData();
@@ -166,6 +167,8 @@ public class BattleController : MonoBehaviour
         battleOutcome = false;
         startTurn = true;
         //deathCounter = 0;
+        
+        //BattleEvents.current.BattleMenuToggle(startTurn);
 
         StartCoroutine(TurnBasedBattle());
     }
@@ -209,6 +212,7 @@ public class BattleController : MonoBehaviour
 
                     Debug.Log("Player Turn");
                     startTurn = true;
+                    BattleEvents.current.BattleMenuToggle(startTurn);
                     canSelectEnemy = true;
                     yield return new WaitUntil(() => onClickBool == true);      //Wait until button bool is true, which means button was pressed
                     canSelectEnemy = false;
@@ -223,6 +227,7 @@ public class BattleController : MonoBehaviour
                     vCamList[0].m_Priority = 10;
                     Debug.Log("Enemy Turn ");
                     startTurn = false;
+                    BattleEvents.current.BattleMenuToggle(startTurn);
                     foreach(GameObject enemy in EnemyParty)
                     {
                         enemyTurnSelector.transform.position = new Vector3(enemy.transform.position.x, 0.01f, enemy.transform.position.z);
@@ -375,19 +380,19 @@ public class BattleController : MonoBehaviour
         else
         {
             currentAttackDmg = skillAttackScript.SelectSkill(buttonPressed);
-            var skill = activeMenuOptions.Find(i => i.skill.skillName == buttonPressed);
+            var skillOption = activeMenuOptions.Find(i => i.skill.skillName == buttonPressed);
             currentData.numberOfItemsUsed += 1;
-            if(skill.skill.skillName == "Heavy Slash")
+            if(skillOption.skill.skillName == "Heavy Slash")
             {
                 PlayerParty[0].GetComponentInChildren<Animator>().SetTrigger("SwordAttack");
             }
             else {
-                _playerBehaviour.DoMagicAttackAnim();
+                _playerBehaviour.DoMagicAttackAnim(skillOption.skill);
             }
 
             
             Debug.Log(currentData.numberOfItemsUsed);
-            UpdateItemList(skill);
+            UpdateItemList(skillOption);
 
             DealDamage(GetEnemySelected());
         }
@@ -532,7 +537,7 @@ public class BattleController : MonoBehaviour
     //Deal damage to enemy
     public void DealDamage(GameObject enemy)
     {
-        if (eAlive == true)
+        if (eAlive)
         {
             var enemyBehavior = enemy.GetComponent<EnemyCombatAI>();
             var currentEnemyHealth = enemyBehavior.GetCurrentHealth();
@@ -552,13 +557,12 @@ public class BattleController : MonoBehaviour
     }
 
     //Deal Damage to player
-    public void TakeDamageFrom(GameObject enemy)
+    private void TakeDamageFrom(GameObject enemy)
     {
-        if (rAlive == true)
+        if (rAlive)
         {
             var enemyBehavior = enemy.GetComponent<EnemyCombatAI>();
             enemyBehavior.DoAttack();
-            //CurrentClickedGameObject(enemy);  //Change the name maybe
 
             var enemyAttack = enemyBehavior.GetAttackDmg();
 
@@ -594,13 +598,12 @@ public class BattleController : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         _playerBehaviour.DoTakeHitAnimation();
-
         
 
         rCurrentHealth -= enemyAttack;
         HealthManager.Instance.SetPersistentHealth(rCurrentHealth);
-        battleHealthBar.value = rCurrentHealth / rMaxHealth;
-        
+        battleHealthBar.value = (rCurrentHealth / rMaxHealth) / 100;
+        Debug.Log("SLIDER VALUE SHOULD BE: " + rCurrentHealth / rMaxHealth);
     }
 
     void SetUpEnemySelector()

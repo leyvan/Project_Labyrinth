@@ -22,7 +22,7 @@ public class HealthManager : MonoBehaviour
         
         player = GameObject.FindGameObjectWithTag("Player");
         playerBehaviour = player.GetComponent<Player_Behaviour>();
-        playerCurrentHealth = playerBehaviour.mainCharacterStats.curHealth;
+        playerCurrentHealth = playerBehaviour.mainCharacterStats.maxHealth;
     }
 
     

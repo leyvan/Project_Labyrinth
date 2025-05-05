@@ -26,6 +26,11 @@ public class Projectile : MonoBehaviour
         _rb.AddForce((target.position - transform.position) * launchVelocity);
     }
 
+    public void SetEffectForProjectile(string effectName)
+    {
+        transform.Find(effectName).gameObject.SetActive(true);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Enemy")
