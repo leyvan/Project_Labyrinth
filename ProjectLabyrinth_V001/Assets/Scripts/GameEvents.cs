@@ -97,5 +97,7 @@ public class GameEvents : MonoBehaviour
     {
         onNavmeshBuilt?.Invoke();
     }
+    
+    
 
 }

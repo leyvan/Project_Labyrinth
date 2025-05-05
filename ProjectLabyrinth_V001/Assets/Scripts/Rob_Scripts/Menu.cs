@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Serialization;
 
 public enum MenuState
 {
@@ -14,7 +15,7 @@ public enum MenuState
 
 public class Menu : MonoBehaviour
 {
-    public BattleController bc;
+    [FormerlySerializedAs("bc")] public BattleController battleController;
     public TextMeshProUGUI text;
     public MenuState menuState;
 
@@ -26,31 +27,23 @@ public class Menu : MonoBehaviour
 
     void Start()
     {
+        BattleEvents.current.onBattleMenuToggle += MenuToggle;
+        
         menuState = MenuState.START;
-    }
-
-    void Update()
-    {
-        if (bc.startTurn /* && loop */)
-        {
-            MenuToggle();
-        }
     }
 
     // START TURN -------------------------------------------------
 
-    void MenuToggle()
+    public void MenuToggle(bool isActive)
     {
-        if (!basicMenu.activeInHierarchy)
+        if (isActive)
         {
             menuState = MenuState.START;
-            text.gameObject.SetActive(bc.startTurn);
+            text.gameObject.SetActive(isActive);
             text.SetText("Menu");
-            basicMenu.SetActive(bc.startTurn);
+            basicMenu.SetActive(isActive);
             //rufioMenu.SetActive(false);
             //confirmation.SetActive(false);
-
-            bc.startTurn = !bc.startTurn;
         }
 
         //clear selected object
@@ -154,7 +147,7 @@ public class Menu : MonoBehaviour
         rufioMenu.SetActive(false);
         confirmation.SetActive(false);
         //loop = true;
-        bc.TurnExecution();
+        battleController.TurnExecution();
 
     }
 }

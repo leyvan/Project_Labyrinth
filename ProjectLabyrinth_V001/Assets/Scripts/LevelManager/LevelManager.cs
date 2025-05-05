@@ -1,6 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.AI;
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +11,7 @@ public class LevelManager : MonoBehaviour
     private Player_Behaviour playerBehaviour;
     private HealthManager _healthManager;
 
-    private NavMeshSurface navMesh;
+    public NavMeshSurface navMesh;
 
     public bool inBattle;
 
@@ -24,13 +23,12 @@ public class LevelManager : MonoBehaviour
         Instance = this;
 
         FindObjects();
-        navMesh = GameObject.FindObjectOfType<NavMeshSurface>();
         mainParent = GameObject.FindGameObjectWithTag("Parent");
     }
 
     void Start()
     {
-        GameEvents.current.onLevelEnvironmentLoaded += OnLevelAssetsLoaded;
+        GameEvents.current.onLevelEnvironmentLoaded += OnAssetsReady;
         
         Cursor.lockState = CursorLockMode.Confined;     //Confines the cursor to game screen
         if (SceneManager.GetActiveScene().name == "StartLevel")
@@ -38,7 +36,7 @@ public class LevelManager : MonoBehaviour
             inBattle = false;
         }
 
-        if (inBattle == true)
+        if (inBattle)
         {
             Cursor.visible = true;
             player.GetComponent<Player_Behaviour>().SetControllerMode("Battle");
@@ -56,11 +54,15 @@ public class LevelManager : MonoBehaviour
         
     }
 
-    private void OnLevelAssetsLoaded()
+    private void OnAssetsReady()
     {
-        if (navMesh == null) return;
-        navMesh.BuildNavMesh();
+        if (navMesh == null)
+        {
+            navMesh = GameObject.FindGameObjectWithTag("NavMeshSurface").GetComponent<NavMeshSurface>();
+            navMesh.BuildNavMesh();
+        }
         
+        Debug.Log("ASSETS LOADED AND NAVMESH FOUND =======================");
         GameEvents.current.BuiltNavmesh();
     }
 
@@ -78,13 +80,13 @@ public class LevelManager : MonoBehaviour
 
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
-    
 
-    private void OnLevelWasLoaded(int level)
+
+    void OnLevelWasLoaded(int level)
     {
         ReloadInventory();
     }
-
+    
     private void ReloadInventory()
     {
         if (SceneManager.GetActiveScene().name != "Battle")
@@ -111,9 +113,9 @@ public class LevelManager : MonoBehaviour
             go.transform.SetParent(temp.transform, false);
 
         }
- 
-
+        
         SceneManager.SetActiveScene(battleScene);
+        
         
         temp.SetActive(true);
         inBattle = true;

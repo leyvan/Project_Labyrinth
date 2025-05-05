@@ -2,9 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
+using InventoryUtility;
 
 
 //Use Game Events here
@@ -17,11 +16,6 @@ public class InventorySystem : MonoBehaviour
     private void Awake()
     {
         inventorySpaces = GameObject.FindGameObjectWithTag("InventoryUI").transform.Find("InventorySpaces").gameObject;
-    }
-
-    private void Start()
-    {
-        //
     }
     
 //Adding to the Inventory
@@ -43,6 +37,8 @@ public class InventorySystem : MonoBehaviour
     private void AddToExistingItemInInv(ItemSlot newItem, NewItem newItemScript)
     {
         newItem.itemAmount += newItemScript.ItemStack;
+
+        AddToExistingItemInInventoryHUD(newItem);
     }
 
     private void AddNewItemToInventory(NewItem newItemScript)
@@ -52,8 +48,12 @@ public class InventorySystem : MonoBehaviour
         {
             lastIndex++;
         }
+
+        ItemSlot newItemSlot = new ItemSlot(lastIndex, newItemScript.ItemName, newItemScript.ItemStack, newItemScript.ItemType);
+        inventory.Add(lastIndex, newItemSlot);
         
-        inventory.Add(lastIndex, new ItemSlot(lastIndex, newItemScript.ItemName, newItemScript.ItemStack, false));
+        GameEvents.current.AddNewItemTypeToInventory(newItemSlot);
+        AddNewToInventoryHUD(newItemSlot);
     }
 
 //Removing from the Inventory
@@ -127,13 +127,17 @@ public class ItemSlot
     public int itemAmount;
     public GameObject itemUI;
 
-    public bool isConsumable;
+    public InventoryItemType itemType;
+    
+    public BaseSkill skill = null;
+    //public Consumable consumble = null;
 
-    public ItemSlot(int _itemID, string _itemName, int _itemAmount, bool _isConsumable)
+    public ItemSlot(int _itemID, string _itemName, int _itemAmount, InventoryItemType _itemType)
     {
         itemID = _itemID;
         itemName = _itemName;
         itemAmount = _itemAmount;
-        isConsumable = _isConsumable;
+        itemType = _itemType;
+
     }
 }

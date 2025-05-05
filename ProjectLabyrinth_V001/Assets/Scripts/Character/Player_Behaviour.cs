@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Cinemachine;
-using UnityEngine.SceneManagement;
 
 public class Player_Behaviour : MonoBehaviour
 {
@@ -85,12 +84,11 @@ public class Player_Behaviour : MonoBehaviour
         }
     }
     
-    void Awake()
+
+    void Start()
     {
-        //SetControllerMode(SceneManager.GetActiveScene().name);
         playerCamTarget = transform.GetChild(1).transform;
         playerHUD = GetComponentInChildren<PlayerHUD>();
-        playerHealth = playerHUD.transform.GetComponentInChildren<Slider>();
         _rb = GetComponent<Rigidbody>();
         _col = GetComponent<CapsuleCollider>();
         _animator = GetComponentInChildren<Animator>();
@@ -100,12 +98,8 @@ public class Player_Behaviour : MonoBehaviour
         defaultCameraTarget = transform.GetComponentInChildren<Transform>().Find("CameraTarget");
         
         cam = Camera.main;    //<--- change this
-       
-        thirdPersonCam = GameObject.FindGameObjectWithTag("CameraController").transform.Find("ThirdPerson Camera").GetComponent<CinemachineFreeLook>();
-    }
-
-    void Start()
-    {
+        
+        //SetControllerMode(SceneManager.GetActiveScene().name);
 
         //2- Find and return GameBehavior script attached to Game Manager object in scene
         currentSpeed = moveSpeed;
@@ -113,11 +107,6 @@ public class Player_Behaviour : MonoBehaviour
         GameEvents.current.onPlayerInMenu += OnPlayerOpensAMenu;
         GameEvents.current.onDialogueEventTriggered += () => OnDialogueEvent(true);
         GameEvents.current.onDialogueEventEnded += () => OnDialogueEvent(false);
-
-        if (HealthManager.Instance != null)
-        {
-            SetHealth(HealthManager.Instance.GetPersistentHealth());
-        }
         
         SetDamage(mainCharacterStats.attack);
     }
@@ -132,7 +121,7 @@ public class Player_Behaviour : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
         }
         
-        if(_animator.GetBool("InBattle") == true)
+        if(_animator.GetBool("InBattle"))
         {
             _animator.SetBool("InBattle", false);
         }
@@ -295,20 +284,25 @@ public class Player_Behaviour : MonoBehaviour
         {
             case string b when b.Contains("Battle"):
                 currentMode = ControllerMode.BattleMode;
-                _animator.SetBool("InBattle", true);
+                playerHealth = GameObject.FindGameObjectWithTag("PlayerBattleInfo").transform.GetChild(0).Find("PlayerHealth").GetComponent<Slider>();
                 playerHUD.gameObject.SetActive(false);
                 break;
             case string c when !c.Contains("Battle"):
                 currentMode = ControllerMode.OverWorldMode;
-                _animator.SetBool("InBattle", false);
+                thirdPersonCam = GameObject.FindGameObjectWithTag("CameraController").transform.Find("ThirdPerson Camera").GetComponent<CinemachineFreeLook>(); 
+                playerHealth = playerHUD.transform.GetComponentInChildren<Slider>();
                 playerHUD.gameObject.SetActive(true);
                 break;
+        }
+        
+        if (HealthManager.Instance != null)
+        {
+            SetHealth(HealthManager.Instance.GetPersistentHealth());
         }
     }
     
     private GameObject GetNearestGameObject()
     {
-        //var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
         {
@@ -331,10 +325,7 @@ public class Player_Behaviour : MonoBehaviour
         float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
         float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, angle, ref turnSmoothVelocity, turnSmoothTime);
         transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
-        //_rb.MoveRotation(Quaternion.Euler(0f,smoothAngle, 0f));
 
-        //Vector3 moveDir = Quaternion.Euler(0f, angle, 0f) * Vector3.forward;
-        //_ctrl.Move(moveDir * currentSpeed * Time.deltaTime);
         Vector3 moveDir = new Vector3(transform.forward.x, _rb.velocity.y, transform.forward.z);
         _rb.MovePosition(this.transform.position + moveDir * currentSpeed * Time.deltaTime);
     }
@@ -366,23 +357,26 @@ public class Player_Behaviour : MonoBehaviour
     }
     */
 
-    public void DoMagicAttackAnim()
+    public void DoMagicAttackAnim(BaseSkill skill)
     {
         /*
         _animator.SetTrigger("MagicAttack");
         shockwave.Play();
         GameObject fireball = Instantiate(projectile, firePoint.position + new Vector3(0.5f, 0, 0), Quaternion.identity);
         */
-        StartCoroutine(MagicAttackAnim());
+        StartCoroutine(MagicAttackAnim(skill.attribute.ToString()));
     }
 
-    IEnumerator MagicAttackAnim()
+    IEnumerator MagicAttackAnim(string skill)
     {
         _animator.SetTrigger("MagicAttack");
         yield return new WaitForSeconds(0.2f);
         shockwave.Play();
         yield return new WaitForSeconds(0.1f);
+        
+        
         GameObject fireball = Instantiate(projectile, firePoint.position + new Vector3(0.5f, 0, 0), Quaternion.identity);
+        fireball.GetComponent<Projectile>().SetEffectForProjectile(skill);
     }
     
     public void SetDamage(float newAttack)
@@ -434,10 +428,12 @@ public class Player_Behaviour : MonoBehaviour
         canMove = lockOn;
     }
     
+    /*
     private void OnEnable()
     {
         SetOverWorldHealth();
     }
+    */
 
     private void OnDialogueEvent(bool dialogueInProgress)
     {

@@ -36,6 +36,8 @@ TagManager:
   - GameEvents
   - Crystal
   - CameraController
+  - PlayerBattleInfo
+  - NavMeshSurface
   layers:
   - Default
   - TransparentFX
