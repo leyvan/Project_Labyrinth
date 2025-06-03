@@ -60,8 +60,7 @@ public class PartySetup : MonoBehaviour
             nextEnemySpawn.position = new Vector3(enemySpawns[i].position.x, enemySpawns[i].position.y, enemySpawns[i].position.z + offSetZ);
             var partyMember = Instantiate(partyList.enemyParty[i],nextEnemySpawn.position, nextEnemySpawn.rotation);
             partyMember.transform.parent = gameObject.transform;
-
-
+            
             offSetZ += 2;
         }
     }

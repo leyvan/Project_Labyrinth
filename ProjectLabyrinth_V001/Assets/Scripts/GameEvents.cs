@@ -97,7 +97,12 @@ public class GameEvents : MonoBehaviour
     {
         onNavmeshBuilt?.Invoke();
     }
-    
-    
+
+    public event Action onBattleEnded;
+
+    public void TriggerBattleEnded()
+    {
+        onBattleEnded?.Invoke();
+    }
 
 }

@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8bf9e0998057d54281b60853aeb54f0, type: 3}
+  m_Name: EnemyConfig
+  m_EditorClassIdentifier: 
+  enemies:
+  - enemyType: 0
+    enemyData:
+      species: 2
+      element: 6
+      name: 
+      hpMax: 100
+      hpCur: 100
+      mpMax: 0
+      mpCur: 0
+      attack: 10
+      magic: 0
+      defense: 0
+      speed: 0
+      luck: 0
+      stress: 100
+      atkMult: 0
+      defMult: 0
+      spdMult: 1
+      atkMod: 0
+      defMod: 0
+      spdMod: 0
+      earnableXPRange: 3200000064000000
+      earnableGoldRange: 050000000a000000
+      earnableItems:
+      - {fileID: 11400000, guid: 5a5d87f7cc4b904469d6ebb17a261b3a, type: 2}
+      - {fileID: 11400000, guid: 1277222d216919c4c8b7ee54f2310032, type: 2}
+    enemyPrefab: {fileID: 75532908033318744, guid: 4757f52c29189de4e8c847f43368ac85, type: 3}

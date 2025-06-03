@@ -56,6 +56,7 @@ public enum AllyTurnCommand
 
 public class BattleController : MonoBehaviour
 {
+    public PlayerData playerData;
     public BattleState state;
     public RoundControl command;
     public RufioTurnCommand rufioTurn;
@@ -65,7 +66,6 @@ public class BattleController : MonoBehaviour
     public Canvas menu;
     private Button yesButton;
     
-    private List<Slider> enemyHealth = new List<Slider>();
     private Text turnNumberText;
     public int mobValue = 1;
     public int extensions;
@@ -78,6 +78,7 @@ public class BattleController : MonoBehaviour
     private Slider battleHealthBar;
 
     private List<GameObject> DeadEnemies = new List<GameObject>();
+    private List<GameObject> EnemiesForEndStats = new List<GameObject>();
 
     LinkedList<string> TurnOrder = new LinkedList<string>();
     private bool turnSuccess;
@@ -141,6 +142,7 @@ public class BattleController : MonoBehaviour
         
         battleHealthBar = playerInfo.transform.GetChild(0).Find("PlayerHealth").GetComponent<Slider>();
         _playerBehaviour = playerChar.GetComponent<Player_Behaviour>();
+        playerData = playerChar.GetComponent<PlayerData>();
 
         currentData = new BattleData();
 
@@ -166,7 +168,6 @@ public class BattleController : MonoBehaviour
         turnSuccess = false;
         battleOutcome = false;
         startTurn = true;
-        //deathCounter = 0;
         
         //BattleEvents.current.BattleMenuToggle(startTurn);
 
@@ -269,34 +270,30 @@ public class BattleController : MonoBehaviour
 
         
         //Player Set Up
-        if(rAlive == true)
+        if(rAlive)
         {
             rName = rufio.name;
-            rMaxHealth = _playerBehaviour.GetMaxHealth();
-            rCurrentHealth = HealthManager.Instance.GetPersistentHealth();
-            rAttack = _playerBehaviour.GetAttackDmg();
-            currentAttackDmg = _playerBehaviour.GetAttackDmg();
+            rMaxHealth = playerData.GetMainCharacterStats().maxHealth;
+            rCurrentHealth = playerData.GetMainCharacterCurrentHealth();
+            rAttack = playerData.GetMainCharacterAttackDmg();
+            currentAttackDmg = playerData.GetMainCharacterAttackDmg();
 
-            battleHealthBar.value = rCurrentHealth / rMaxHealth;
+            SetBattleHealthBar(rMaxHealth);
             
             SkillSetUp();
         }
         
-        if(eAlive == true)
+        if(eAlive)
         {
-            //Fix this Later --------------
-
             if(EnemyParty.Count > 0)
             {
-                eName = enemy1.chName;
-                eMaxHealth = enemy1.maxHealth;
-                eCurrentHealth = eMaxHealth;
-                eAttack = enemy1.attack;
                 foreach (GameObject mob in EnemyParty)
                 {
-                    var enemyBehavior = mob.GetComponent<EnemyCombatAI>();
-                    enemyBehavior.SetHealth(eCurrentHealth, eMaxHealth);
-                    enemyBehavior.SetDamage(eAttack);
+                    var mobData = mob.GetComponent<EnemyStats>().thisEnemy;
+                    eName = mobData.name;
+                    eMaxHealth = mobData.hpMax;
+                    eCurrentHealth = mobData.hpCur;
+                    eAttack = mobData.attack;
                 }
             }
         }
@@ -307,7 +304,6 @@ public class BattleController : MonoBehaviour
     private void SkillSetUp()
     {
         var currentInventory = playerInventory.GetSkillInventory();
-        //Vector3 pos = menu.transform.GetChild(3).GetChild(0).transform.position;
         int itemHeldNumb;
         int itemUsesLeft;
         string ppText;
@@ -367,14 +363,14 @@ public class BattleController : MonoBehaviour
             currentAttackDmg = rAttack;
             PlayerParty[0].GetComponentInChildren<Animator>().SetTrigger("PhysicalAttack");
             Debug.Log("BasicAttack");
-            DealDamage(GetEnemySelected());
+            DealDamageToEnemy(GetEnemySelected());
         }
         else if(buttonPressed == "Self Heal")
         {
             currentAttackDmg = 0;
             var amountToHealBy = skillAttackScript.SelectSkill(buttonPressed);
             currentData.numberOfItemsUsed += 1;
-            HealPlayer(amountToHealBy);
+            HealCharacter(amountToHealBy);
             UpdateItemList(activeMenuOptions.Find(i => i.skill.skillName == "Self Heal"));
         }
         else
@@ -394,7 +390,7 @@ public class BattleController : MonoBehaviour
             Debug.Log(currentData.numberOfItemsUsed);
             UpdateItemList(skillOption);
 
-            DealDamage(GetEnemySelected());
+            DealDamageToEnemy(GetEnemySelected());
         }
     }
 
@@ -404,7 +400,7 @@ public class BattleController : MonoBehaviour
         Debug.Log("Enemy #"+ EnemyParty.IndexOf(enemy));
         
 
-        TakeDamageFrom(enemy);
+        CharacterTakeDamageFromEnemy(enemy);
     }
 
     private void SwitchTurns(BattleState nextBattleState)
@@ -499,9 +495,6 @@ public class BattleController : MonoBehaviour
             
 
         }
-            
-        
-
     }
 
     //On button click do this
@@ -513,10 +506,7 @@ public class BattleController : MonoBehaviour
             Debug.Log(onClickBool);
         }
     }
-
     
-
-
     public GameObject GetEnemySelected()
     {
         return enemySelected;
@@ -535,7 +525,7 @@ public class BattleController : MonoBehaviour
     }
 
     //Deal damage to enemy
-    public void DealDamage(GameObject enemy)
+    public void DealDamageToEnemy(GameObject enemy)
     {
         if (eAlive)
         {
@@ -543,10 +533,7 @@ public class BattleController : MonoBehaviour
             var currentEnemyHealth = enemyBehavior.GetCurrentHealth();
             currentEnemyHealth -= currentAttackDmg;
 
-            if(currentAttackDmg != 0)
-            {
-                enemyBehavior.TakeDamage(currentAttackDmg);
-            }
+            if(currentAttackDmg != 0) { enemyBehavior.TakeDamage(currentAttackDmg); }
         }
         else
         {
@@ -557,7 +544,7 @@ public class BattleController : MonoBehaviour
     }
 
     //Deal Damage to player
-    private void TakeDamageFrom(GameObject enemy)
+    private void CharacterTakeDamageFromEnemy(GameObject enemy)
     {
         if (rAlive)
         {
@@ -566,7 +553,7 @@ public class BattleController : MonoBehaviour
 
             var enemyAttack = enemyBehavior.GetAttackDmg();
 
-            StartCoroutine(TakeDamageAnim(enemyAttack));
+            StartCoroutine(TakeDamageFromEnemyAnimation(enemyAttack));
 
         }
         else
@@ -576,33 +563,32 @@ public class BattleController : MonoBehaviour
         }
     }
 
-    void HealPlayer(float healPower )
+    void HealCharacter(float healPower )
     {
         rCurrentHealth += healPower;
         if(rCurrentHealth > rMaxHealth)
         {
             rCurrentHealth = rMaxHealth;
-            HealthManager.Instance.SetPersistentHealth(rCurrentHealth);
-            battleHealthBar.value = rCurrentHealth / rMaxHealth;
+            playerData.SetMainCharacterCurrentHealth(rCurrentHealth);
+            SetBattleHealthBar(rCurrentHealth);
             
         }
         else
         {
-            HealthManager.Instance.SetPersistentHealth(rCurrentHealth);
-            battleHealthBar.value = rCurrentHealth / rMaxHealth;
+            playerData.SetMainCharacterCurrentHealth(rCurrentHealth);
+            SetBattleHealthBar(rCurrentHealth);
         }
         
     }
 
-    IEnumerator TakeDamageAnim(float enemyAttack)
+    IEnumerator TakeDamageFromEnemyAnimation(float enemyAttack)
     {
         yield return new WaitForSeconds(1f);
         _playerBehaviour.DoTakeHitAnimation();
         
-
         rCurrentHealth -= enemyAttack;
-        HealthManager.Instance.SetPersistentHealth(rCurrentHealth);
-        battleHealthBar.value = (rCurrentHealth / rMaxHealth) / 100;
+        playerData.SetMainCharacterCurrentHealth(rCurrentHealth);
+        SetBattleHealthBar(rCurrentHealth);
         Debug.Log("SLIDER VALUE SHOULD BE: " + rCurrentHealth / rMaxHealth);
     }
 
@@ -640,6 +626,14 @@ public class BattleController : MonoBehaviour
     {
         Debug.Log("You Win");
         //End Screen Display
+        
+        List<int> loot = CalculateLootEarned();
+        
+        playerData.EarnExp(loot[0]);
+        playerData.EarnGold(loot[1]);
+        
+        currentData.expEarned = loot[0];
+        currentData.goldEarned = loot[1];
 
         GameObject.FindGameObjectWithTag("BattleHUD").transform.GetChild(5).gameObject.SetActive(true);
     }
@@ -655,6 +649,7 @@ public class BattleController : MonoBehaviour
                 Debug.Log("Enemy Party Count: " + EnemyParty.Count);
                 var mob = EnemyParty[i];
                 var mobBehavior = mob.GetComponent<EnemyCombatAI>();
+                
                 if (mobBehavior.GetCurrentHealth() <= 0)
                 {
                     int nextEnemyIndex;
@@ -673,14 +668,14 @@ public class BattleController : MonoBehaviour
                     }
                     
 
-                    mobBehavior.SetDead(true);
-                    mob.SetActive(false);
+                    mobBehavior.OnThisEnemyDead();
+                    //mob.SetActive(false);
+                    EnemiesForEndStats.Add(mob);
                     DeadEnemies.Add(mob);
                     enemyTurnSelector.transform.position = EnemyParty[nextEnemyIndex].transform.position - new Vector3(0, EnemyParty[0].transform.position.y + 0.01f, 0);
                 }
 
                 Debug.Log("Enemy Death Count" + DeadEnemies.Count);
-                //if (DeadEnemies.Count >= EnemyParty.Count) return true;
             }
 
             if(DeadEnemies.Count > 0)
@@ -695,7 +690,7 @@ public class BattleController : MonoBehaviour
             
 
             if (EnemyParty.Count < 1) return true;
-
+            
             DeadEnemies.Clear();
             return false;
         }
@@ -727,5 +722,31 @@ public class BattleController : MonoBehaviour
     public BattleData GetCurrentData()
     {
         return currentData;
+    }
+
+    private List<int> CalculateLootEarned()
+    {
+        int totalExp = 0;
+        int totalGold = 0;
+        foreach (GameObject enemy in EnemiesForEndStats)
+        {
+            var enemyStats = enemy.GetComponent<EnemyStats>();
+            
+            totalExp += enemyStats.GetXPDropped();
+            totalGold += enemyStats.GetGoldDropped();
+        }
+        
+        return new List<int>() { totalExp, totalGold };
+    }
+
+    private void ResetHealthBar()
+    {
+        playerData.ResetHealth();
+        SetBattleHealthBar(rMaxHealth);
+    }
+
+    private void SetBattleHealthBar(float newHealth)
+    {
+        battleHealthBar.value = (newHealth/rMaxHealth);
     }
 }

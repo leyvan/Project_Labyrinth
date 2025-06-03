@@ -1140,7 +1140,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 47.92498
+    FieldOfView: 61.927517
     OrthographicSize: 10
     NearClipPlane: 0.01
     FarClipPlane: 100
@@ -1166,7 +1166,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 441055827}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.04934178, y: 0.9464875, z: -0.14009164, w: 0.28653315}
+  m_LocalRotation: {x: -0.15246922, y: -0.5057963, z: 0.07085926, w: 0.8461101}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1346,7 +1346,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 47.92498
+    FieldOfView: 61.927517
     OrthographicSize: 10
     NearClipPlane: 0.01
     FarClipPlane: 100
@@ -1372,7 +1372,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 567997956}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0556674, y: 0.94935447, z: -0.119122446, w: 0.28537172}
+  m_LocalRotation: {x: -0.17757013, y: -0.50768024, z: 0.055782482, w: 0.84120023}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1833,6 +1833,10 @@ PrefabInstance:
       propertyPath: m_Value
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1693664994701125502, guid: 470fc3ca70a44b74c955e6a428eccc7d, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1693664994776226236, guid: 470fc3ca70a44b74c955e6a428eccc7d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2238,11 +2242,11 @@ MonoBehaviour:
   m_AvoidObstacles: 1
   m_DistanceLimit: 0
   m_MinimumOcclusionTime: 0
-  m_CameraRadius: 0.1
+  m_CameraRadius: 0
   m_Strategy: 0
   m_MaximumEffort: 4
-  m_SmoothingTime: 1.49
-  m_Damping: 2.5
+  m_SmoothingTime: 1.45
+  m_Damping: 2.56
   m_DampingWhenOccluded: 0.6
   m_OptimalTargetDistance: 0
 --- !u!114 &934461057
@@ -2267,7 +2271,7 @@ MonoBehaviour:
   m_Follow: {fileID: 896379124}
   m_CommonLens: 1
   m_Lens:
-    FieldOfView: 47.92498
+    FieldOfView: 61.927517
     OrthographicSize: 10
     NearClipPlane: 0.01
     FarClipPlane: 100
@@ -2311,7 +2315,7 @@ MonoBehaviour:
   m_XAxis:
     Value: 0
     m_SpeedMode: 0
-    m_MaxSpeed: 125
+    m_MaxSpeed: 173.28
     m_AccelTime: 0.2
     m_DecelTime: 0.1
     m_InputAxisName: Mouse X
@@ -2359,7 +2363,7 @@ Transform:
   m_GameObject: {fileID: 934461053}
   serializedVersion: 2
   m_LocalRotation: {x: 0.14956293, y: -0.31960052, z: 0.051163103, w: 0.9342745}
-  m_LocalPosition: {x: -0.6924553, y: 52, z: 6.896299}
+  m_LocalPosition: {x: 10.92289, y: 52, z: 5.958842}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2479,7 +2483,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 27
+  m_FocalLength: 20
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -2494,7 +2498,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 100
-  field of view: 47.92498
+  field of view: 61.927517
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -2520,8 +2524,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989255059}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0068959035, y: 0.81113094, z: 0.009565664, w: 0.5847457}
-  m_LocalPosition: {x: -0.6924553, y: 52, z: 6.896299}
+  m_LocalRotation: {x: -0.012669936, y: -0.7613685, z: -0.014885992, w: 0.6480247}
+  m_LocalPosition: {x: 9.499013, y: 51.969948, z: 5.7283344}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3165,7 +3169,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 47.92498
+    FieldOfView: 61.927517
     OrthographicSize: 10
     NearClipPlane: 0.01
     FarClipPlane: 100
@@ -3191,7 +3195,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1538545381}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.042966913, y: 0.94314325, z: -0.16107458, w: 0.28755817}
+  m_LocalRotation: {x: -0.12705165, y: -0.50344634, z: 0.08598091, w: 0.8502982}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

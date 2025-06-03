@@ -2,43 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using CombatUtil;
 
 public class EnemyCombatAI : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem deathParticles;
+    public EnemyType enemyType;
     private Canvas enemyInfo;
     private Slider enemyHealth;
     private Animator _animator;
-
-    private float health = 1f;
-    private float maxHealth = 1f;
-    private float attack;
-
+    
     private bool dead = false;
 
     private ParticleSystem impact;
 
+    [SerializeField] private EnemyStats enemyStats;
+
     private void Awake()
     {
-        enemyInfo = this.transform.GetChild(1).GetComponent<Canvas>();
+        enemyInfo = this.transform.GetChild(0).GetComponent<Canvas>();
         enemyHealth = enemyInfo.transform.GetComponentInChildren<Slider>();
 
-        _animator = this.transform.GetChild(2).GetComponent<Animator>();
+        _animator = this.transform.GetChild(1).GetComponent<Animator>();
         impact = this.transform.GetComponentInChildren<ParticleSystem>();
+
+        enemyStats = GetComponent<EnemyStats>();
     }
 
     private void Start()
     {
         enemyInfo.gameObject.SetActive(true);
+        enemyStats.SetEnemyStats(enemyType);
     }
 
-    public void SetDamage(float newAttack)
+    public void SetDamage(int newAttack)
     {
-        attack = newAttack;
+        enemyStats.thisEnemy.attack = newAttack;
     }
 
     public float GetAttackDmg()
     {
-        return attack;
+        return enemyStats.thisEnemy.attack;
     }
 
     public void DoAttack()
@@ -53,34 +57,47 @@ public class EnemyCombatAI : MonoBehaviour
         impact.Play();
         SetHealthBar();
     }
+    
+    IEnumerator DoDeathAnimation()
+    {
+        yield return new WaitForSeconds(0.2f);
+        _animator.SetTrigger("gotHit");
+        yield return new WaitForSeconds(0.6f);
+        transform.Find("Skeleton@Skin").gameObject.SetActive(false);
+        enemyHealth.gameObject.SetActive(false);
+    }
 
     public void TakeDamage(float damage)
     {
-        health -= damage;
+        enemyStats.thisEnemy.hpCur -= damage;
         StartCoroutine(DoHitAnimation());
-        
     }
 
-    public void SetHealth(float newHealth, float newMaxHealth)
+    public void SetHealth(float newHealth)
     {
-        health = newHealth;
-        maxHealth = newMaxHealth;
+        enemyStats.thisEnemy.hpCur = newHealth;
         SetHealthBar();
     }
 
     private void SetHealthBar()
     {
-        enemyHealth.value = health/maxHealth;
+        var currHp = enemyStats.thisEnemy.hpCur;
+        var maxHp = enemyStats.thisEnemy.hpMax;
+        enemyHealth.value = currHp/maxHp;
     }
 
     public float GetCurrentHealth()
     {
-        return health;
+        return enemyStats.thisEnemy.hpCur;
     }
 
-    public Slider GetHealthBar()
+    public void OnThisEnemyDead()
     {
-        return enemyHealth;
+        deathParticles.Play();
+        StartCoroutine(DoDeathAnimation());
+        dead = true;
+        enemyStats.thisEnemy.hpCur = 0;
+        SetHealthBar();
     }
 
     public void SetDead(bool value)

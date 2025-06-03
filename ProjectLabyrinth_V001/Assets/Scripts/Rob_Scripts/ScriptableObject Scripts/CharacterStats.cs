@@ -8,8 +8,10 @@ public class CharacterStats : ScriptableObject
     public string chName;
     public Attribute innateAttribute;
     public int level;
-
-
+    
+    public int currentXP;
+    public int requiredXP;
+    public int gold;
 
     public float maxHealth;
     public float curHealth;

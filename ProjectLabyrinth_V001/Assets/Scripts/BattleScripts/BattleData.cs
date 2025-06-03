@@ -7,6 +7,8 @@ public class BattleData
     public int killedEnemies = 0;
     public int turnsTaken = 0;
     public int numberOfItemsUsed = 0;
+    public int expEarned = 0;
+    public int goldEarned = 0;
 
     public GameObject reward;
 }
