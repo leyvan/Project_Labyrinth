@@ -7,6 +7,9 @@ public class Rufio : MonoBehaviour
     public string rufioName = "Rufio";
 
     public int level;
+    public int currentXP;
+    public int requiredXP;
+    public int gold;
 
     public int maxHealth;
     public int curHealth;

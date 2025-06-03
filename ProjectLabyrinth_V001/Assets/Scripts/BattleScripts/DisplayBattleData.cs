@@ -13,6 +13,9 @@ public class DisplayBattleData : MonoBehaviour
     private TextMeshProUGUI itemsUsed;
     private TextMeshProUGUI turnsTaken;
 
+    private TextMeshProUGUI expEarned;
+    private TextMeshProUGUI goldEarned;
+
     private void Awake()
     {
         battleController = GameObject.FindGameObjectWithTag("GameController").GetComponent<BattleController>();
@@ -22,6 +25,8 @@ public class DisplayBattleData : MonoBehaviour
         turnsTaken = this.transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
         itemsUsed = this.transform.GetChild(1).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>();
         
+        expEarned = transform.GetChild(1).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>();
+        goldEarned = transform.GetChild(1).GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
     private void Start()
@@ -34,6 +39,9 @@ public class DisplayBattleData : MonoBehaviour
         enemiesDefeated.text = data.killedEnemies.ToString();
         turnsTaken.text = data.turnsTaken.ToString();
         itemsUsed.text = data.numberOfItemsUsed.ToString();  
+        
+        expEarned.text = data.expEarned.ToString();
+        goldEarned.text = data.goldEarned.ToString();
     }
 
     public void ReturnToLevel()

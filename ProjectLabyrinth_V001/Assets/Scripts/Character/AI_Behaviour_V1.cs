@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 //7
 using UnityEngine.AI;
-
+using CombatUtil;
 public class AI_Behaviour_V1 : MonoBehaviour
 {
+    [SerializeField] private EnemyConfigScriptableObject enemyConfig;
     private Transform player;
 
     public GameObject alert;
@@ -26,6 +27,8 @@ public class AI_Behaviour_V1 : MonoBehaviour
     private bool agentIsActive;
 
     [SerializeField] public bool tutorialAgent;
+
+    [SerializeField] public EnemyType enemyConfigType;
     
     public int Lives
     {
@@ -104,12 +107,12 @@ public class AI_Behaviour_V1 : MonoBehaviour
 
     void GetThisEnemy()
     {
-        var enemyName = this.gameObject.name.Replace("(Clone)", "");
-        thisEnemy = Resources.Load("Prefabs/Misc/"+enemyName+" Battle") as GameObject;
+        thisEnemy = enemyConfig.GetEnemyPrefabFromType(enemyConfigType);
 
         PopulateEnemyParty();
     }
 
+    //POPULATES ENEMY PARTY FOR COMBAT
     void PopulateEnemyParty()
     {
         //Get enemy type

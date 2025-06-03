@@ -34,6 +34,7 @@ public class LevelManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "StartLevel")
         {
             inBattle = false;
+            player.GetComponent<PlayerData>().SetPlayerLevel(1);
         }
 
         if (inBattle)
@@ -116,7 +117,6 @@ public class LevelManager : MonoBehaviour
         
         SceneManager.SetActiveScene(battleScene);
         
-        
         temp.SetActive(true);
         inBattle = true;
         StartBattle();
@@ -129,7 +129,7 @@ public class LevelManager : MonoBehaviour
         SceneManager.SetActiveScene(levelScene);
         mainParent.SetActive(true);
         
-        playerBehaviour.SetControllerMode("Level01");
+        GameEvents.current.TriggerBattleEnded();
         
         AsyncOperation async = SceneManager.UnloadSceneAsync("Battle");
         while (!async.isDone)
@@ -139,7 +139,6 @@ public class LevelManager : MonoBehaviour
         
         inBattle = false;
         Destroy(temp);
-
     }
     
 

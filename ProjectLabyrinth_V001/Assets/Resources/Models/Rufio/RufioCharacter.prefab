@@ -198,6 +198,7 @@ GameObject:
   - component: {fileID: 1102619429106188326}
   - component: {fileID: 1102619429106188313}
   - component: {fileID: 1102619429106188314}
+  - component: {fileID: 9193669738522395206}
   m_Layer: 0
   m_Name: RufioCharacter
   m_TagString: Player
@@ -255,6 +256,8 @@ MonoBehaviour:
   cam: {fileID: 0}
   effectTime: 0
   inventory: {fileID: 11400000, guid: cc3bb9316d9a8aa478a50fa6d4a71a37, type: 2}
+  levelText: {fileID: 587580454711366186}
+  expText: {fileID: 1942733163770904944}
   party: {fileID: 11400000, guid: efbd5377c7fab834aa88e7abe113bc95, type: 2}
   mainCharacterStats: {fileID: 11400000, guid: 7a73be8dd4716b245a1bcfc8ae9e5b30, type: 2}
   currentMode: 0
@@ -312,6 +315,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &9193669738522395206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102619429106188324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa9afca2a94e7274a83bce367d4ad572, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rufio: {fileID: 11400000, guid: 08b75b6e60f44654d8bbb6f8397c69e6, type: 2}
+  XPLevelConfig: {fileID: 11400000, guid: a79d2ba1ea4464f4390a7fe5e4e3e847, type: 2}
 --- !u!1 &2118738966549352774
 GameObject:
   m_ObjectHideFlags: 0
@@ -666,6 +683,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9074662634537759640}
   - component: {fileID: 1060959226537482088}
+  - component: {fileID: 5493601548181340911}
   m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
@@ -750,6 +768,29 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &5493601548181340911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6643250542259871156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &7072598314372785042
 GameObject:
   m_ObjectHideFlags: 0
@@ -1676,12 +1717,28 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3852093479875217681}
     m_Modifications:
+    - target: {fileID: 5786684001004977062, guid: cefce9376d044bd4a9cb3c241fd43f40, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 327
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786684001004977062, guid: cefce9376d044bd4a9cb3c241fd43f40, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 7101247090670103776, guid: cefce9376d044bd4a9cb3c241fd43f40, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 56
+      objectReference: {fileID: 0}
     - target: {fileID: 7114991609290086890, guid: cefce9376d044bd4a9cb3c241fd43f40, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7114991609290086890, guid: cefce9376d044bd4a9cb3c241fd43f40, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7114991609297823528, guid: cefce9376d044bd4a9cb3c241fd43f40, type: 3}
+      propertyPath: m_PresetInfoIsWorld
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7114991609297823530, guid: cefce9376d044bd4a9cb3c241fd43f40, type: 3}
@@ -1772,13 +1829,51 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerInfo
       objectReference: {fileID: 0}
+    - target: {fileID: 9014831181269619324, guid: cefce9376d044bd4a9cb3c241fd43f40, type: 3}
+      propertyPath: m_fontSize
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014831181269619324, guid: cefce9376d044bd4a9cb3c241fd43f40, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014831181269619324, guid: cefce9376d044bd4a9cb3c241fd43f40, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014831181269619324, guid: cefce9376d044bd4a9cb3c241fd43f40, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cefce9376d044bd4a9cb3c241fd43f40, type: 3}
+--- !u!114 &587580454711366186 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9014831181269619324, guid: cefce9376d044bd4a9cb3c241fd43f40, type: 3}
+  m_PrefabInstance: {fileID: 8447799062357885014}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1693664994701125500 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7114991609297823530, guid: cefce9376d044bd4a9cb3c241fd43f40, type: 3}
   m_PrefabInstance: {fileID: 8447799062357885014}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1942733163770904944 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8055081532179071270, guid: cefce9376d044bd4a9cb3c241fd43f40, type: 3}
+  m_PrefabInstance: {fileID: 8447799062357885014}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

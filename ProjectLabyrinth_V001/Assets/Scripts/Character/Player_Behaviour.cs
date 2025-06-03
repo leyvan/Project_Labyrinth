@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Cinemachine;
+using TMPro;
 
 public class Player_Behaviour : MonoBehaviour
 {
@@ -11,17 +12,11 @@ public class Player_Behaviour : MonoBehaviour
     public float runSpeed = 10f;
     private float walkMagnitude = 1f;
     public float currentSpeed;
-    public float rotateSpeed = 75f;
-    public float jumpVelocity = 5f;
-    public float distanceToGround = 0.1f;
-    public LayerMask groundLayer;
 
     public float turnSmoothTime = 0.2f;
     private float turnSmoothVelocity;
 
-    private CharacterController _ctrl;
     private Rigidbody _rb;
-    private CapsuleCollider _col;
 
     [HideInInspector]
     public Animator _animator;
@@ -29,28 +24,23 @@ public class Player_Behaviour : MonoBehaviour
 
 
     public bool canMove;
-    private Transform playerCamTarget;
 
     [SerializeField] private CinemachineFreeLook thirdPersonCam;
     [SerializeField] private CinemachineFreeLook enemyLockOnCam;
     public Camera cam;
-    public float effectTime;
 
     private Vector3 direction;
 
     public InventorySO inventory;  //I can make this private
     private PlayerHUD playerHUD;
+    [SerializeField] private TextMeshProUGUI levelText;
+    [SerializeField] private TextMeshProUGUI expText;
 
     public PartyListScriptableObject party;
-    public CharacterStats mainCharacterStats;
     
     private Canvas playerInfo;
     private Slider playerHealth;
-
-    private float health = 1f;
-    private float maxHealth = 1f;
-    private float attack;
-
+    
     private bool dead = false; 
     
     public enum ControllerMode{BattleMode,OverWorldMode};
@@ -67,48 +57,33 @@ public class Player_Behaviour : MonoBehaviour
 
     private Transform enemyCameraTarget;
     private Transform defaultCameraTarget;
-    public float defaultFOV;
     private float enemyTargetFOV = 80;
     private bool targetLockOn;
     private bool lockOnIsActive = false;
-    private bool cameraLockOn = false;
 
-    public bool TargetLockOn {
-        get
-        {
-            return targetLockOn;
-        }
-        set
-        {
-            targetLockOn = value;
-        }
-    }
+    private PlayerData playerData;
+    
     
 
     void Start()
     {
-        playerCamTarget = transform.GetChild(1).transform;
+        playerData = GetComponent<PlayerData>();
         playerHUD = GetComponentInChildren<PlayerHUD>();
         _rb = GetComponent<Rigidbody>();
-        _col = GetComponent<CapsuleCollider>();
         _animator = GetComponentInChildren<Animator>();
-        _ctrl = GetComponent<CharacterController>();
         shockwave = transform.GetChild(5).GetComponentInChildren<ParticleSystem>();
 
         defaultCameraTarget = transform.GetComponentInChildren<Transform>().Find("CameraTarget");
         
         cam = Camera.main;    //<--- change this
         
-        //SetControllerMode(SceneManager.GetActiveScene().name);
-
-        //2- Find and return GameBehavior script attached to Game Manager object in scene
         currentSpeed = moveSpeed;
         canMove = true;
         GameEvents.current.onPlayerInMenu += OnPlayerOpensAMenu;
         GameEvents.current.onDialogueEventTriggered += () => OnDialogueEvent(true);
         GameEvents.current.onDialogueEventEnded += () => OnDialogueEvent(false);
+        GameEvents.current.onBattleEnded += UpdateStats;
         
-        SetDamage(mainCharacterStats.attack);
     }
     
     void Update()
@@ -291,13 +266,9 @@ public class Player_Behaviour : MonoBehaviour
                 currentMode = ControllerMode.OverWorldMode;
                 thirdPersonCam = GameObject.FindGameObjectWithTag("CameraController").transform.Find("ThirdPerson Camera").GetComponent<CinemachineFreeLook>(); 
                 playerHealth = playerHUD.transform.GetComponentInChildren<Slider>();
+                ResetHealthBar();
                 playerHUD.gameObject.SetActive(true);
                 break;
-        }
-        
-        if (HealthManager.Instance != null)
-        {
-            SetHealth(HealthManager.Instance.GetPersistentHealth());
         }
     }
     
@@ -338,14 +309,14 @@ public class Player_Behaviour : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        mainCharacterStats.curHealth = maxHealth;
+        playerData.ResetHealth();
         inventory.skillInventory.Clear();
         party.enemyParty.Clear();
     }
 //---------------------------------------------------------------------------------------------------------------------------------
     public float GetAttackDmg()
     {
-        return mainCharacterStats.attack;
+        return playerData.GetMainCharacterAttackDmg();
     }
 
     /*
@@ -379,48 +350,16 @@ public class Player_Behaviour : MonoBehaviour
         fireball.GetComponent<Projectile>().SetEffectForProjectile(skill);
     }
     
-    public void SetDamage(float newAttack)
-    {
-        attack = newAttack;
-    }
-    
     public void SetHealth(float newHealth)
     {
-        health = newHealth;
-        maxHealth = mainCharacterStats.maxHealth;
-        SetHealthBar();
-    }
-
-    public void SetOverWorldHealth()
-    {
-        if (HealthManager.Instance == null) return;
-        health = HealthManager.Instance.GetPersistentHealth();
-        SetHealthBar();
+        playerData.SetMainCharacterCurrentHealth(newHealth);
+        SetHealthBar(newHealth, playerData.GetMainCharacterStats().maxHealth);
     }
     
-    public void SetHealthBar()
+    public void SetHealthBar(float currHealth, float maxHealth)
     {
-        playerHealth.value = health/maxHealth;
-    }
-
-    public float GetCurrentHealth()
-    {
-        return health;
-    }
-
-    public float GetMaxHealth()
-    {
-        return maxHealth;
-    }
-
-    public Slider GetHealthBar()
-    {
-        return playerHealth;
-    }
-
-    public void SetCameraLockOn(bool lockOn)
-    {
-        cameraLockOn = lockOn;
+        
+        playerHealth.value = currHealth/maxHealth;
     }
 
     public void SetCanMove(bool lockOn)
@@ -428,12 +367,6 @@ public class Player_Behaviour : MonoBehaviour
         canMove = lockOn;
     }
     
-    /*
-    private void OnEnable()
-    {
-        SetOverWorldHealth();
-    }
-    */
 
     private void OnDialogueEvent(bool dialogueInProgress)
     {
@@ -441,5 +374,25 @@ public class Player_Behaviour : MonoBehaviour
         thirdPersonCam.m_YAxis.m_InputAxisName = dialogueInProgress ?  "" : "Mouse Y";
         
         SetCanMove(!dialogueInProgress);
+    }
+
+    public void UpdateStats()
+    {
+        Debug.Log("CALLING UPDATE STATS =======================================");
+        
+        levelText.text = "Lvl " + GetComponent<PlayerData>().GetPlayerLevel();
+        expText.text = GetComponent<PlayerData>().GetPlayerCurrentXP() + "/" + GetComponent<PlayerData>().GetRequiredExp();
+    }
+
+    private void ResetHealthBar()
+    {
+        playerData.ResetHealth();
+        SetHealth(playerData.GetMainCharacterCurrentHealth());
+    }
+
+    private void OnDestroy()
+    {
+        GameEvents.current.onPlayerInMenu -= OnPlayerOpensAMenu;
+        GameEvents.current.onBattleEnded -= UpdateStats;
     }
 }

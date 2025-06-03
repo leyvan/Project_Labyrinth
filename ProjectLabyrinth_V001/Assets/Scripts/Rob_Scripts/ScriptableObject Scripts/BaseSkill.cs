@@ -13,7 +13,8 @@ public enum Attribute
     DARK
 }
 
-[CreateAssetMenu(fileName = "New Skill", menuName = "Skill", order = 11)]
+[CreateAssetMenu(fileName = "New Skill", menuName = "Combat/Skill", order = 13)]
+[System.Serializable]
 public class BaseSkill : ScriptableObject
 {
     public GameObject skillCrystal;

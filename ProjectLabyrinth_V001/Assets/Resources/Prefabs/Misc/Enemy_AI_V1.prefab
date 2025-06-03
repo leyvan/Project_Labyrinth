@@ -164,11 +164,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d1269a02c5e8654eb15f8a39dffcf07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyConfig: {fileID: 11400000, guid: ec87e79304a699c45ab8c3fd30d68d3c, type: 2}
   alert: {fileID: 4097518318464748034}
   patrolRoute: {fileID: 0}
   locations: []
   partyList: {fileID: 11400000, guid: efbd5377c7fab834aa88e7abe113bc95, type: 2}
   cantMove: 0
+  tutorialAgent: 0
+  enemyConfigType: 0
 --- !u!65 &4097518318282495825
 BoxCollider:
   m_ObjectHideFlags: 0
